@@ -1,5 +1,5 @@
 {
-    "name": "hiva",
+    "name": "pasargad",
     "version": "0.1.0",
     "author": "@accretence",
     "license": "MIT",
@@ -15,7 +15,9 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "db:push": "npx prisma db push",
+        "db:studio": "npx prisma studio"
     },
     "dependencies": {
         "@prisma/client": "^4.3.1",
@@ -25,7 +27,6 @@
         "googleapis": "^107.0.0",
         "motion": "^10.14.2",
         "next": "12.3.0",
-        "next-auth": "^4.10.3",
         "next-mdx-remote": "^4.1.0",
         "next-themes": "^0.2.1",
         "react": "18.2.0",

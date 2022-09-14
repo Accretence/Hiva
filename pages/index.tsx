@@ -4,7 +4,6 @@ import Link from 'next/link'
 
 import Container from '../components/Container'
 import BlogPostCard from '../components/BlogPostCard'
-import Subscribe from '../components/Subscribe'
 import VideoCard from '../components/VideoCard'
 
 import prisma from 'lib/prisma'
@@ -31,21 +30,7 @@ export default function Home({ initialPosts }) {
                     </div>
                     <Link href="/blog">
                         <a className="flex mt-8 text-gray-600 dark:text-gray-400 leading-7 rounded-lg hover:text-gray-800 dark:hover:text-gray-200 transition-all h-6">
-                            Read all posts
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                className="h-6 w-6 ml-1"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M17.5 12h-15m11.667-4l3.333 4-3.333-4zm3.333 4l-3.333 4 3.333-4z"
-                                />
-                            </svg>
+                            Read all posts...
                         </a>
                     </Link>
 
@@ -87,24 +72,8 @@ export default function Home({ initialPosts }) {
                         href="https://www.youtube.com/playlist?list=PL6bwFJ82M6FXgctyoWXqj7H0GK8_YIeF1"
                         className="flex mt-8 text-gray-600 dark:text-gray-400 leading-7 rounded-lg hover:text-gray-800 dark:hover:text-gray-200 transition-all h-6"
                     >
-                        Watch all videos
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            className="h-6 w-6 ml-1"
-                        >
-                            <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M17.5 12h-15m11.667-4l3.333 4-3.333-4zm3.333 4l-3.333 4 3.333-4z"
-                            />
-                        </svg>
+                        Watch all videos ///
                     </a>
-                    <span className="h-16" />
-                    <Subscribe />
                 </div>
             </Container>
         </Suspense>

@@ -3,10 +3,6 @@
  */
 module.exports = {
     reactStrictMode: true,
-    experimental: {
-        legacyBrowsers: false,
-        browsersListForSwc: true,
-    },
     async headers() {
         return [
             {
