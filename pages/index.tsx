@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/future/image'
 import Link from 'next/link'
 
@@ -6,9 +6,15 @@ import BlogPostCard from '../components/BlogPostCard'
 import VideoCard from '../components/VideoCard'
 
 import prisma from 'lib/prisma'
+import { useAuth } from 'state/Auth'
 
-export default function Home({ initialPosts }) {
+export default function Home({ auth, initialPosts }) {
     const [posts, setPosts] = useState(initialPosts)
+    const { isAuthenticated, setLocalAuthentication } = useAuth()
+
+    useEffect(() => {
+        setLocalAuthentication(auth)
+    }, [])
 
     return (
         <div className="flex flex-col border-gray-200 dark:border-gray-700 pb-16">
@@ -75,10 +81,11 @@ export default function Home({ initialPosts }) {
     )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
+    const { AJWT } = ctx.req.cookies
     const posts = await prisma.blogPost.findMany()
 
     return {
-        props: { initialPosts: posts },
+        props: { auth: AJWT ? true : false, initialPosts: posts },
     }
 }

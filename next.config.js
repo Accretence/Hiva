@@ -3,6 +3,24 @@
  */
 module.exports = {
     reactStrictMode: true,
+    i18n: {
+        locales: ['en', 'fa'],
+        defaultLocale: 'en',
+    },
+    async redirects() {
+        return [
+            {
+                source: '/product',
+                destination: '/products',
+                permanent: true,
+            },
+            {
+                source: '/order',
+                destination: '/',
+                permanent: true,
+            },
+        ]
+    },
     async headers() {
         return [
             {

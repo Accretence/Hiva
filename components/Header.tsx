@@ -1,24 +1,34 @@
-import { SunIcon, MoonIcon } from '@heroicons/react/24/solid'
+import {
+    SunIcon,
+    MoonIcon,
+    UserPlusIcon,
+    UserIcon,
+} from '@heroicons/react/24/solid'
 
 import MobileMenu from 'components/MobileMenu'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import NextLink from 'next/link'
+import Link from 'next/link'
+import { useAuth } from 'state/Auth'
 
-export default function Header() {
+export default function Header({ auth }) {
     const [mounted, setMounted] = useState(false)
     const { resolvedTheme, setTheme } = useTheme()
-
+    const { isAuthenticated, setLocalAuthentication } = useAuth()
     // After mounting, we have access to the theme
     useEffect(() => setMounted(true), [])
+
+    useEffect(() => {
+        setLocalAuthentication(auth)
+    }, [])
 
     function NavItem({ href, text }) {
         const router = useRouter()
         const isActive = router.asPath === href
 
         return (
-            <NextLink href={href}>
+            <Link href={href}>
                 <a
                     className={`${
                         isActive
@@ -29,7 +39,7 @@ export default function Header() {
                 >
                     <span className="capsize">{text}</span>
                 </a>
-            </NextLink>
+            </Link>
         )
     }
 
@@ -47,26 +57,61 @@ export default function Header() {
                         <NavItem href="/blog" text="Blog" />
                         <NavItem href="/snippets" text="Snippets" />
                     </div>
-                    <button
-                        aria-label="Toggle Dark Mode"
-                        type="button"
-                        className="w-9 h-9 bg-gray-200 rounded-lg dark:bg-gray-600 flex items-center justify-center  hover:ring-2 ring-gray-300  transition-all"
-                        onClick={() =>
-                            setTheme(
-                                resolvedTheme === 'dark' ? 'light' : 'dark'
-                            )
-                        }
-                    >
-                        {mounted &&
-                            (resolvedTheme === 'dark' ? (
-                                <SunIcon className="h-5 w-5" />
-                            ) : (
-                                <MoonIcon className="h-5 w-5" />
-                            ))}
-                    </button>
+                    <div className="flex">
+                        <button
+                            aria-label="Toggle Dark Mode"
+                            type="button"
+                            className="mx-2 w-9 h-9 bg-gray-200 rounded-lg dark:bg-gray-600 flex items-center justify-center  hover:ring-2 ring-gray-300  transition-all"
+                            onClick={() =>
+                                setTheme(
+                                    resolvedTheme === 'dark' ? 'light' : 'dark'
+                                )
+                            }
+                        >
+                            {mounted &&
+                                (resolvedTheme === 'dark' ? (
+                                    <SunIcon className="h-5 w-5" />
+                                ) : (
+                                    <MoonIcon className="h-5 w-5" />
+                                ))}
+                        </button>
+                        {isAuthenticated ? (
+                            <Link href="/user">
+                                <button
+                                    aria-label="Authentication"
+                                    type="button"
+                                    className="w-9 h-9 bg-gray-200 rounded-lg dark:bg-gray-600 flex items-center justify-center  hover:ring-2 ring-gray-300  transition-all"
+                                >
+                                    {mounted && (
+                                        <UserIcon className="h-5 w-5" />
+                                    )}
+                                </button>
+                            </Link>
+                        ) : (
+                            <Link href="/login">
+                                <button
+                                    aria-label="Authentication"
+                                    type="button"
+                                    className="w-9 h-9 bg-gray-200 rounded-lg dark:bg-gray-600 flex items-center justify-center  hover:ring-2 ring-gray-300  transition-all"
+                                >
+                                    {mounted && (
+                                        <UserPlusIcon className="h-5 w-5" />
+                                    )}
+                                </button>
+                            </Link>
+                        )}
+                    </div>
                 </nav>
             </div>
             <hr className="w-full border-1 border-gray-200 dark:border-gray-800 mt-4 mb-8" />
         </>
     )
+}
+
+export async function getServerSideProps(ctx) {
+    const { AJWT } = ctx.req.cookies
+
+    return {
+        props: { auth: AJWT ? true : false },
+    }
 }

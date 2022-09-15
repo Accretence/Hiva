@@ -36,6 +36,7 @@ export default async function (req, res) {
 
         const user = await prisma.user.create({
             data: {
+                clientId: process.env.CLIENT_ID,
                 email,
                 password: salted,
                 verificationCode,
