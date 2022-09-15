@@ -5,6 +5,7 @@ module.exports = {
         './pages/**/*.tsx',
         './components/**/*.tsx',
         './layouts/**/*.tsx',
+        './lib/gradient.ts',
     ],
     darkMode: 'class',
     theme: {
@@ -97,5 +98,9 @@ module.exports = {
     variants: {
         typography: ['dark'],
     },
-    plugins: [require('@tailwindcss/typography')],
+    plugins: [
+        require('@tailwindcss/typography'),
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/aspect-ratio'),
+    ],
 }

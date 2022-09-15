@@ -33,8 +33,6 @@ export default async function handler(
                 },
             })
 
-            console.log(views)
-
             return res.status(200).json({ total: views.count.toString() })
         }
     } catch (e) {

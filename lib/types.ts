@@ -1,7 +1,7 @@
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 export type Post = {
-    _id: string
+    id: string
     slug: string
     content: MDXRemoteSerializeResult
     title: string
@@ -13,7 +13,7 @@ export type Post = {
 }
 
 export type Snippet = {
-    _id: string
+    id: string
     slug: string
     content: MDXRemoteSerializeResult
     title: string

@@ -1,6 +1,7 @@
 import 'styles/global.css'
 
 import { ThemeProvider } from 'next-themes'
+import Container from 'components/Container'
 
 export default function App({
     Component,
@@ -8,7 +9,9 @@ export default function App({
 }) {
     return (
         <ThemeProvider attribute="class">
-            <Component {...pageProps} />
+            <Container>
+                <Component {...pageProps} />
+            </Container>
         </ThemeProvider>
     )
 }
