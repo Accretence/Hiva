@@ -40,7 +40,7 @@ export default function Header() {
                     <a href="#skip" className="skip-nav">
                         Skip to content
                     </a>
-                    <div className="ml-[-0.60rem]">
+                    <div>
                         <MobileMenu />
                         <NavItem href="/" text="Home" />
                         <NavItem href="/dashboard" text="Dashboard" />

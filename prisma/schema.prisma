@@ -12,6 +12,13 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
+model Client {
+  id                String @id @default(cuid())
+  users             User[]
+  products          Product[]
+  orders            Order[]
+}
+
 model User {
   id                String @id @default(cuid())
   name              String?
@@ -27,9 +34,22 @@ model User {
   isKYC             Boolean @default(false)
   isBanned          Boolean @default(false)
   isSubscribed      Boolean @default(false)
+  googleIntegration GoogleIntegration?
+  clients           Client[]
   cart              Cart?
   orders            Order[]
   blogPosts         BlogPost[]
+}
+
+model GoogleIntegration {
+  id                String @id @default(cuid())
+  email             String?
+  phone             String?
+  name              String?
+  picture             String?
+  locale            String?
+  user              User @relation(fields: [userId], references: [id])
+  userId            String @unique
 }
 
 model Product {
@@ -41,6 +61,8 @@ model Product {
   subCategories     String
   isPhysical        Boolean @default(false)
   listings          Listing[]
+  client            Client @relation(fields: [clientId], references: [id])
+  clientId         String
 }
 
 model Listing {
@@ -59,6 +81,8 @@ model Order {
   isDelivered       Boolean @default(false)
   user              User @relation(fields: [userId], references: [id])
   userId            String
+  client            Client @relation(fields: [clientId], references: [id])
+  clientId         String
 }
 
 model Cart {

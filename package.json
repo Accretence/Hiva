@@ -1,5 +1,5 @@
 {
-    "name": "persia",
+    "name": "persepolis",
     "version": "0.1.0",
     "author": "@accretence",
     "license": "MIT",
@@ -27,7 +27,6 @@
         "bcryptjs": "^2.4.3",
         "cookie": "^0.5.0",
         "date-fns": "^2.29.2",
-        "googleapis": "^107.0.0",
         "jose": "^4.9.2",
         "motion": "^10.14.2",
         "next": "12.3.0",

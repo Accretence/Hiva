@@ -8,7 +8,7 @@ export default function ProsCard({ title, pros }) {
                 {pros.map((pro) => (
                     <div
                         key={pro}
-                        className="flex font-medium items-baseline mb-2"
+                        className="flex font-normal items-baseline mb-2"
                     >
                         <div className="h-4 w-4 mr-2">
                             <Checkbox colorCode="text-green-500" />

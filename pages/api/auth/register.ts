@@ -10,12 +10,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export default async function (req, res) {
     const { email, password }: { email: string; password: string } = req.body
 
-    if (!email || !password)
-        res.status(400).json({
-            Success: false,
-            Message: 'Invalid input...',
-        })
-    if (!isEmail(email) || password.length < 8)
+    if (!email || !password || !isEmail(email))
         res.status(400).json({
             Success: false,
             Message: 'Invalid input...',

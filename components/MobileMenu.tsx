@@ -3,6 +3,8 @@ import useDelayedRender from 'use-delayed-render'
 import { useState, useEffect } from 'react'
 import styles from 'styles/mobile-menu.module.css'
 
+import i18n from 'i18n.config'
+
 export default function MobileMenu() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const { mounted: isMenuMounted, rendered: isMenuRendered } =
@@ -48,62 +50,22 @@ export default function MobileMenu() {
                     }
                     `}
                 >
-                    <li
-                        className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
-                        style={{ transitionDelay: '150ms' }}
-                    >
-                        <Link href="/">
-                            <a className="flex w-auto pb-4">Home</a>
-                        </Link>
-                    </li>
-                    <li
-                        className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
-                        style={{ transitionDelay: '200ms' }}
-                    >
-                        <Link href="/dashboard">
-                            <a className="flex w-auto pb-4">Dashboard</a>
-                        </Link>
-                    </li>
-                    <li
-                        className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
-                        style={{ transitionDelay: '250ms' }}
-                    >
-                        <Link href="/blog">
-                            <a className="flex w-auto pb-4">Blog</a>
-                        </Link>
-                    </li>
-                    <li
-                        className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
-                        style={{ transitionDelay: '275ms' }}
-                    >
-                        <Link href="/snippets">
-                            <a className="flex w-auto pb-4">Snippets</a>
-                        </Link>
-                    </li>
-                    <li
-                        className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
-                        style={{ transitionDelay: '300ms' }}
-                    >
-                        <Link href="/newsletter">
-                            <a className="flex w-auto pb-4">Newsletter</a>
-                        </Link>
-                    </li>
-                    <li
-                        className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
-                        style={{ transitionDelay: '325ms' }}
-                    >
-                        <Link href="/tweets">
-                            <a className="flex w-auto pb-4">Tweets</a>
-                        </Link>
-                    </li>
-                    <li
-                        className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
-                        style={{ transitionDelay: '350ms' }}
-                    >
-                        <Link href="/uses">
-                            <a className="flex w-auto pb-4">Uses</a>
-                        </Link>
-                    </li>
+                    {i18n.components.nav.mobile.map((link, index) => {
+                        return (
+                            <li
+                                className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-lg font-semibold"
+                                style={{
+                                    transitionDelay: `${150 + index * 50}ms`,
+                                }}
+                            >
+                                <Link href={link.value}>
+                                    <a className="flex w-auto pb-4">
+                                        {link.en}
+                                    </a>
+                                </Link>
+                            </li>
+                        )
+                    })}
                 </ul>
             )}
         </>
