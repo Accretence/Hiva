@@ -6,5 +6,5 @@ export function middleware(request) {
 }
 
 export const config = {
-    matcher: ['/user/:path*', '/cart/:path*'],
+    matcher: ['/user/:path*', '/cart/:path*', '/admin/:path*'],
 }

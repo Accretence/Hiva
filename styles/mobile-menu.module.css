@@ -1,10 +1,8 @@
 .burger {
     transition: opacity 300ms ease;
     border: 0;
-    background: transparent;
     width: 40px;
     height: 40px;
-    position: relative;
 }
 
 .burger svg {

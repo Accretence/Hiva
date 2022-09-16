@@ -21,11 +21,11 @@ export default function Container(props) {
     }
 
     return (
-        <div className="bg-gray-50 dark:bg-gray-900">
+        <div>
             {meta && <Helmet meta={meta} />}
             <main
                 id="skip"
-                className="flex flex-col justify-center px-[2rem] md:px-[4rem] lg:px-[8rem] xl:px-[16rem] 2xl:px-[20rem] bg-gray-50 dark:bg-gray-900"
+                className="flex flex-col justify-center px-[2rem] md:px-[4rem] lg:px-[8rem] xl:px-[16rem] 2xl:px-[20rem]"
             >
                 <Header />
                 {children}

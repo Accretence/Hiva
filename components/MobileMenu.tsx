@@ -32,7 +32,7 @@ export default function MobileMenu() {
     return (
         <>
             <button
-                className={`${styles.burger} visible md:hidden`}
+                className={`${styles.burger} visible md:hidden my-auto`}
                 aria-label="Toggle menu"
                 type="button"
                 onClick={toggleMenu}
@@ -45,7 +45,7 @@ export default function MobileMenu() {
                     className={`
                         ${
                             styles.menu
-                        } flex flex-col absolute bg-gray-100 dark:bg-gray-900 ${
+                        } flex flex-col absolute bg-[#F0F0F0] dark:bg-[#0c0c0c] ${
                         isMenuRendered && styles.menuRendered
                     }
                     `}
