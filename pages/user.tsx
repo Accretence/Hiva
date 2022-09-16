@@ -4,7 +4,6 @@ import Link from 'next/link'
 
 import prisma from 'lib/prisma'
 import fetcher from 'lib/fetcher'
-import { GoogleIcon, LoadingSpinner } from 'components/Icons'
 import ErrorMessage from 'components/ErrorMessage'
 import SuccessMessage from 'components/SuccessMessage'
 import useSWR from 'swr'
@@ -15,6 +14,7 @@ import { getGoogleURL } from 'lib/google'
 import { useAuth } from 'state/Auth'
 import { verifyJWT } from 'lib/jwt'
 import { omitUser } from 'lib/omit'
+import { Spinner } from 'components/Icons'
 
 export default function User({ auth }) {
     const router = useRouter()
@@ -44,7 +44,7 @@ function UserInfo() {
         <div>
             <button
                 type="button"
-                className="flex items-center justify-between w-full p-5 text-xl text-left text-black border border-gray-200 rounded-t-lg focus:ring-4  dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex w-full items-center justify-between rounded-t-lg border border-gray-200 p-5 text-left text-xl text-black hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
                 aria-expanded="true"
                 onClick={() => setVisibility(!visibility)}
             >
@@ -61,15 +61,15 @@ function UserInfo() {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className="p-5 font-light border border-gray-200 dark:border-gray-700 ">
-                    <p className="text-justify font-normal mb-2 text-neutral-700 dark:text-neutral-200">
+                <div className="border border-gray-200 p-5 font-light dark:border-gray-700 ">
+                    <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200">
                         Flowbite is an open-source library of interactive
                         components built on top of Tailwind CSS including
                         buttons, dropdowns, modals, navbars, and more. Check out
                         this guide to learn how to{' '}
                         <a
                             href="/docs/getting-started/introduction/"
-                            className="text-blue-600 dark:text-blue-500 hover:underline"
+                            className="text-blue-600 hover:underline dark:text-blue-500"
                         >
                             get started
                         </a>{' '}
@@ -89,7 +89,7 @@ function Orders() {
         <div>
             <button
                 type="button"
-                className="transition-all ease-in-out delay-550 flex items-center justify-between w-full p-5 text-xl text-left text-black border border-gray-200 focus:ring-4  dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="delay-550 flex w-full items-center justify-between border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
                 aria-expanded="true"
                 onClick={() => setVisibility(!visibility)}
             >
@@ -104,15 +104,15 @@ function Orders() {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className="rounded-b-lg p-5 font-light border border-gray-200 dark:border-gray-700">
-                    <p className="font-normal text-justify mb-2 text-gray-500 dark:text-gray-400">
+                <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
+                    <p className="mb-2 text-justify font-normal text-gray-500 dark:text-gray-400">
                         Flowbite is an open-source library of interactive
                         components built on top of Tailwind CSS including
                         buttons, dropdowns, modals, navbars, and more. Check out
                         this guide to learn how to{' '}
                         <a
                             href="/docs/getting-started/introduction/"
-                            className="text-blue-600 dark:text-blue-500 hover:underline"
+                            className="text-blue-600 hover:underline dark:text-blue-500"
                         >
                             get started
                         </a>{' '}
@@ -132,7 +132,7 @@ function Referrals() {
         <div>
             <button
                 type="button"
-                className="transition-all ease-in-out delay-550 flex items-center justify-between w-full p-5 text-xl text-left text-black border border-gray-200 focus:ring-4  dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="delay-550 flex w-full items-center justify-between border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
                 aria-expanded="true"
                 onClick={() => setVisibility(!visibility)}
             >
@@ -149,15 +149,15 @@ function Referrals() {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className="rounded-b-lg p-5 font-light border border-gray-200 dark:border-gray-700">
-                    <p className="font-normal text-justify mb-2 text-gray-500 dark:text-gray-400">
+                <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
+                    <p className="mb-2 text-justify font-normal text-gray-500 dark:text-gray-400">
                         Flowbite is an open-source library of interactive
                         components built on top of Tailwind CSS including
                         buttons, dropdowns, modals, navbars, and more. Check out
                         this guide to learn how to{' '}
                         <a
                             href="/docs/getting-started/introduction/"
-                            className="text-blue-600 dark:text-blue-500 hover:underline"
+                            className="text-blue-600 hover:underline dark:text-blue-500"
                         >
                             get started
                         </a>{' '}
@@ -177,7 +177,7 @@ function Integrations() {
         <div>
             <button
                 type="button"
-                className="rounded-b-lg transition-all ease-in-out delay-550 flex items-center justify-between w-full p-5 text-xl text-left text-black border border-gray-200 focus:ring-4  dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="delay-550 flex w-full items-center justify-between rounded-b-lg border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
                 aria-expanded="true"
                 onClick={() => setVisibility(!visibility)}
             >
@@ -192,15 +192,15 @@ function Integrations() {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className="rounded-b-lg p-5 font-light border border-gray-200 dark:border-gray-700">
-                    <p className="font-normal text-justify mb-2 text-gray-500 dark:text-gray-400">
+                <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
+                    <p className="mb-2 text-justify font-normal text-gray-500 dark:text-gray-400">
                         Flowbite is an open-source library of interactive
                         components built on top of Tailwind CSS including
                         buttons, dropdowns, modals, navbars, and more. Check out
                         this guide to learn how to{' '}
                         <a
                             href="/docs/getting-started/introduction/"
-                            className="text-blue-600 dark:text-blue-500 hover:underline"
+                            className="text-blue-600 hover:underline dark:text-blue-500"
                         >
                             get started
                         </a>{' '}
@@ -214,13 +214,29 @@ function Integrations() {
 }
 
 function Logout() {
+    const { isAuthenticated, setLocalAuthentication } = useAuth()
+    const [loading, setLoading] = useState(false)
+    const router = useRouter()
+
+    async function onLogout() {
+        setLoading(true)
+        const { status } = await fetch('/api/auth/logout')
+        setLoading(false)
+
+        if (status == 200) {
+            setLocalAuthentication(false)
+            router.replace('/')
+        }
+    }
+
     return (
         <button
             type="button"
-            className="mt-6 rounded-lg w-full py-2 text-xl bg-neutral-100 border-gray-200 dark:bg-neutral-900 text-neutral-400 hover:bg-red-600 hover:text-white hover:dark:bg-red-600 border dark:border-gray-700 transition-all duration-500"
+            className="mt-6 w-full rounded-lg border border-gray-200 bg-neutral-100 py-3 text-lg text-neutral-400 transition-all duration-300 hover:bg-red-600 hover:text-white dark:border-gray-700 dark:bg-neutral-900 hover:dark:bg-red-600"
             aria-expanded="true"
+            onClick={onLogout}
         >
-            LOGOUT
+            {loading ? <Spinner /> : 'LOGOUT'}
         </button>
     )
 }

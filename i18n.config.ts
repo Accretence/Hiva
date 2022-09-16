@@ -21,6 +21,10 @@ export default {
         nav: {
             mobile: [
                 {
+                    en: 'Home',
+                    value: '/',
+                },
+                {
                     en: 'Contact',
                     value: '/contact',
                 },

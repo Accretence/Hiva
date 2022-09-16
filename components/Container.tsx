@@ -25,7 +25,7 @@ export default function Container(props) {
             {meta && <Helmet meta={meta} />}
             <main
                 id="skip"
-                className="flex flex-col justify-center px-[2rem] md:px-[4rem] lg:px-[8rem] xl:px-[16rem] 2xl:px-[20rem]"
+                className="flex flex-col justify-center px-[2rem] md:px-[4rem] lg:px-[6rem] xl:px-[8rem] 2xl:px-[20rem]"
             >
                 <Header />
                 {children}
