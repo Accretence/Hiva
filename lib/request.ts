@@ -1,6 +1,6 @@
 import { verifyJWT } from './jwt'
 
-export async function verifyRequest(req, res) {
+export async function verifyAuthentication(req, res) {
     const { cookies } = req
 
     if (!cookies)

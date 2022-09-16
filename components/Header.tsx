@@ -12,7 +12,11 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useAuth } from 'state/Auth'
 
-export default function Header({ auth }) {
+interface HeaderProps {
+    auth?: boolean
+}
+
+export default function Header({ auth }: HeaderProps) {
     const [mounted, setMounted] = useState(false)
     const { resolvedTheme, setTheme } = useTheme()
     const { isAuthenticated, setLocalAuthentication } = useAuth()

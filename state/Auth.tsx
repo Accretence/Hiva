@@ -8,7 +8,7 @@ import {
 
 const AuthContext = createContext({
     isAuthenticated: false,
-    setLocalAuthentication: () => {},
+    setLocalAuthentication: (authentiation) => {},
 })
 
 export const AuthProvider = ({ children }) => {

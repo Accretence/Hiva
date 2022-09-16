@@ -8,7 +8,7 @@ import VideoCard from '../components/VideoCard'
 import prisma from 'lib/prisma'
 import { useAuth } from 'state/Auth'
 
-export default function Home({ auth, initialPosts }) {
+export default function ({ auth, initialPosts }) {
     const [posts, setPosts] = useState(initialPosts)
     const { isAuthenticated, setLocalAuthentication } = useAuth()
 

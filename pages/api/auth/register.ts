@@ -1,5 +1,4 @@
 import bcrypt from 'bcryptjs'
-import { sendVerifyMail } from 'angra'
 
 import serial from 'lib/serial'
 import { isEmail } from 'lib/regex'

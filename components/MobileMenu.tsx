@@ -53,6 +53,7 @@ export default function MobileMenu() {
                     {i18n.components.nav.mobile.map((link, index) => {
                         return (
                             <li
+                                key={index}
                                 className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-lg font-semibold"
                                 style={{
                                     transitionDelay: `${150 + index * 50}ms`,

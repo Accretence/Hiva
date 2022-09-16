@@ -1,9 +1,6 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/future/image'
 import Link from 'next/link'
-
-import BlogPostCard from '../components/BlogPostCard'
-import VideoCard from '../components/VideoCard'
 
 import prisma from 'lib/prisma'
 import { Form, FormState, Subscribers } from 'lib/types'
@@ -17,9 +14,16 @@ import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { getGoogleURL } from 'lib/google'
+import { useAuth } from 'state/Auth'
 
-export default function Home() {
+export default function ({ auth }) {
     const router = useRouter()
+    const { isAuthenticated, setLocalAuthentication } = useAuth()
+
+    useEffect(() => {
+        setLocalAuthentication(auth)
+        if (auth) router.replace('/')
+    }, [])
 
     const [form, setForm] = useState<FormState>({ state: Form.Initial })
     const emailRef = useRef(null)
@@ -85,7 +89,7 @@ export default function Home() {
         <div className="flex flex-col ">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
-                    <div className="bg-gray-200 dark:bg-gray-800 rounded-lg p-2 mb-2">
+                    <div className="border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-800 rounded-lg p-2 mb-2">
                         <Disclosure as="div">
                             {({ open }) => (
                                 <>
@@ -158,7 +162,7 @@ export default function Home() {
                             )}
                         </Disclosure>
                     </div>
-                    <div className="bg-gray-200 dark:bg-gray-800 rounded-lg p-2">
+                    <div className="border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-800 rounded-lg p-2">
                         <Disclosure as="div">
                             {({ open }) => (
                                 <>
@@ -231,7 +235,11 @@ export default function Home() {
                             )}
                         </Disclosure>
                     </div>
-                    <div className={`mt-2 p-1 rounded-lg ${gradient()}`}>
+                    <div
+                        className={`mt-2 p-1 rounded-lg ${gradient({
+                            seed: 'Login',
+                        })}`}
+                    >
                         <a href={getGoogleURL()}>
                             <button className="block w-full px-4 py-2 h-14 font-normal bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 rounded-md">
                                 Sign-in with Google
@@ -242,4 +250,12 @@ export default function Home() {
             </div>
         </div>
     )
+}
+
+export async function getServerSideProps(ctx) {
+    const { AJWT } = ctx.req.cookies
+
+    return {
+        props: { auth: AJWT ? true : false },
+    }
 }
