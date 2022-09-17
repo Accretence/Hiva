@@ -17,30 +17,30 @@ export default function Index({ auth, initialPosts }) {
     }, [])
 
     return (
-        <div className="flex flex-col border-gray-200 dark:border-gray-700 pb-16">
-            <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-6 text-black dark:text-white">
+        <div className="flex flex-col border-gray-200 pb-16 dark:border-gray-700">
+            <h3 className="mb-6 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
                 Featured
             </h3>
-            <div className="flex gap-6 flex-col md:flex-row">
+            <div className="flex flex-col gap-6 md:flex-row">
                 {posts &&
                     posts.map((post: any) => (
                         <BlogPostCard
-                            key={post.slug}
+                            key={post.id}
                             title={post.title}
-                            slug={post.slug}
+                            id={post.id}
                         />
                     ))}
             </div>
             <Link href="/blog">
-                <a className="flex mt-8 text-gray-600 dark:text-gray-400 leading-7 rounded-lg hover:text-gray-800 dark:hover:text-gray-200 transition-all h-6">
+                <a className="mt-8 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
                     Read all posts...
                 </a>
             </Link>
 
-            <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 mt-16 text-black dark:text-white">
+            <h3 className="mb-4 mt-16 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
                 Learn React & Next.js
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <p className="mb-4 text-gray-600 dark:text-gray-400">
                 Build and deploy a modern SaaS application using the most
                 popular open-source software. This course is 12 hours long and
                 is completely live streamed.
@@ -73,7 +73,7 @@ export default function Index({ auth, initialPosts }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.youtube.com/playlist?list=PL6bwFJ82M6FXgctyoWXqj7H0GK8_YIeF1"
-                className="flex mt-8 text-gray-600 dark:text-gray-400 leading-7 rounded-lg hover:text-gray-800 dark:hover:text-gray-200 transition-all h-6"
+                className="mt-8 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
             >
                 Watch all videos ///
             </a>

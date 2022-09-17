@@ -18,6 +18,7 @@ model Client {
   users    User[]
   products Product[]
   orders   Order[]
+  blogPosts BlogPost[]
 }
 
 model User {
@@ -57,16 +58,23 @@ model GoogleIntegration {
 }
 
 model Product {
-  id            String    @id @default(cuid())
+  id            String          @id @default(cuid())
   title         String
-  description   String
-  images        String
-  categories    String
-  subCategories String
-  isPhysical    Boolean   @default(false)
+  description   String?
+  category      String?
+  subCategories String?
+  isPhysical    Boolean         @default(false)
+  images        ProductImage[]
   listings      Listing[]
-  client        Client    @relation(fields: [clientId], references: [id])
+  client        Client          @relation(fields: [clientId], references: [id])
   clientId      String
+}
+
+model ProductImage {
+  id String @id @default(cuid())
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  url       String
 }
 
 model Listing {
@@ -75,6 +83,9 @@ model Listing {
   price     Int     @default(10000000)
   stock     Int     @default(0)
   discount  Int     @default(0)
+  platform  String?
+  region    String?
+  size      String?
   product   Product @relation(fields: [productId], references: [id])
   productId String
 }
@@ -116,15 +127,16 @@ model Cart {
 
 model BlogPost {
   id          String @id @default(cuid())
-  slug        String
   title       String
   image       String
-  description String
+  description String 
   author      User   @relation(fields: [authorId], references: [id])
   authorId    String
+  client            Client             @relation(fields: [clientId], references: [id])
+  clientId          String
 }
 
 model Views {
-  slug  String @id @db.VarChar(128)
+  id  String @id
   count BigInt @default(1)
 }

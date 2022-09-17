@@ -186,7 +186,7 @@ function Logout() {
             aria-expanded="true"
             onClick={onLogout}
         >
-            {loading ? <Spinner /> : 'LOGOUT'}
+            {loading ? <Spinner /> : 'Logout'}
         </button>
     )
 }
