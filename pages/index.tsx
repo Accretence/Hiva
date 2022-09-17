@@ -18,7 +18,7 @@ export default function Index({ auth, initialPosts }) {
     }, [])
 
     return (
-        <div className="flex flex-col border-gray-200 pb-16 dark:border-gray-700">
+        <div className="flex flex-col border-gray-200 dark:border-gray-700">
             <Helmet />
             <h3 className="mb-6 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
                 Featured

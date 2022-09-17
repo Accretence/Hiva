@@ -26,14 +26,16 @@ async function main() {
     const { id: authorId } = await prisma.user.findFirst()
 
     for (let product of products) {
-        const { title, description, category, images, listings } = product
+        const { title, description, categories, images, listings } = product
 
         await prisma.product.create({
             data: {
                 clientId,
                 title,
                 description,
-                category,
+                categories: {
+                    create: categories,
+                },
                 images: {
                     create: images,
                 },

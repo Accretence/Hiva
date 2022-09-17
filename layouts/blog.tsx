@@ -3,7 +3,6 @@ import { parseISO, format } from 'date-fns'
 import { PropsWithChildren, Suspense } from 'react'
 
 import Container from 'components/Container'
-import ViewCounter from 'components/ViewCounter'
 import { Post } from 'lib/types'
 
 export default function BlogLayout({
@@ -33,8 +32,6 @@ export default function BlogLayout({
                     </div>
                     <p className="min-w-32 mt-2 text-sm text-gray-600 dark:text-gray-400 md:mt-0">
                         {post.readingTime}
-                        {` • `}
-                        <ViewCounter id={post.id} />
                     </p>
                 </div>
                 <Suspense fallback={null}>

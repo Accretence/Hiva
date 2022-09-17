@@ -13,11 +13,11 @@ datasource db {
 }
 
 model Client {
-  id       String    @id @default(cuid())
-  title    String?
-  users    User[]
-  products Product[]
-  orders   Order[]
+  id        String     @id @default(cuid())
+  title     String?
+  users     User[]
+  products  Product[]
+  orders    Order[]
   blogPosts BlogPost[]
 }
 
@@ -33,6 +33,7 @@ model User {
   isMFA             Boolean            @default(false)
   isAdmin           Boolean            @default(false)
   isPremium         Boolean            @default(false)
+  isMerchant        Boolean            @default(false)
   isEmailVerified   Boolean            @default(false)
   isPhoneVerified   Boolean            @default(false)
   isKYC             Boolean            @default(false)
@@ -58,23 +59,30 @@ model GoogleIntegration {
 }
 
 model Product {
-  id            String          @id @default(cuid())
-  title         String
-  description   String?
-  category      String?
-  subCategories String?
-  isPhysical    Boolean         @default(false)
-  images        ProductImage[]
-  listings      Listing[]
-  client        Client          @relation(fields: [clientId], references: [id])
-  clientId      String
+  id          String            @id @default(cuid())
+  title       String
+  description String?
+  isPhysical  Boolean           @default(false)
+  categories  ProductCategory[]
+  images      ProductImage[]
+  listings    Listing[]
+  client      Client            @relation(fields: [clientId], references: [id])
+  clientId    String
 }
 
 model ProductImage {
-  id String @id @default(cuid())
-  product   Product @relation(fields: [productId], references: [id])
-  productId String
-  url       String
+  id          String  @id @default(cuid())
+  product     Product @relation(fields: [productId], references: [id])
+  productId   String
+  url         String
+  description String?
+}
+
+model ProductCategory {
+  id          String    @id @default(cuid())
+  product     Product[]
+  title       String
+  description String?
 }
 
 model Listing {
@@ -126,17 +134,20 @@ model Cart {
 }
 
 model BlogPost {
-  id          String @id @default(cuid())
+  id          String             @id @default(cuid())
   title       String
   image       String
-  description String 
-  author      User   @relation(fields: [authorId], references: [id])
+  description String
+  categories  BlogPostCategory[]
+  author      User               @relation(fields: [authorId], references: [id])
   authorId    String
-  client            Client             @relation(fields: [clientId], references: [id])
-  clientId          String
+  client      Client             @relation(fields: [clientId], references: [id])
+  clientId    String
 }
 
-model Views {
-  id  String @id
-  count BigInt @default(1)
+model BlogPostCategory {
+  id          String     @id @default(cuid())
+  blogPost    BlogPost[]
+  title       String
+  description String?
 }

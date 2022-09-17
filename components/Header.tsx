@@ -25,7 +25,7 @@ export default function Header() {
 
     function NavItem({ href, text }) {
         const router = useRouter()
-        const isActive = router.asPath === href
+        const isActive = router.asPath === href || href == '/'
 
         return (
             <Link href={href}>

@@ -2,7 +2,6 @@ import Link from 'next/link'
 import useSWR from 'swr'
 
 import fetcher from 'lib/fetcher'
-import { Views } from 'lib/types'
 
 export default function BlogPost({
     id,
@@ -13,9 +12,6 @@ export default function BlogPost({
     title: string
     excerpt: string
 }) {
-    const { data } = useSWR<Views>(`/api/views/${id}`, fetcher)
-    const views = data?.total
-
     return (
         <Link href={`/blog/${id}`}>
             <a className="w-full">
@@ -24,13 +20,6 @@ export default function BlogPost({
                         <h4 className="mb-2 w-full text-lg font-normal text-gray-900 dark:text-gray-100 md:text-xl">
                             {title}
                         </h4>
-                        <p className="mb-4 w-32 text-left text-gray-500 md:mb-0 md:text-right">
-                            {`${
-                                views
-                                    ? new Number(views).toLocaleString()
-                                    : '–––'
-                            } views`}
-                        </p>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400">
                         {excerpt}

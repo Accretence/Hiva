@@ -32,7 +32,7 @@ export const products = [
         title: 'Elden Ring Definitive Edition',
         description:
             'THE NEW FANTASY ACTION-adventure RPG. Rise, Tarnished, and be guided by grace to publisherish the power of the Elden Ring and become an Elden Lord in the Lands Between.',
-        category: 'games',
+        categories: [{ title: 'games' }],
         images: [
             {
                 url: 'https://image.api.playstation.com/vulcan/img/rnd/202201/1918/0P25Aw0mnLS1AwPYEUb6kIYC.png',
