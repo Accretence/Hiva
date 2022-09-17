@@ -2,7 +2,6 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 export type Post = {
     id: string
-    slug: string
     content: MDXRemoteSerializeResult
     title: string
     date: string
@@ -10,15 +9,6 @@ export type Post = {
     coverImage: string
     readingTime: string
     tweets: any[]
-}
-
-export type Snippet = {
-    id: string
-    slug: string
-    content: MDXRemoteSerializeResult
-    title: string
-    description: string
-    logo: string
 }
 
 export enum Form {
