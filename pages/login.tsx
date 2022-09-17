@@ -114,28 +114,49 @@ export default function Login({ auth }) {
                         </button>
                         <div className={!loginVisibility && 'hidden'}>
                             <div className="border border-gray-200 p-5 font-light dark:border-gray-700 ">
-                                <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200">
-                                    Flowbite is an open-source library of
-                                    interactive components built on top of
-                                    Tailwind CSS including buttons, dropdowns,
-                                    modals, navbars, and more. Check out this
-                                    guide to learn how to{' '}
-                                    <a
-                                        href="/docs/getting-started/introduction/"
-                                        className="text-blue-600 hover:underline dark:text-blue-500"
+                                <form onSubmit={onLogin}>
+                                    <div className="mb-6">
+                                        <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            Email address
+                                        </label>
+                                        <input
+                                            ref={emailRef}
+                                            type="email"
+                                            id="email"
+                                            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                            placeholder="example@example.com"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-6">
+                                        <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            Password
+                                        </label>
+                                        <input
+                                            ref={passwordRef}
+                                            type="password"
+                                            id="password"
+                                            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                            placeholder="•••••••••"
+                                            required
+                                        />
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 py-2.5 text-center font-medium text-neutral-100 transition duration-300 hover:bg-neutral-900 hover:text-neutral-100  dark:hover:bg-neutral-100 hover:dark:text-neutral-900"
                                     >
-                                        get started
-                                    </a>{' '}
-                                    and start developing websites even faster
-                                    with components on top of Tailwind CSS.
-                                </p>
+                                        Login
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                     <div className="bg-neutral-100 dark:bg-neutral-900">
                         <button
                             type="button"
-                            className="flex w-full items-center justify-between rounded-b-lg border border-gray-200 p-5 text-left text-xl text-black hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
+                            className={`flex w-full items-center justify-between ${
+                                !registerVisibility && 'rounded-b-lg'
+                            } border border-gray-200 p-5 text-left text-xl text-black hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
                             aria-expanded="true"
                             onClick={() => {
                                 setRegisterVisibility(!registerVisibility)
@@ -156,12 +177,13 @@ export default function Login({ auth }) {
                         </button>
                         <div className={!registerVisibility && 'hidden'}>
                             <div className="border border-gray-200 p-5 font-light dark:border-gray-700 ">
-                                <form>
+                                <form onSubmit={onRegister}>
                                     <div className="mb-6">
                                         <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                                             Email address
                                         </label>
                                         <input
+                                            ref={emailRef}
                                             type="email"
                                             id="email"
                                             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -174,20 +196,9 @@ export default function Login({ auth }) {
                                             Password
                                         </label>
                                         <input
+                                            ref={passwordRef}
                                             type="password"
                                             id="password"
-                                            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                            placeholder="•••••••••"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="mb-6">
-                                        <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
-                                            Confirm password
-                                        </label>
-                                        <input
-                                            type="password"
-                                            id="confirm_password"
                                             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                                             placeholder="•••••••••"
                                             required
@@ -199,7 +210,7 @@ export default function Login({ auth }) {
                                                 id="remember"
                                                 type="checkbox"
                                                 value=""
-                                                className="focus:ring-3 h-4 w-4 rounded border border-gray-300 bg-gray-50 focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                                                className="focus:ring-3 h-5 w-5 rounded border border-gray-300 bg-gray-50 accent-purple-500  dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 "
                                                 required
                                             />
                                         </div>
@@ -207,7 +218,7 @@ export default function Login({ auth }) {
                                             I agree with the{' '}
                                             <a
                                                 href="#"
-                                                className="text-blue-600 hover:underline dark:text-blue-500"
+                                                className="bg-gradient-to-br from-purple-500 to-pink-600 bg-clip-text text-transparent"
                                             >
                                                 terms and conditions
                                             </a>
@@ -218,15 +229,17 @@ export default function Login({ auth }) {
                                         type="submit"
                                         className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 py-2.5 text-center font-medium text-neutral-100 transition duration-300 hover:bg-neutral-900 hover:text-neutral-100  dark:hover:bg-neutral-100 hover:dark:text-neutral-900"
                                     >
-                                        Submit
+                                        Register
                                     </button>
                                 </form>
                             </div>
                         </div>
                     </div>
-
+                    <div className="inline-flex w-full items-center justify-center">
+                        <hr className="my-4 h-px w-64 border-0 bg-neutral-300 dark:bg-gray-600" />
+                    </div>
                     <a href={getGoogleURL()}>
-                        <button className="mt-4 block w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600  py-3.5 font-normal text-neutral-100 transition duration-300 hover:bg-neutral-100 hover:text-neutral-900 hover:dark:text-neutral-100">
+                        <button className="block w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600  py-3.5 font-normal text-neutral-100 transition duration-300 hover:bg-neutral-100 hover:text-neutral-900 hover:dark:text-neutral-100">
                             Sign-in with Google
                         </button>
                     </a>

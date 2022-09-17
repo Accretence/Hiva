@@ -11,7 +11,7 @@ export default function Footer() {
                         className="flex items-center"
                     >
                         <span className="flex flex-col">
-                            <h2 className="whitespace-nowrap text-xl font-semibold text-black dark:text-white">
+                            <h2 className="whitespace-nowrap text-sm font-semibold uppercase text-black dark:text-white">
                                 Hiva
                             </h2>
                             <span className="mt-2 text-sm text-gray-500 dark:text-gray-400">

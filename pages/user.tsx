@@ -62,20 +62,7 @@ function UserInfo() {
             </button>
             <div className={!visibility && 'hidden'}>
                 <div className="border border-gray-200 p-5 font-light dark:border-gray-700 ">
-                    <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200">
-                        Flowbite is an open-source library of interactive
-                        components built on top of Tailwind CSS including
-                        buttons, dropdowns, modals, navbars, and more. Check out
-                        this guide to learn how to{' '}
-                        <a
-                            href="/docs/getting-started/introduction/"
-                            className="text-blue-600 hover:underline dark:text-blue-500"
-                        >
-                            get started
-                        </a>{' '}
-                        and start developing websites even faster with
-                        components on top of Tailwind CSS.
-                    </p>
+                    <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200"></p>
                 </div>
             </div>
         </div>
@@ -94,7 +81,7 @@ function Orders() {
                 onClick={() => setVisibility(!visibility)}
             >
                 <span className="flex flex-col">
-                    <h1>Order</h1>
+                    <h1>Orders</h1>
                     <small className="text-gray-300">Your order history.</small>
                 </span>
                 {visibility ? (
@@ -104,21 +91,8 @@ function Orders() {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
-                    <p className="mb-2 text-justify font-normal text-gray-500 dark:text-gray-400">
-                        Flowbite is an open-source library of interactive
-                        components built on top of Tailwind CSS including
-                        buttons, dropdowns, modals, navbars, and more. Check out
-                        this guide to learn how to{' '}
-                        <a
-                            href="/docs/getting-started/introduction/"
-                            className="text-blue-600 hover:underline dark:text-blue-500"
-                        >
-                            get started
-                        </a>{' '}
-                        and start developing websites even faster with
-                        components on top of Tailwind CSS.
-                    </p>
+                <div className=" border border-gray-200 p-5 font-light dark:border-gray-700">
+                    <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200"></p>
                 </div>
             </div>
         </div>
@@ -149,21 +123,8 @@ function Referrals() {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
-                    <p className="mb-2 text-justify font-normal text-gray-500 dark:text-gray-400">
-                        Flowbite is an open-source library of interactive
-                        components built on top of Tailwind CSS including
-                        buttons, dropdowns, modals, navbars, and more. Check out
-                        this guide to learn how to{' '}
-                        <a
-                            href="/docs/getting-started/introduction/"
-                            className="text-blue-600 hover:underline dark:text-blue-500"
-                        >
-                            get started
-                        </a>{' '}
-                        and start developing websites even faster with
-                        components on top of Tailwind CSS.
-                    </p>
+                <div className=" border border-gray-200 p-5 font-light dark:border-gray-700">
+                    <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200"></p>
                 </div>
             </div>
         </div>
@@ -177,7 +138,9 @@ function Integrations() {
         <div>
             <button
                 type="button"
-                className="delay-550 flex w-full items-center justify-between rounded-b-lg border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
+                className={`delay-550 flex w-full items-center justify-between ${
+                    !visibility && 'rounded-b-lg'
+                } border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
                 aria-expanded="true"
                 onClick={() => setVisibility(!visibility)}
             >
@@ -193,20 +156,7 @@ function Integrations() {
             </button>
             <div className={!visibility && 'hidden'}>
                 <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
-                    <p className="mb-2 text-justify font-normal text-gray-500 dark:text-gray-400">
-                        Flowbite is an open-source library of interactive
-                        components built on top of Tailwind CSS including
-                        buttons, dropdowns, modals, navbars, and more. Check out
-                        this guide to learn how to{' '}
-                        <a
-                            href="/docs/getting-started/introduction/"
-                            className="text-blue-600 hover:underline dark:text-blue-500"
-                        >
-                            get started
-                        </a>{' '}
-                        and start developing websites even faster with
-                        components on top of Tailwind CSS.
-                    </p>
+                    <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200"></p>
                 </div>
             </div>
         </div>

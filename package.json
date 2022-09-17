@@ -16,6 +16,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
+        "vercel-build": "prisma generate && next build",
         "db:format": "npx prisma format",
         "db:push": "npx prisma db push",
         "db:studio": "npx prisma studio"

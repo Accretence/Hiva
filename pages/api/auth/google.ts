@@ -1,5 +1,3 @@
-import querystring from 'querystring'
-
 import prisma from 'lib/prisma'
 import serial from 'lib/serial'
 import cookie from 'lib/cookie'
