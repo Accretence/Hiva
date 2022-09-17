@@ -6,13 +6,13 @@ export default async function handler(
     res: NextApiResponse
 ) {
     try {
-        const slug = req.query.slug.toString()
+        const id = req.query.id.toString()
 
         if (req.method === 'POST') {
             const newOrUpdatedViews = await prisma.views.upsert({
-                where: { slug },
+                where: { id },
                 create: {
-                    slug,
+                    id,
                 },
                 update: {
                     count: {
@@ -29,7 +29,7 @@ export default async function handler(
         if (req.method === 'GET') {
             const views = await prisma.views.findUnique({
                 where: {
-                    slug,
+                    id,
                 },
             })
 
