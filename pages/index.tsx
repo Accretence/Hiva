@@ -7,6 +7,7 @@ import VideoCard from '../components/VideoCard'
 
 import prisma from 'lib/prisma'
 import { useAuth } from 'state/Auth'
+import Helmet from 'components/Helmet'
 
 export default function Index({ auth, initialPosts }) {
     const [posts, setPosts] = useState(initialPosts)
@@ -18,6 +19,7 @@ export default function Index({ auth, initialPosts }) {
 
     return (
         <div className="flex flex-col border-gray-200 pb-16 dark:border-gray-700">
+            <Helmet />
             <h3 className="mb-6 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
                 Featured
             </h3>

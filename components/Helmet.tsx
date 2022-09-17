@@ -1,32 +1,50 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-const baseName = 'Hiva'
-const baseHandle = '@hiva'
-const baseURL = 'https://hiva.vercel.app'
+import i18n from 'i18n.config'
+import config from 'main.config'
 
-export default function Helmet({ meta }) {
+interface HelmetProps {
+    title?: string
+    description?: string
+    image?: string
+    type?: string
+    date?: string
+}
+
+export default function Helmet({
+    title,
+    description,
+    image,
+    type,
+    date,
+}: HelmetProps) {
     const router = useRouter()
+    const { locale = config['defaultLocale'] } = router
+    const baseURL = process.env.NEXT_PUBLIC_URL
+
+    title = title || i18n.title[locale]
+    description = description || i18n.meta.description[locale]
+    image = image || i18n.meta.image
+    type = type || 'website'
+
     return (
         <Head>
-            <title>{meta.title}</title>
+            <title>{title}</title>
             <meta name="robots" content="follow, index" />
-            <meta content={meta.description} name="description" />
+            <meta content={description} name="description" />
             <meta property="og:url" content={baseURL + router.asPath} />
             <link rel="canonical" href={baseURL + router.asPath} />
-            <meta property="og:type" content={meta.type} />
-            <meta property="og:site_name" content={meta.title} />
-            <meta property="og:description" content={meta.description} />
-            <meta property="og:title" content={meta.title} />
-            <meta property="og:image" content={meta.image} />
+            <meta property="og:site_name" content={title} />
+            <meta property="og:description" content={description} />
+            <meta property="og:title" content={title} />
+            <meta property="og:image" content={image} />
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:site" content={baseHandle} />
-            <meta name="twitter:title" content={meta.title} />
-            <meta name="twitter:description" content={meta.description} />
-            <meta name="twitter:image" content={meta.image} />
-            {meta.date && (
-                <meta property="article:published_time" content={meta.date} />
-            )}
+            <meta name="twitter:title" content={title} />
+            <meta name="twitter:description" content={description} />
+            <meta name="twitter:image" content={image} />
+            <meta property="og:type" content={type} />
+            {date && <meta property="article:published_time" content={date} />}
         </Head>
     )
 }

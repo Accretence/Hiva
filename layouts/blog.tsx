@@ -11,13 +11,7 @@ export default function BlogLayout({
     post,
 }: PropsWithChildren<{ post: Post }>) {
     return (
-        <Container
-            title={`${post.title} – Lee Robinson`}
-            description={post.excerpt}
-            image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png"
-            date={new Date(post.date).toISOString()}
-            type="article"
-        >
+        <Container>
             <article className="mx-auto mb-16 flex w-full max-w-2xl flex-col items-start justify-center">
                 <h1 className="mb-4 text-3xl font-bold tracking-tight text-black dark:text-white md:text-5xl">
                     {post.title}
