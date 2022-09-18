@@ -1,3 +1,4 @@
+import { getMultipleRandomIntsInRange, getRandomIntInRange } from '../lib/rng'
 import prisma from '../lib/prisma'
 import { clients, users, blogPosts, discounts } from './seed.data'
 
@@ -7,25 +8,6 @@ async function main() {
     })
 
     const { id: clientId } = await prisma.client.findFirst()
-
-    for (let user of users) {
-        const { email, password, referralCode, isAdmin, isEmailVerified } = user
-
-        await prisma.user.create({
-            data: {
-                client: {
-                    connect: {
-                        id: clientId,
-                    },
-                },
-                email,
-                password,
-                referralCode,
-                isAdmin,
-                isEmailVerified,
-            },
-        })
-    }
 
     const productsRes = await fetch('https://dummyjson.com/products')
     const { products } = await productsRes.json()
@@ -91,10 +73,77 @@ async function main() {
                 },
                 listings: {
                     create: {
-                        price,
+                        price: Math.floor(price),
                         stock,
                         discount: Math.floor(discount),
                     },
+                },
+            },
+        })
+    }
+
+    for (let user of users) {
+        const { email, password, referralCode, isAdmin, isEmailVerified } = user
+
+        const products = await prisma.product.findMany()
+
+        let orders = []
+        for (let i = 0; i < getRandomIntInRange(2, 5); i++) {
+            const indices = getMultipleRandomIntsInRange(
+                getRandomIntInRange(2, 5),
+                0,
+                products.length
+            )
+
+            let listings = []
+            for (const index of indices) {
+                const { id } = products[Number(index)]
+
+                listings.push(
+                    await prisma.listing.findFirst({
+                        where: {
+                            productId: id,
+                        },
+                    })
+                )
+            }
+
+            let totalCost = 0
+            for (const listing of listings) {
+                totalCost += listing.price
+            }
+
+            orders.push({
+                listings: {
+                    connect: listings
+                        .map((listing) => listing.id)
+                        .map((listing) => {
+                            return {
+                                id: listing,
+                            }
+                        }),
+                },
+                totalCost,
+                discountCost: 0,
+                payableCost: totalCost,
+                clientId,
+            })
+        }
+
+        await prisma.user.create({
+            data: {
+                client: {
+                    connect: {
+                        id: clientId,
+                    },
+                },
+                email,
+                password,
+                referralCode,
+                isAdmin,
+                isEmailVerified,
+                orders: {
+                    create: orders,
                 },
             },
         })

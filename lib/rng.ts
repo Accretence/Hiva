@@ -57,3 +57,17 @@ export function getSeededRandomIntInRange(
 export function getRandomIntInRange(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min)
 }
+
+export function getMultipleRandomIntsInRange(
+    count: number,
+    min: number,
+    max: number
+) {
+    const set = new Set()
+
+    while (set.size < count) {
+        set.add(Number(Math.floor(Math.random() * (max - min) + min)))
+    }
+
+    return Array.from(set)
+}

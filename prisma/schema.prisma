@@ -16,13 +16,13 @@ model Client {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users     User[]
-  products  Product[]
-  orders    Order[]
-  blogPosts BlogPost[]
-  carts     Cart[]
-  discounts Discount[]
-  productCategory ProductCategory[]
+  users            User[]
+  products         Product[]
+  orders           Order[]
+  blogPosts        BlogPost[]
+  carts            Cart[]
+  discounts        Discount[]
+  productCategory  ProductCategory[]
   blotPostCategory BlogPostCategory[]
 }
 
@@ -110,16 +110,16 @@ model ProductImage {
 }
 
 model ProductCategory {
-  title       String @id
+  title       String  @id
   description String?
 
   product Product[]
-  client     Client[]
+  client  Client[]
 }
 
 model Listing {
   id       String  @id @default(cuid())
-  price    Int     @default(10000000)
+  price    Float     @default(10000000)
   stock    Int     @default(0)
   discount Int     @default(0)
   platform String?
@@ -130,20 +130,32 @@ model Listing {
   updatedAt DateTime @updatedAt
 
   carts Cart[]
+  orders Order[]
 
   product   Product @relation(fields: [productId], references: [id])
   productId String
 }
 
 model Order {
-  id          String  @id @default(cuid())
-  isPaid      Boolean @default(false)
-  isDelivered Boolean @default(false)
+  id              String  @id @default(cuid())
+  isPaid          Boolean @default(false)
+  isDelivered     Boolean @default(false)
+  isPhysical      Boolean @default(false)
+  paymentId       String?
+  deliveryAddress String?
+  referralCode    String?
+  discountCode    String?
+  totalCost       Float
+  discountCost    Float
+  payableCost     Float
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  paidAt    DateTime?
 
   referral Referral?
+
+  listings Listing[]
 
   user     User   @relation(fields: [userId], references: [id])
   userId   String
@@ -163,22 +175,13 @@ model Referral {
 }
 
 model Cart {
-  id              String  @id @default(cuid())
-  deliveryAddress String
-  isPhysical      Boolean @default(false)
-  referralCode    String
-  discountCode    String
-  totalCost       Int
-  discountCost    Int
-  payableCost     Int
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  items Listing[]
+  listings Listing[]
 
   user     User   @relation(fields: [userId], references: [id])
-  userId   String @unique
+  userId   String @id
   client   Client @relation(fields: [clientId], references: [id])
   clientId String
 }
@@ -205,7 +208,7 @@ model BlogPostCategory {
   description String?
 
   blogPost BlogPost[]
-  client     Client[]
+  client   Client[]
 }
 
 model Discount {
