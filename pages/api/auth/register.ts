@@ -4,7 +4,6 @@ import serial from 'lib/serial'
 import { isEmail } from 'lib/regex'
 import prisma from 'lib/prisma'
 import cookie from 'lib/cookie'
-import { NextRequest, NextResponse } from 'next/server'
 
 export default async function (req, res) {
     const { email, password }: { email: string; password: string } = req.body
@@ -35,10 +34,16 @@ export default async function (req, res) {
 
         const user = await prisma.user.create({
             data: {
-                clientId: process.env.CLIENT_ID,
+                client: {
+                    connect: {
+                        id: process.env.CLIENT_ID,
+                    },
+                },
                 email,
                 password: salted,
-                verificationCode,
+                verificationCode: {
+                    create: { code: verificationCode },
+                },
                 referralCode,
             },
         })

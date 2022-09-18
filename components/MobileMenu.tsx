@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import useDelayedRender from 'use-delayed-render'
 import { useState, useEffect } from 'react'
 import styles from 'styles/mobile-menu.module.css'
 
@@ -7,11 +6,6 @@ import i18n from 'i18n.config'
 
 export default function MobileMenu() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const { mounted: isMenuMounted, rendered: isMenuRendered } =
-        useDelayedRender(isMenuOpen, {
-            enterDelay: 20,
-            exitDelay: 300,
-        })
 
     function toggleMenu() {
         if (isMenuOpen) {
@@ -32,7 +26,7 @@ export default function MobileMenu() {
     return (
         <>
             <button
-                className={`${styles.burger} visible md:hidden my-auto`}
+                className={`${styles.burger} visible my-auto md:hidden`}
                 aria-label="Toggle menu"
                 type="button"
                 onClick={toggleMenu}
@@ -40,21 +34,17 @@ export default function MobileMenu() {
                 <MenuIcon data-hide={isMenuOpen} />
                 <CrossIcon data-hide={!isMenuOpen} />
             </button>
-            {isMenuMounted && (
+            {
                 <ul
                     className={`
-                        ${
-                            styles.menu
-                        } flex flex-col absolute bg-[#F0F0F0] dark:bg-[#0c0c0c] ${
-                        isMenuRendered && styles.menuRendered
-                    }
+                        ${styles.menu} absolute flex flex-col bg-[#F0F0F0] dark:bg-[#0c0c0c]
                     `}
                 >
                     {i18n.components.nav.mobile.map((link, index) => {
                         return (
                             <li
                                 key={index}
-                                className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-lg font-semibold"
+                                className="border-b border-gray-300 text-lg font-semibold text-gray-900 dark:border-gray-700 dark:text-gray-100"
                                 style={{
                                     transitionDelay: `${150 + index * 50}ms`,
                                 }}
@@ -68,7 +58,7 @@ export default function MobileMenu() {
                         )
                     })}
                 </ul>
-            )}
+            }
         </>
     )
 }
@@ -76,7 +66,7 @@ export default function MobileMenu() {
 function MenuIcon(props: JSX.IntrinsicElements['svg']) {
     return (
         <svg
-            className="h-5 w-5 absolute text-gray-900 dark:text-gray-100"
+            className="absolute h-5 w-5 text-gray-900 dark:text-gray-100"
             width="20"
             height="20"
             viewBox="0 0 20 20"
@@ -104,7 +94,7 @@ function MenuIcon(props: JSX.IntrinsicElements['svg']) {
 function CrossIcon(props: JSX.IntrinsicElements['svg']) {
     return (
         <svg
-            className="h-5 w-5 absolute text-gray-900 dark:text-gray-100"
+            className="absolute h-5 w-5 text-gray-900 dark:text-gray-100"
             viewBox="0 0 24 24"
             width="24"
             height="24"

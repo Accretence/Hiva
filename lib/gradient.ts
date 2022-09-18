@@ -1,10 +1,6 @@
-import { cyrb128, sfc32 } from 'lib/rng'
+import { getSeededRandomIntInRange } from './rng'
 
 export default ({ seed }) => {
-    const hash = cyrb128(seed)
-
-    const rand = sfc32(hash[0], hash[1], hash[2], hash[3])
-
     const interpretations = ['bg-gradient-to-b', 'bg-gradient-to-r']
     const gradients = [
         'from-[#FDE68A] via-[#FCA5A5] to-[#FECACA]',
@@ -19,8 +15,10 @@ export default ({ seed }) => {
     ]
 
     return (
-        interpretations[Math.floor(rand() * (interpretations.length - 0) + 0)] +
+        interpretations[
+            getSeededRandomIntInRange(seed, 0, interpretations.length)
+        ] +
         ' ' +
-        gradients[Math.floor(rand() * (gradients.length - 0) + 0)]
+        gradients[getSeededRandomIntInRange(seed, 0, gradients.length)]
     )
 }

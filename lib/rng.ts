@@ -1,12 +1,3 @@
-export function mulberry32(a) {
-    return function () {
-        var t = (a += 0x6d2b79f5)
-        t = Math.imul(t ^ (t >>> 15), t | 1)
-        t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
-        return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-    }
-}
-
 export function cyrb128(str) {
     let h1 = 1779033703,
         h2 = 3144134277,
@@ -49,4 +40,20 @@ export function sfc32(a, b, c, d) {
         c = (c + t) | 0
         return (t >>> 0) / 4294967296
     }
+}
+
+export function getSeededRandomIntInRange(
+    seed: string,
+    min: number,
+    max: number
+) {
+    const hash = cyrb128(seed)
+
+    const rand = sfc32(hash[0], hash[1], hash[2], hash[3])
+
+    return Math.floor(rand() * (max - min) + min)
+}
+
+export function getRandomIntInRange(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min) + min)
 }
