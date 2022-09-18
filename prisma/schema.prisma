@@ -20,7 +20,6 @@ model Client {
   products         Product[]
   orders           Order[]
   blogPosts        BlogPost[]
-  carts            Cart[]
   discounts        Discount[]
   productCategory  ProductCategory[]
   blotPostCategory BlogPostCategory[]
@@ -49,7 +48,7 @@ model User {
 
   googleIntegration GoogleIntegration?
   verificationCode  VerificationCode?
-  cart              Cart?
+  cart              Listing[]
 
   orders            Order[]
   referralsProvided Referral[] @relation("referralsProvided")
@@ -119,7 +118,7 @@ model ProductCategory {
 
 model Listing {
   id       String  @id @default(cuid())
-  price    Float     @default(10000000)
+  price    Float   @default(10000000)
   stock    Int     @default(0)
   discount Int     @default(0)
   platform String?
@@ -129,7 +128,7 @@ model Listing {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  carts Cart[]
+  carts  User[]
   orders Order[]
 
   product   Product @relation(fields: [productId], references: [id])
@@ -144,7 +143,6 @@ model Order {
   paymentId       String?
   deliveryAddress String?
   referralCode    String?
-  discountCode    String?
   totalCost       Float
   discountCost    Float
   payableCost     Float
@@ -157,10 +155,12 @@ model Order {
 
   listings Listing[]
 
-  user     User   @relation(fields: [userId], references: [id])
-  userId   String
-  client   Client @relation(fields: [clientId], references: [id])
-  clientId String
+  discount   Discount? @relation(fields: [discountCode], references: [code])
+  discountCode String?
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  client     Client   @relation(fields: [clientId], references: [id])
+  clientId   String
 }
 
 model Referral {
@@ -172,18 +172,6 @@ model Referral {
   referralProviderId String
   referralUser       User   @relation("referralsUsed", fields: [referralUserId], references: [id])
   referralUserId     String
-}
-
-model Cart {
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  listings Listing[]
-
-  user     User   @relation(fields: [userId], references: [id])
-  userId   String @id
-  client   Client @relation(fields: [clientId], references: [id])
-  clientId String
 }
 
 model BlogPost {
@@ -220,7 +208,8 @@ model Discount {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  expiresAt DateTime?
+
+  orders Order[]
 
   client   Client @relation(fields: [clientId], references: [id])
   clientId String

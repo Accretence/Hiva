@@ -48,14 +48,9 @@ async function main() {
                             create: {
                                 title: category,
                                 client: {
-                                    connectOrCreate: [
-                                        {
-                                            where: { id: clientId },
-                                            create: {
-                                                id: clientId,
-                                            },
-                                        },
-                                    ],
+                                    connect: {
+                                        id: clientId,
+                                    },
                                 },
                             },
                         },
@@ -85,50 +80,7 @@ async function main() {
     for (let user of users) {
         const { email, password, referralCode, isAdmin, isEmailVerified } = user
 
-        const products = await prisma.product.findMany()
-
-        let orders = []
-        for (let i = 0; i < getRandomIntInRange(2, 5); i++) {
-            const indices = getMultipleRandomIntsInRange(
-                getRandomIntInRange(2, 5),
-                0,
-                products.length
-            )
-
-            let listings = []
-            for (const index of indices) {
-                const { id } = products[Number(index)]
-
-                listings.push(
-                    await prisma.listing.findFirst({
-                        where: {
-                            productId: id,
-                        },
-                    })
-                )
-            }
-
-            let totalCost = 0
-            for (const listing of listings) {
-                totalCost += listing.price
-            }
-
-            orders.push({
-                listings: {
-                    connect: listings
-                        .map((listing) => listing.id)
-                        .map((listing) => {
-                            return {
-                                id: listing,
-                            }
-                        }),
-                },
-                totalCost,
-                discountCost: 0,
-                payableCost: totalCost,
-                clientId,
-            })
-        }
+        const { orders, listingIDs } = await generateListings()
 
         await prisma.user.create({
             data: {
@@ -142,6 +94,9 @@ async function main() {
                 referralCode,
                 isAdmin,
                 isEmailVerified,
+                cart: {
+                    connect: listingIDs,
+                },
                 orders: {
                     create: orders,
                 },
@@ -168,14 +123,9 @@ async function main() {
                             create: {
                                 title: category,
                                 client: {
-                                    connectOrCreate: [
-                                        {
-                                            where: { id: clientId },
-                                            create: {
-                                                id: clientId,
-                                            },
-                                        },
-                                    ],
+                                    connect: {
+                                        id: clientId,
+                                    },
                                 },
                             },
                         }
@@ -207,4 +157,58 @@ try {
 } catch (error) {
     console.log(error)
     process.exit(1)
+}
+
+async function generateListings() {
+    const { id: clientId } = await prisma.client.findFirst()
+    const products = await prisma.product.findMany()
+
+    let orders = []
+    let listingIDs = []
+
+    for (let i = 0; i < getRandomIntInRange(2, 6); i++) {
+        const indices = getMultipleRandomIntsInRange(
+            getRandomIntInRange(2, 6),
+            0,
+            products.length
+        )
+
+        let listings = []
+        for (const index of indices) {
+            const { id } = products[Number(index)]
+
+            listings.push(
+                await prisma.listing.findFirst({
+                    where: {
+                        productId: id,
+                    },
+                })
+            )
+        }
+
+        let totalCost = 0
+        for (const listing of listings) {
+            totalCost += listing.price
+        }
+
+        listingIDs = listings
+            .map((listing) => listing.id)
+            .map((listing) => {
+                return {
+                    id: listing,
+                }
+            })
+
+        orders.push({
+            listings: {
+                connect: listingIDs,
+            },
+            totalCost,
+            discountCost: 0,
+            payableCost: totalCost,
+            clientId,
+        })
+    }
+
+    return { orders, listingIDs }
 }
