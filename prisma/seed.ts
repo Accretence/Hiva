@@ -1,6 +1,11 @@
 import { getMultipleRandomIntsInRange, getRandomIntInRange } from '../lib/rng'
 import prisma from '../lib/prisma'
 import { clients, users, blogPosts, discounts } from './seed.data'
+import {
+    calculateDiscountCost,
+    calculatePayableCost,
+    isDiscountAcceptable,
+} from '../lib/discount'
 
 async function main() {
     await prisma.client.createMany({
@@ -77,10 +82,31 @@ async function main() {
         })
     }
 
+    for (let discount of discounts) {
+        const { code, maxUses, maxAmount, burntUses, percentage } = discount
+
+        await prisma.discount.create({
+            data: {
+                code,
+                maxUses,
+                burntUses,
+                maxAmount,
+                percentage,
+                clientId,
+            },
+        })
+    }
+
+    const foundProducts = await prisma.product.findMany()
+    const foundDiscounts = await prisma.discount.findMany()
+
     for (let user of users) {
         const { email, password, referralCode, isAdmin, isEmailVerified } = user
 
-        const { orders, listingIDs } = await generateListings()
+        const { orders, listingIDs } = await generateListings(
+            foundProducts,
+            foundDiscounts
+        )
 
         await prisma.user.create({
             data: {
@@ -134,21 +160,6 @@ async function main() {
             },
         })
     }
-
-    for (let discount of discounts) {
-        const { code, maxUses, maxAmount, burntUses, percentage } = discount
-
-        await prisma.discount.create({
-            data: {
-                code,
-                maxUses,
-                burntUses,
-                maxAmount,
-                percentage,
-                clientId,
-            },
-        })
-    }
 }
 
 try {
@@ -159,9 +170,8 @@ try {
     process.exit(1)
 }
 
-async function generateListings() {
+async function generateListings(foundProducts, foundDiscounts) {
     const { id: clientId } = await prisma.client.findFirst()
-    const products = await prisma.product.findMany()
 
     let orders = []
     let listingIDs = []
@@ -170,12 +180,12 @@ async function generateListings() {
         const indices = getMultipleRandomIntsInRange(
             getRandomIntInRange(2, 6),
             0,
-            products.length
+            foundProducts.length
         )
 
         let listings = []
         for (const index of indices) {
-            const { id } = products[Number(index)]
+            const { id } = foundProducts[Number(index)]
 
             listings.push(
                 await prisma.listing.findFirst({
@@ -199,15 +209,33 @@ async function generateListings() {
                 }
             })
 
-        orders.push({
-            listings: {
-                connect: listingIDs,
-            },
-            totalCost,
-            discountCost: 0,
-            payableCost: totalCost,
-            clientId,
-        })
+        const isDiscounted = getRandomIntInRange(0, 2)
+        const isReferred = getRandomIntInRange(0, 2)
+        const discount =
+            foundDiscounts[getRandomIntInRange(0, foundDiscounts.length)]
+
+        if (isDiscounted && isDiscountAcceptable(discount)) {
+            orders.push({
+                listings: {
+                    connect: listingIDs,
+                },
+                totalCost,
+                discountCost: calculateDiscountCost(totalCost, discount),
+                payableCost: calculatePayableCost(totalCost, discount),
+                clientId,
+                discountCode: discount.code,
+            })
+        } else {
+            orders.push({
+                listings: {
+                    connect: listingIDs,
+                },
+                totalCost,
+                discountCost: 0,
+                payableCost: totalCost,
+                clientId,
+            })
+        }
     }
 
     return { orders, listingIDs }
