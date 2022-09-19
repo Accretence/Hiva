@@ -1,18 +1,24 @@
-import { getMultipleRandomIntsInRange, getRandomIntInRange } from '../lib/rng'
+import {
+    getMultipleRandomIntsInRange,
+    getRandomBoolean,
+    getRandomIntInRange,
+} from '../lib/rng'
 import prisma from '../lib/prisma'
 import { clients, users, blogPosts, discounts } from './seed.data'
 import {
-    calculateDiscountCost,
-    calculatePayableCost,
+    calculateDiscountAmount,
+    calculatePayableAmount,
+    calculateReferralAmount,
     isDiscountAcceptable,
-} from '../lib/discount'
+} from '../lib/order'
 
 async function main() {
     await prisma.client.createMany({
         data: clients,
     })
 
-    const { id: clientId } = await prisma.client.findFirst()
+    const client = await prisma.client.findFirst()
+    const { id: clientId } = client
 
     const productsRes = await fetch('https://dummyjson.com/products')
     const { products } = await productsRes.json()
@@ -104,6 +110,7 @@ async function main() {
         const { email, password, referralCode, isAdmin, isEmailVerified } = user
 
         const { orders, listingIDs } = await generateListings(
+            client,
             foundProducts,
             foundDiscounts
         )
@@ -170,7 +177,7 @@ try {
     process.exit(1)
 }
 
-async function generateListings(foundProducts, foundDiscounts) {
+async function generateListings(client, foundProducts, foundDiscounts) {
     const { id: clientId } = await prisma.client.findFirst()
 
     let orders = []
@@ -196,9 +203,9 @@ async function generateListings(foundProducts, foundDiscounts) {
             )
         }
 
-        let totalCost = 0
+        let totalAmount = 0
         for (const listing of listings) {
-            totalCost += listing.price
+            totalAmount += listing.price
         }
 
         listingIDs = listings
@@ -209,33 +216,49 @@ async function generateListings(foundProducts, foundDiscounts) {
                 }
             })
 
-        const isDiscounted = getRandomIntInRange(0, 2)
-        const isReferred = getRandomIntInRange(0, 2)
+        const isDiscounted = getRandomBoolean()
+        const isReferred = getRandomBoolean()
         const discount =
             foundDiscounts[getRandomIntInRange(0, foundDiscounts.length)]
 
         if (isDiscounted && isDiscountAcceptable(discount)) {
-            orders.push({
-                listings: {
-                    connect: listingIDs,
+            await prisma.discount.update({
+                where: {
+                    code: discount.code,
                 },
-                totalCost,
-                discountCost: calculateDiscountCost(totalCost, discount),
-                payableCost: calculatePayableCost(totalCost, discount),
-                clientId,
-                discountCode: discount.code,
-            })
-        } else {
-            orders.push({
-                listings: {
-                    connect: listingIDs,
+                data: {
+                    burntUses: {
+                        increment: 1,
+                    },
                 },
-                totalCost,
-                discountCost: 0,
-                payableCost: totalCost,
-                clientId,
             })
         }
+
+        orders.push({
+            listings: {
+                connect: listingIDs,
+            },
+            totalAmount,
+            referralAmount: calculateReferralAmount(
+                isReferred,
+                totalAmount,
+                client
+            ),
+            discountAmount: calculateDiscountAmount(
+                isDiscounted,
+                totalAmount,
+                discount
+            ),
+            payableAmount: calculatePayableAmount(
+                isDiscounted,
+                isReferred,
+                totalAmount,
+                discount,
+                client
+            ),
+            clientId,
+            discountCode: discount.code,
+        })
     }
 
     return { orders, listingIDs }

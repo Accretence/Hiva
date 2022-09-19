@@ -10,8 +10,12 @@ datasource db {
 }
 
 model Client {
-  id    String  @id @default(cuid())
-  title String?
+  id                                 String  @id @default(cuid())
+  title                              String?
+  referralRewardPercentageToProvider         Int     @default(3)
+  referralDiscountPercentageToConsumer Int     @default(3)
+  maxReferralReward                  Int     @default(100)
+  maxReferralDiscount                Int     @default(100)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -52,7 +56,7 @@ model User {
 
   orders            Order[]
   referralsProvided Referral[] @relation("referralsProvided")
-  referralsUsed     Referral[] @relation("referralsUsed")
+  referralsConsumed Referral[] @relation("referralsConsumed")
   blogPosts         BlogPost[]
   client            Client[]
 }
@@ -136,16 +140,17 @@ model Listing {
 }
 
 model Order {
-  id              String  @id @default(cuid())
-  isPaid          Boolean @default(false)
-  isDelivered     Boolean @default(false)
-  isPhysical      Boolean @default(false)
-  paymentId       String?
-  deliveryAddress String?
-  referralCode    String?
-  totalCost       Float
-  discountCost    Float
-  payableCost     Float
+  id               String  @id @default(cuid())
+  isPaid           Boolean @default(false)
+  isDelivered      Boolean @default(false)
+  isPhysical       Boolean @default(false)
+  paymentId        String?
+  deliveryAddress  String?
+  referralCode     String?
+  totalAmount      Float
+  referralAmount Float
+  discountAmount   Float
+  payableAmount    Float
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -155,12 +160,12 @@ model Order {
 
   listings Listing[]
 
-  discount   Discount? @relation(fields: [discountCode], references: [code])
+  discount     Discount? @relation(fields: [discountCode], references: [code])
   discountCode String?
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String
-  client     Client   @relation(fields: [clientId], references: [id])
-  clientId   String
+  user         User      @relation(fields: [userId], references: [id])
+  userId       String
+  client       Client    @relation(fields: [clientId], references: [id])
+  clientId     String
 }
 
 model Referral {
@@ -170,8 +175,8 @@ model Referral {
   orderId            String @unique
   referralProvider   User   @relation("referralsProvided", fields: [referralProviderId], references: [id])
   referralProviderId String
-  referralUser       User   @relation("referralsUsed", fields: [referralUserId], references: [id])
-  referralUserId     String
+  referralConsumer   User   @relation("referralsConsumed", fields: [referralConsumerId], references: [id])
+  referralConsumerId String
 }
 
 model BlogPost {
@@ -206,8 +211,8 @@ model Discount {
   maxAmount  Int    @default(0)
   percentage Int    @default(0)
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   orders Order[]
 

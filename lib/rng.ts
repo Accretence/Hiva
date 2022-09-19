@@ -71,3 +71,11 @@ export function getMultipleRandomIntsInRange(
 
     return Array.from(set)
 }
+
+export function getRandomBoolean() {
+    return getRandomIntInRange(0, 2) == 0 ? false : true
+}
+
+export function getSeededRandomBoolean(seed: string) {
+    return getSeededRandomIntInRange(seed, 0, 2) == 0 ? false : true
+}
