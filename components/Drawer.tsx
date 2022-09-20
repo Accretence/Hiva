@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAuth } from 'state/Auth'
 
-export default function ({ showDrawer, setShowDrawer }) {
+export default function Drawer({ showDrawer, setShowDrawer }) {
     const router = useRouter()
     const { resolvedTheme, setTheme } = useTheme()
 
