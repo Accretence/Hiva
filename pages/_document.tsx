@@ -1,6 +1,6 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 
-export default function Document(props) {
+export default function Document() {
     return (
         <Html lang="en">
             <Head>
@@ -8,7 +8,7 @@ export default function Document(props) {
                 <meta content="#ffffff" name="theme-color" />
                 <meta content="#ffffff" name="msapplication-TileColor" />
             </Head>
-            <body className="bg-white dark:bg-black text-white dark:text-black">
+            <body className="bg-white text-white dark:bg-black dark:text-black">
                 <Main />
                 <NextScript />
             </body>

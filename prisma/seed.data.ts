@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 
-export const clients = [{ title: 'First' }, { title: 'Second' }]
+export const clients = [{ title: 'TEST' }, { title: 'DEVELOPMENT' }]
 
 export const users = [
     {

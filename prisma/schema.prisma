@@ -10,8 +10,7 @@ datasource db {
 }
 
 model Client {
-  id                                   String  @id @default(cuid())
-  title                                String?
+  title                                String   @id
   referralRewardPercentageToProvider   Int     @default(3)
   referralDiscountPercentageToConsumer Int     @default(3)
   maxReferralReward                    Int     @default(100)
@@ -98,8 +97,8 @@ model Product {
   categories ProductCategory[]
   images     ProductImage[]
   listings   Listing[]
-  client     Client            @relation(fields: [clientId], references: [id])
-  clientId   String
+  client     Client            @relation(fields: [clientTitle], references: [title])
+  clientTitle   String
 }
 
 model ProductImage {
@@ -164,8 +163,8 @@ model Order {
   discountCode String?
   user         User      @relation(fields: [userId], references: [id])
   userId       String
-  client       Client    @relation(fields: [clientId], references: [id])
-  clientId     String
+  client       Client    @relation(fields: [clientTitle], references: [title])
+  clientTitle     String
 }
 
 model Referral {
@@ -190,8 +189,8 @@ model BlogPost {
 
   categories BlogPostCategory[]
 
-  client   Client @relation(fields: [clientId], references: [id])
-  clientId String
+  client   Client @relation(fields: [clientTitle], references: [title])
+  clientTitle String
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
 }
@@ -216,6 +215,6 @@ model Discount {
 
   orders Order[]
 
-  client   Client @relation(fields: [clientId], references: [id])
-  clientId String
+  client   Client @relation(fields: [clientTitle], references: [title])
+  clientTitle String
 }

@@ -9,8 +9,8 @@ import prisma from 'lib/prisma'
 import { useAuth } from 'state/Auth'
 import Helmet from 'components/Helmet'
 
-export default function Index({ auth, initialPosts }) {
-    const [posts, setPosts] = useState(initialPosts)
+export default function Index({ auth, unserialized }) {
+    const [posts, setPosts] = useState(JSON.parse(unserialized))
     const { isAuthenticated, setLocalAuthentication } = useAuth()
 
     useEffect(() => {
@@ -85,9 +85,9 @@ export default function Index({ auth, initialPosts }) {
 
 export async function getServerSideProps(ctx) {
     const { AJWT } = ctx.req.cookies
-    const posts = await prisma.blogPost.findMany()
+    const unserialized = JSON.stringify(await prisma.blogPost.findMany())
 
     return {
-        props: { auth: AJWT ? true : false, initialPosts: posts },
+        props: { auth: AJWT ? true : false, unserialized },
     }
 }

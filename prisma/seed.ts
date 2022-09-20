@@ -18,7 +18,7 @@ async function main() {
     })
 
     const client = await prisma.client.findFirst()
-    const { id: clientId } = client
+    const { title: clientTitle } = client
 
     const productsRes = await fetch('https://dummyjson.com/products')
     const { products } = await productsRes.json()
@@ -46,7 +46,7 @@ async function main() {
 
         await prisma.product.create({
             data: {
-                clientId,
+                clientTitle,
                 title,
                 description,
                 brand,
@@ -60,7 +60,7 @@ async function main() {
                                 title: category,
                                 client: {
                                     connect: {
-                                        id: clientId,
+                                        title: clientTitle,
                                     },
                                 },
                             },
@@ -98,7 +98,7 @@ async function main() {
                 burntUses,
                 maxAmount,
                 percentage,
-                clientId,
+                clientTitle,
             },
         })
     }
@@ -119,7 +119,7 @@ async function main() {
             data: {
                 client: {
                     connect: {
-                        id: clientId,
+                        title: clientTitle,
                     },
                 },
                 email,
@@ -144,7 +144,7 @@ async function main() {
 
         await prisma.blogPost.create({
             data: {
-                clientId,
+                clientTitle,
                 authorId,
                 title,
                 description,
@@ -157,7 +157,7 @@ async function main() {
                                 title: category,
                                 client: {
                                     connect: {
-                                        id: clientId,
+                                        title: clientTitle,
                                     },
                                 },
                             },
@@ -178,7 +178,7 @@ try {
 }
 
 async function generateListings(client, foundProducts, foundDiscounts) {
-    const { id: clientId } = await prisma.client.findFirst()
+    const { title: clientTitle } = await prisma.client.findFirst()
 
     let orders = []
     let listingIDs = []
@@ -256,7 +256,7 @@ async function generateListings(client, foundProducts, foundDiscounts) {
                 discount,
                 client
             ),
-            clientId,
+            clientTitle,
             discountCode: discount.code,
         })
     }

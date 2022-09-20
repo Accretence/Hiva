@@ -36,7 +36,7 @@ export default async function (req, res) {
             data: {
                 client: {
                     connect: {
-                        id: process.env.CLIENT_ID,
+                        title: process.env.CLIENT_TITLE,
                     },
                 },
                 email,
