@@ -10,12 +10,12 @@ datasource db {
 }
 
 model Client {
-  id                                 String  @id @default(cuid())
-  title                              String?
-  referralRewardPercentageToProvider         Int     @default(3)
+  id                                   String  @id @default(cuid())
+  title                                String?
+  referralRewardPercentageToProvider   Int     @default(3)
   referralDiscountPercentageToConsumer Int     @default(3)
-  maxReferralReward                  Int     @default(100)
-  maxReferralDiscount                Int     @default(100)
+  maxReferralReward                    Int     @default(100)
+  maxReferralDiscount                  Int     @default(100)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -140,17 +140,17 @@ model Listing {
 }
 
 model Order {
-  id               String  @id @default(cuid())
-  isPaid           Boolean @default(false)
-  isDelivered      Boolean @default(false)
-  isPhysical       Boolean @default(false)
-  paymentId        String?
-  deliveryAddress  String?
-  referralCode     String?
-  totalAmount      Float
-  referralAmount Float
-  discountAmount   Float
-  payableAmount    Float
+  id              String  @id @default(cuid())
+  isPaid          Boolean @default(false)
+  isDelivered     Boolean @default(false)
+  isPhysical      Boolean @default(false)
+  paymentId       String?
+  deliveryAddress String?
+  referralCode    String?
+  totalAmount     Float
+  referralAmount  Float
+  discountAmount  Float
+  payableAmount   Float
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

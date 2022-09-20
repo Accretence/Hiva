@@ -1,11 +1,11 @@
-export function cyrb128(str) {
+export function cyrb128(seed: string) {
     let h1 = 1779033703,
         h2 = 3144134277,
         h3 = 1013904242,
         h4 = 2773480762
 
-    for (let i = 0, k; i < str.length; i++) {
-        k = str.charCodeAt(i)
+    for (let i = 0, k; i < seed.length; i++) {
+        k = seed.charCodeAt(i)
         h1 = h2 ^ Math.imul(h1 ^ k, 597399067)
         h2 = h3 ^ Math.imul(h2 ^ k, 2869860233)
         h3 = h4 ^ Math.imul(h3 ^ k, 951274213)
@@ -25,7 +25,7 @@ export function cyrb128(str) {
     ]
 }
 
-export function sfc32(a, b, c, d) {
+export function sfc32(a: number, b: number, c: number, d: number) {
     return function () {
         a >>>= 0
         b >>>= 0
@@ -78,4 +78,36 @@ export function getRandomBoolean() {
 
 export function getSeededRandomBoolean(seed: string) {
     return getSeededRandomIntInRange(seed, 0, 2) == 0 ? false : true
+}
+
+export function getRandomEntryFromArrayExcept(
+    array: Array<any>,
+    exception: any
+) {
+    if (array.length < 2)
+        throw new Error('Cannot provide an array with one entry.')
+
+    let randomIndex = Math.floor(Math.random() * (array.length - 0) + 0)
+
+    while (array[randomIndex] == exception) {
+        randomIndex = Math.floor(Math.random() * (array.length - 0) + 0)
+    }
+
+    return array[randomIndex]
+}
+
+export function getRandomIndexFromArrayExcept(
+    array: Array<any>,
+    exception: number
+) {
+    if (array.length < 2)
+        throw new Error('Cannot provide an array with one entry.')
+
+    let randomIndex = Math.floor(Math.random() * (array.length - 0) + 0)
+
+    while (randomIndex == exception) {
+        randomIndex = Math.floor(Math.random() * (array.length - 0) + 0)
+    }
+
+    return randomIndex
 }
