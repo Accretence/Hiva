@@ -7,7 +7,7 @@ import VideoCard from '../components/VideoCard'
 
 import prisma from 'lib/prisma'
 import { useAuth } from 'state/Auth'
-import Helmet from 'components/Helmet'
+import { NextSeo } from 'next-seo'
 
 export default function Index({ auth, unserialized }) {
     const [posts, setPosts] = useState(JSON.parse(unserialized) || null)
@@ -19,7 +19,10 @@ export default function Index({ auth, unserialized }) {
 
     return (
         <div className="flex flex-col border-gray-200 dark:border-gray-700">
-            <Helmet />
+            <NextSeo
+                title="Simple Usage Example"
+                description="A short description goes here."
+            />
             <h3 className="mb-6 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
                 Featured
             </h3>

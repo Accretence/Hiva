@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 import { getGoogleURL } from 'lib/google'
 
 import { useAuth } from 'state/Auth'
-import Helmet from 'components/Helmet'
+import { NextSeo } from 'next-seo'
 
 export default function Login({ auth }) {
     const router = useRouter()
@@ -89,7 +89,10 @@ export default function Login({ auth }) {
 
     return (
         <div className="flex flex-col ">
-            <Helmet />
+            <NextSeo
+                title="Simple Usage Example"
+                description="A short description goes here."
+            />
             <div className="grid grid-cols-1 gap-2 xl:grid-cols-2">
                 <div>
                     <div className="bg-neutral-100 dark:bg-neutral-900">

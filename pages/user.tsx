@@ -15,7 +15,7 @@ import { useAuth } from 'state/Auth'
 import { verifyJWT } from 'lib/jwt'
 import { omitUser } from 'lib/omit'
 import { Spinner } from 'components/Icons'
-import Helmet from 'components/Helmet'
+import { NextSeo } from 'next-seo'
 
 export default function User({ auth }) {
     const router = useRouter()
@@ -27,7 +27,10 @@ export default function User({ auth }) {
 
     return (
         <>
-            <Helmet />
+            <NextSeo
+                title="Simple Usage Example"
+                description="A short description goes here."
+            />
             <div className="rounded-lg bg-neutral-100 dark:bg-neutral-900">
                 <UserInfo />
                 <Orders />

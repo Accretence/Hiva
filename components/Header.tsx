@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useAuth } from 'state/Auth'
 import Drawer from 'components/Drawer'
-import { CMDK } from './CMDK'
+import SearchDialog from './SearchDialog'
 
 export default function Header() {
     const [mounted, setMounted] = useState(false)
@@ -27,13 +27,13 @@ export default function Header() {
     // After mounting, we have access to the theme
     useEffect(() => setMounted(true), [])
 
-    const [CMDKVisible, setCMDKVisibility] = useState(false)
+    const [searchDialogVisible, setSearchDialogVisibility] = useState(false)
 
     // Toggle the menu when ⌘K is pressed
     useEffect(() => {
         const down = (e) => {
             if (e.key === 'k' && e.metaKey) {
-                setCMDKVisibility(!CMDKVisible)
+                setSearchDialogVisibility(!searchDialogVisible)
             }
         }
 
@@ -65,17 +65,16 @@ export default function Header() {
 
     return (
         <>
-            <div className="fixed top-10 left-10 z-50">
-                <CMDK
-                    CMDKVisible={CMDKVisible}
-                    setCMDKVisibility={setCMDKVisibility}
-                />
-            </div>
+            <SearchDialog
+                searchDialogVisible={searchDialogVisible}
+                setSearchDialogVisibility={setSearchDialogVisibility}
+            />
+
             <div className="flex flex-col justify-center">
                 <nav className="relative flex w-full items-center justify-between border-gray-200 bg-opacity-60 pt-4 text-gray-900 dark:border-gray-700 dark:text-gray-100">
                     <div className="flex">
                         <button
-                            onClick={() => setCMDKVisibility(!CMDKVisible)}
+                            onClick={() => setSearchDialogVisibility(true)}
                             aria-label="Search Button"
                             type="button"
                             className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300  transition-all hover:ring-2  dark:bg-gray-700"

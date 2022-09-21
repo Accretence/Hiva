@@ -37,11 +37,11 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
             } fixed top-0 right-0 z-10 h-full w-full transition duration-300`}
             onClick={() => setShowDrawer(false)}
         >
-            <div className="top-0 left-0 z-20 flex h-full w-[70vw] flex-col gap-2 bg-gray-100 p-10  shadow-2xl dark:bg-gray-800 ">
+            <div className="top-0 left-0 z-20 flex h-full w-[70vw] flex-col gap-2 bg-neutral-100 p-10 shadow-2xl dark:bg-neutral-900">
                 <button
                     aria-label="Toggle Dark Mode"
                     type="button"
-                    className="flex h-14 w-full items-center justify-center rounded-lg  bg-gray-200  ring-gray-300 transition-all hover:ring-2  dark:bg-gray-700 "
+                    className="flex h-14 w-full items-center justify-center rounded-lg border border-neutral-400 bg-gray-200 ring-gray-300 transition-all  hover:ring-2 dark:border-neutral-500 dark:bg-gray-700"
                     onClick={() =>
                         setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
                     }
