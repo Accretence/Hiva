@@ -16,14 +16,30 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useAuth } from 'state/Auth'
 import Drawer from 'components/Drawer'
+import { CMDK } from './CMDK'
 
 export default function Header() {
     const [mounted, setMounted] = useState(false)
     const [showDrawer, setShowDrawer] = useState(false)
     const { resolvedTheme, setTheme } = useTheme()
     const { isAuthenticated, setLocalAuthentication } = useAuth()
+
     // After mounting, we have access to the theme
     useEffect(() => setMounted(true), [])
+
+    const [CMDKVisible, setCMDKVisibility] = useState(false)
+
+    // Toggle the menu when ⌘K is pressed
+    useEffect(() => {
+        const down = (e) => {
+            if (e.key === 'k' && e.metaKey) {
+                setCMDKVisibility(!CMDKVisible)
+            }
+        }
+
+        document.addEventListener('keydown', down)
+        return () => document.removeEventListener('keydown', down)
+    }, [])
 
     function NavItem({ href, text }) {
         const router = useRouter()
@@ -49,10 +65,17 @@ export default function Header() {
 
     return (
         <>
+            <div className="fixed top-10 left-10 z-50">
+                <CMDK
+                    CMDKVisible={CMDKVisible}
+                    setCMDKVisibility={setCMDKVisibility}
+                />
+            </div>
             <div className="flex flex-col justify-center">
                 <nav className="relative flex w-full items-center justify-between border-gray-200 bg-opacity-60 pt-4 text-gray-900 dark:border-gray-700 dark:text-gray-100">
                     <div className="flex">
                         <button
+                            onClick={() => setCMDKVisibility(!CMDKVisible)}
                             aria-label="Search Button"
                             type="button"
                             className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300  transition-all hover:ring-2  dark:bg-gray-700"
