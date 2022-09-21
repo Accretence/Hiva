@@ -1,10 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/future/image'
 
-import ProsCard from 'components/ProsCard'
-import ConsCard from 'components/ConsCard'
-import Step from 'components/Step'
-import ImageWithTheme from 'components/ImageWithTheme'
+import ProsCard from 'components/blog/ProsCard'
+import ConsCard from 'components/blog/ConsCard'
+import Step from 'components/blog/Step'
 
 const CustomLink = (props) => {
     const href = props.href
@@ -37,7 +36,6 @@ function Callout(props) {
 
 const MDXComponents = {
     Image: RoundedImage,
-    ImageWithTheme,
     a: CustomLink,
     Callout,
     ConsCard,

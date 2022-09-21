@@ -1,5 +1,5 @@
 import BlogLayout from 'layouts/blog'
-import Tweet from 'components/Tweet'
+import Tweet from 'components/blog/Tweet'
 
 import { Post } from 'lib/types'
 import prisma from 'lib/prisma'

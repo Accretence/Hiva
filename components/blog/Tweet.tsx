@@ -1,6 +1,6 @@
 import Image from 'next/future/image'
 import { format } from 'date-fns'
-import { VerifiedAccount } from './Icons'
+import { VerifiedAccount } from '../Icons'
 
 /**
  * Supports plain text, images, quote tweets.
@@ -31,7 +31,7 @@ export default function Tweet({
         referenced_tweets && referenced_tweets.find((t) => t.type === 'quoted')
 
     return (
-        <div className="tweet rounded-lg border border-gray-200 dark:border-gray-800 px-6 py-4 my-4 w-full bg-white dark:bg-gray-900">
+        <div className="tweet my-4 w-full rounded-lg border border-gray-200 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-900">
             <div className="flex items-center">
                 <a
                     className="flex h-12 w-12"
@@ -51,10 +51,10 @@ export default function Tweet({
                     href={authorUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="author flex flex-col ml-4 !no-underline"
+                    className="author ml-4 flex flex-col !no-underline"
                 >
                     <span
-                        className="flex items-center font-bold !text-gray-900 dark:!text-gray-100 leading-5"
+                        className="flex items-center font-bold leading-5 !text-gray-900 dark:!text-gray-100"
                         title={author.name}
                     >
                         {author.name}
@@ -86,15 +86,15 @@ export default function Tweet({
                     </svg>
                 </a>
             </div>
-            <div className="mt-4 mb-1 leading-normal whitespace-pre-wrap  !text-gray-700 dark:!text-gray-200">
+            <div className="mt-4 mb-1 whitespace-pre-wrap leading-normal  !text-gray-700 dark:!text-gray-200">
                 {formattedText}
             </div>
             {media && media.length ? (
                 <div
                     className={
                         media.length === 1
-                            ? 'inline-grid grid-cols-1 gap-x-2 gap-y-2 my-2'
-                            : 'inline-grid grid-cols-2 gap-x-2 gap-y-2 my-2'
+                            ? 'my-2 inline-grid grid-cols-1 gap-x-2 gap-y-2'
+                            : 'my-2 inline-grid grid-cols-2 gap-x-2 gap-y-2'
                     }
                 >
                     {media.map((m) => (
@@ -111,7 +111,7 @@ export default function Tweet({
             ) : null}
             {quoteTweet ? <Tweet {...quoteTweet} /> : null}
             <a
-                className="!text-gray-500 text-sm hover:!underline"
+                className="text-sm !text-gray-500 hover:!underline"
                 href={tweetUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -123,9 +123,9 @@ export default function Tweet({
                     {format(createdAt, 'h:mm a - MMM d, y')}
                 </time>
             </a>
-            <div className="flex text-sm !text-gray-700 dark:!text-gray-300 mt-2">
+            <div className="mt-2 flex text-sm !text-gray-700 dark:!text-gray-300">
                 <a
-                    className="flex items-center mr-4 !text-gray-500 hover:!text-blue-600 transition hover:!underline"
+                    className="mr-4 flex items-center !text-gray-500 transition hover:!text-blue-600 hover:!underline"
                     href={replyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -151,7 +151,7 @@ export default function Tweet({
                     </span>
                 </a>
                 <a
-                    className="flex items-center mr-4 !text-gray-500 hover:!text-green-600 transition hover:!underline"
+                    className="mr-4 flex items-center !text-gray-500 transition hover:!text-green-600 hover:!underline"
                     href={retweetUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -176,7 +176,7 @@ export default function Tweet({
                     </span>
                 </a>
                 <a
-                    className="flex items-center !text-gray-500 hover:!text-red-600 transition hover:!underline"
+                    className="flex items-center !text-gray-500 transition hover:!text-red-600 hover:!underline"
                     href={likeUrl}
                     target="_blank"
                     rel="noopener noreferrer"

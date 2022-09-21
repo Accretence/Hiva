@@ -4,8 +4,6 @@ import Link from 'next/link'
 
 import prisma from 'lib/prisma'
 import fetcher from 'lib/fetcher'
-import ErrorMessage from 'components/ErrorMessage'
-import SuccessMessage from 'components/SuccessMessage'
 import useSWR from 'swr'
 import gradient from 'lib/gradient'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
