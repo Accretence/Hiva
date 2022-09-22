@@ -9,6 +9,7 @@ module.exports = {
     content: [
         './pages/**/*.tsx',
         './components/**/*.tsx',
+        './components/**/**/*.tsx',
         './layouts/**/*.tsx',
         './lib/gradient.ts',
     ],

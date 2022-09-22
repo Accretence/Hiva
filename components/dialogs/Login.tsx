@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { getGoogleURL } from 'lib/google'
 
 import { useAuth } from 'state/Auth'
+import Link from 'next/link'
 
 export default function Login() {
     const router = useRouter()
@@ -84,8 +85,7 @@ export default function Login() {
             <div className="bg-neutral-100 dark:bg-neutral-900">
                 <button
                     type="button"
-                    className="flex w-full items-center justify-between rounded-t-lg border border-gray-200 p-5 text-left text-xl text-black hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
-                    aria-expanded="true"
+                    className="flex w-full items-center justify-between rounded-t-lg border border-gray-200 p-5 text-left text-xl text-black hover:bg-gray-100  dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
                     onClick={() => {
                         setLoginVisibility(!loginVisibility)
                         setRegisterVisibility(false)
@@ -114,7 +114,7 @@ export default function Login() {
                                     ref={emailRef}
                                     type="email"
                                     id="email"
-                                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                     placeholder="example@example.com"
                                     required
                                 />
@@ -127,17 +127,22 @@ export default function Login() {
                                     ref={passwordRef}
                                     type="password"
                                     id="password"
-                                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                     placeholder="•••••••••"
                                     required
                                 />
                             </div>
                             <button
                                 type="submit"
-                                className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 py-2.5 text-center font-medium text-neutral-100 transition duration-300 hover:bg-neutral-900 hover:text-neutral-100  dark:hover:bg-neutral-100 hover:dark:text-neutral-900"
+                                className="mb-4 w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 py-2.5 text-center font-medium text-neutral-100 transition duration-300 hover:bg-neutral-900 hover:text-neutral-100  dark:hover:bg-neutral-100 hover:dark:text-neutral-900"
                             >
                                 Login
                             </button>
+                            <Link href="/auth/reset">
+                                <a className="text-sm font-medium transition duration-300 hover:text-red-700 dark:text-gray-400">
+                                    Forgot your password?
+                                </a>
+                            </Link>
                         </form>
                     </div>
                 </div>
@@ -147,8 +152,7 @@ export default function Login() {
                     type="button"
                     className={`flex w-full items-center justify-between ${
                         !registerVisibility && 'rounded-b-lg'
-                    } border border-gray-200 p-5 text-left text-xl text-black hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
-                    aria-expanded="true"
+                    } border border-gray-200 p-5 text-left text-xl text-black hover:bg-gray-100  dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
                     onClick={() => {
                         setRegisterVisibility(!registerVisibility)
                         setLoginVisibility(false)
@@ -177,7 +181,7 @@ export default function Login() {
                                     ref={emailRef}
                                     type="email"
                                     id="email"
-                                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                     placeholder="example@example.com"
                                     required
                                 />
@@ -190,7 +194,7 @@ export default function Login() {
                                     ref={passwordRef}
                                     type="password"
                                     id="password"
-                                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                     placeholder="•••••••••"
                                     required
                                 />
@@ -201,7 +205,7 @@ export default function Login() {
                                         id="remember"
                                         type="checkbox"
                                         value=""
-                                        className="focus:ring-3 h-5 w-5 rounded border border-gray-300 bg-gray-50 accent-purple-500  dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 "
+                                        className="h-5 w-5 rounded border border-gray-300 bg-gray-50 accent-purple-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 "
                                         required
                                     />
                                 </div>

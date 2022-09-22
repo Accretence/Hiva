@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 
-import serial from 'lib/serial'
+import { createSerialNumber } from 'lib/serial'
 import { isEmail } from 'lib/regex'
 import prisma from 'lib/prisma'
 import cookie from 'lib/cookie'
@@ -8,11 +8,14 @@ import cookie from 'lib/cookie'
 export default async function (req, res) {
     const { email, password }: { email: string; password: string } = req.body
 
-    if (!email || !password || !isEmail(email))
+    if (!email || !password || !isEmail(email)) {
         res.status(400).json({
             Success: false,
             Message: 'Invalid input...',
         })
+
+        return
+    }
 
     const exists = await prisma.user.findUnique({
         where: {
@@ -29,8 +32,8 @@ export default async function (req, res) {
         const salt = await bcrypt.genSalt(10)
         const salted = await bcrypt.hash(password, salt)
 
-        const verificationCode = await serial(1)
-        const referralCode = await serial(3)
+        const verificationCode = await createSerialNumber(1)
+        const referralCode = await createSerialNumber(3)
 
         const user = await prisma.user.create({
             data: {

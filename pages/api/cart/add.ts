@@ -1,5 +1,5 @@
-import { verifyAuthentication } from 'lib/request'
+import { gateUser } from 'lib/gateway'
 
 export default async function (req, res) {
-    const decoded = await verifyAuthentication(req, res)
+    const user = await gateUser(req, res)
 }

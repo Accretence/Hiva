@@ -1,13 +1,11 @@
-import bcrypt from 'bcryptjs'
-
 import { isEmail } from 'lib/regex'
-import cookie from 'lib/cookie'
 import prisma from 'lib/prisma'
+import { createSerialNumber } from 'lib/serial'
 
 export default async function (req, res) {
-    const { email, password } = req.body
+    const { email } = req.body
 
-    if (!email || !password || !isEmail(email)) {
+    if (!email || !isEmail(email)) {
         res.status(400).json({
             Success: false,
             Message: 'Invalid input...',
@@ -18,16 +16,26 @@ export default async function (req, res) {
 
     const user = await prisma.user.findUnique({ where: { email } })
 
-    if (user && (await bcrypt.compare(password, user.password))) {
-        const AJWT = await cookie({
-            id: user.id.toString(),
-            sameSite: 'Strict',
+    if (user) {
+        const code = await createSerialNumber(1)
+
+        await prisma.user.update({
+            where: {
+                email,
+            },
+            data: {
+                verificationCode: {
+                    create: {
+                        code,
+                        expiresAt: new Date(),
+                    },
+                },
+            },
         })
 
-        res.setHeader('Set-Cookie', AJWT)
         res.status(200).json({
             Success: true,
-            Message: 'Success',
+            Message: 'Verification Code sent to Email!',
         })
     } else {
         return res.status(401).json({

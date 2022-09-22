@@ -1,5 +1,5 @@
 import prisma from 'lib/prisma'
-import serial from 'lib/serial'
+import { createSerialNumber } from 'lib/serial'
 import cookie from 'lib/cookie'
 
 import { getGoogleTokens, getGoogleUser } from 'lib/google'
@@ -9,7 +9,10 @@ export default async function (req, res) {
         code: req.query.code,
     })
 
-    if (!id_token || !access_token) res.redirect(502, '/')
+    if (!id_token || !access_token) {
+        res.redirect(502, '/')
+        return
+    }
 
     const { id, email, verified_email, name, picture, locale } =
         await getGoogleUser({
@@ -17,7 +20,10 @@ export default async function (req, res) {
             access_token,
         })
 
-    if (!email) res.redirect(502, '/')
+    if (!email) {
+        res.redirect(502, '/')
+        return
+    }
 
     const exists = await prisma.user.findUnique({ where: { email } })
 
@@ -54,7 +60,7 @@ export default async function (req, res) {
     }
 
     if (!exists) {
-        const referralCode = await serial(3)
+        const referralCode = await createSerialNumber(3)
 
         const user = await prisma.user.create({
             data: {

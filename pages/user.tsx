@@ -10,7 +10,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { getGoogleURL } from 'lib/google'
 import { useAuth } from 'state/Auth'
-import { verifyJWT } from 'lib/jwt'
+import { decodeJWT } from 'lib/jwt'
 import { omitUser } from 'lib/omit'
 import { Spinner } from 'components/Icons'
 import { NextSeo } from 'next-seo'
@@ -47,8 +47,7 @@ function UserInfo() {
         <div>
             <button
                 type="button"
-                className="flex w-full items-center justify-between rounded-t-lg border border-gray-200 p-5 text-left text-xl text-black hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
-                aria-expanded="true"
+                className="flex w-full items-center justify-between rounded-t-lg border border-gray-200 p-5 text-left text-xl text-black hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
                 onClick={() => setVisibility(!visibility)}
             >
                 <span className="flex flex-col">
@@ -79,8 +78,7 @@ function Orders() {
         <div>
             <button
                 type="button"
-                className="delay-550 flex w-full items-center justify-between border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
-                aria-expanded="true"
+                className="flex w-full items-center justify-between border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
                 onClick={() => setVisibility(!visibility)}
             >
                 <span className="flex flex-col">
@@ -109,8 +107,7 @@ function Referrals() {
         <div>
             <button
                 type="button"
-                className="delay-550 flex w-full items-center justify-between border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
-                aria-expanded="true"
+                className="flex w-full items-center justify-between border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
                 onClick={() => setVisibility(!visibility)}
             >
                 <span className="flex flex-col">
@@ -141,10 +138,9 @@ function Integrations() {
         <div>
             <button
                 type="button"
-                className={`delay-550 flex w-full items-center justify-between ${
+                className={`flex w-full items-center justify-between ${
                     !visibility && 'rounded-b-lg'
-                } border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100  focus:ring-4 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
-                aria-expanded="true"
+                } border border-gray-200 p-5 text-left text-xl text-black transition-all ease-in-out hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
                 onClick={() => setVisibility(!visibility)}
             >
                 <span className="flex flex-col">
@@ -186,7 +182,6 @@ function Logout() {
         <button
             type="button"
             className="mt-6 w-full rounded-lg border border-gray-200 bg-neutral-100 py-3 text-lg text-neutral-400 transition-all duration-300 hover:bg-red-600 hover:text-white dark:border-gray-700 dark:bg-neutral-900 hover:dark:bg-red-600"
-            aria-expanded="true"
             onClick={onLogout}
         >
             {loading ? <Spinner /> : 'Logout'}
@@ -201,7 +196,7 @@ export async function getServerSideProps(ctx) {
 
     const { AJWT } = ctx.req.cookies
 
-    if (AJWT) decoded = await verifyJWT(AJWT)
+    if (AJWT) decoded = await decodeJWT(AJWT)
 
     if (decoded)
         user = await prisma.user.findUnique({

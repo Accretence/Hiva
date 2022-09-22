@@ -57,7 +57,7 @@ model User {
   referralsProvided Referral[] @relation("referralsProvided")
   referralsConsumed Referral[] @relation("referralsConsumed")
   blogPosts         BlogPost[]
-  client            Client[]
+  clients            Client[]
 }
 
 model VerificationCode {

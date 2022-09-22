@@ -110,6 +110,10 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
                         </>
                     ) : (
                         <button
+                            onClick={() => {
+                                setShowDrawer(false)
+                                setLoginModalVisibility(true)
+                            }}
                             aria-label="Authentication"
                             type="button"
                             className="flex h-14 w-full items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700"

@@ -1,4 +1,4 @@
-export default async function serial(batch = 3) {
+export async function createSerialNumber(batch = 3) {
     let voucher = ''
 
     voucher = voucher.concat(generate())
