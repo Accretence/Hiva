@@ -1,4 +1,4 @@
-import { signJWT } from './jwt'
+import { signJWT } from 'lib/jwt'
 import { serialize } from 'cookie'
 
 export default async function cookie({ id, sameSite }) {

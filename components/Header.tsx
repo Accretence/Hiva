@@ -16,30 +16,21 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useAuth } from 'state/Auth'
 import Drawer from 'components/Drawer'
-import SearchDialog from './SearchDialog'
+import Search from 'components/dialogs/Search'
+import Modal from 'components/Modal'
+import Login from 'components/dialogs/Login'
 
 export default function Header() {
-    const [mounted, setMounted] = useState(false)
-    const [showDrawer, setShowDrawer] = useState(false)
     const { resolvedTheme, setTheme } = useTheme()
     const { isAuthenticated, setLocalAuthentication } = useAuth()
 
+    const [mounted, setMounted] = useState(false)
+    const [showDrawer, setShowDrawer] = useState(false)
+    const [searchModalVisibility, setSearchModalVisibility] = useState(false)
+    const [loginModalVisibility, setLoginModalVisibility] = useState(false)
+
     // After mounting, we have access to the theme
     useEffect(() => setMounted(true), [])
-
-    const [searchDialogVisible, setSearchDialogVisibility] = useState(false)
-
-    // Toggle the menu when ⌘K is pressed
-    useEffect(() => {
-        const down = (e) => {
-            if (e.key === 'k' && e.metaKey) {
-                setSearchDialogVisibility(!searchDialogVisible)
-            }
-        }
-
-        document.addEventListener('keydown', down)
-        return () => document.removeEventListener('keydown', down)
-    }, [])
 
     function NavItem({ href, text }) {
         const router = useRouter()
@@ -65,16 +56,23 @@ export default function Header() {
 
     return (
         <>
-            <SearchDialog
-                searchDialogVisible={searchDialogVisible}
-                setSearchDialogVisibility={setSearchDialogVisibility}
-            />
-
+            <Modal
+                modalVisibility={searchModalVisibility}
+                setModalVisibility={setSearchModalVisibility}
+            >
+                <Search />
+            </Modal>
+            <Modal
+                modalVisibility={loginModalVisibility}
+                setModalVisibility={setLoginModalVisibility}
+            >
+                <Login />
+            </Modal>
             <div className="flex flex-col justify-center">
                 <nav className="relative flex w-full items-center justify-between border-gray-200 bg-opacity-60 pt-4 text-gray-900 dark:border-gray-700 dark:text-gray-100">
                     <div className="flex">
                         <button
-                            onClick={() => setSearchDialogVisibility(true)}
+                            onClick={() => setSearchModalVisibility(true)}
                             aria-label="Search Button"
                             type="button"
                             className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300  transition-all hover:ring-2  dark:bg-gray-700"
@@ -135,20 +133,19 @@ export default function Header() {
                                     </Link>
                                 </>
                             ) : (
-                                <Link href="/login">
-                                    <a>
-                                        <button
-                                            aria-label="Authentication"
-                                            type="button"
-                                            className="hidden h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 sm:flex"
-                                        >
-                                            <UserPlusIcon className="h-5 w-5" />
-                                        </button>
-                                    </a>
-                                </Link>
+                                <button
+                                    onClick={() =>
+                                        setLoginModalVisibility(true)
+                                    }
+                                    aria-label="Authentication"
+                                    type="button"
+                                    className="hidden h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 sm:flex"
+                                >
+                                    <UserPlusIcon className="h-5 w-5" />
+                                </button>
                             )}
                             <button
-                                aria-label="Authentication"
+                                aria-label="Mobile Menu"
                                 type="button"
                                 className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 sm:hidden"
                                 onClick={() => setShowDrawer(true)}

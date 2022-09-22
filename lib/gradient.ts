@@ -1,4 +1,4 @@
-import { getSeededRandomIntInRange } from './rng'
+import { getSeededRandomIntInRange } from 'lib/rng'
 
 export default ({ seed }) => {
     const interpretations = ['bg-gradient-to-b', 'bg-gradient-to-r']

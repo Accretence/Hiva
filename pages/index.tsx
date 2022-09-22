@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import Image from 'next/future/image'
 import Link from 'next/link'
 
-import BlogPostCard from '../components/blog/BlogPostCard'
-import VideoCard from '../components/VideoCard'
+import BlogPostCard from 'components/blog/BlogPostCard'
+import VideoCard from 'components/VideoCard'
 
 import prisma from 'lib/prisma'
 import { useAuth } from 'state/Auth'

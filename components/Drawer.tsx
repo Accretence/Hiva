@@ -11,7 +11,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAuth } from 'state/Auth'
-import Toast from './Toast'
+import Toast from 'components/Toast'
+import Modal from 'components/Modal'
+import Login from 'components/dialogs/Login'
 
 export default function Drawer({ showDrawer, setShowDrawer }) {
     const router = useRouter()
@@ -20,6 +22,7 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
     const { isAuthenticated, setLocalAuthentication } = useAuth()
     const [loading, setLoading] = useState(false)
     const [toastVisibility, setToastVisibility] = useState(false)
+    const [loginModalVisibility, setLoginModalVisibility] = useState(false)
 
     async function onLogout() {
         const { status } = await fetch('/api/auth/logout')
@@ -36,6 +39,12 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
 
     return (
         <>
+            <Modal
+                modalVisibility={loginModalVisibility}
+                setModalVisibility={setLoginModalVisibility}
+            >
+                <Login />
+            </Modal>
             <Toast
                 toastVisibility={toastVisibility}
                 setToastVisibility={setToastVisibility}
@@ -100,17 +109,13 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
                             </button>
                         </>
                     ) : (
-                        <Link href="/login">
-                            <a>
-                                <button
-                                    aria-label="Authentication"
-                                    type="button"
-                                    className="flex h-14 w-full items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700"
-                                >
-                                    <UserPlusIcon className="h-5 w-5" />
-                                </button>
-                            </a>
-                        </Link>
+                        <button
+                            aria-label="Authentication"
+                            type="button"
+                            className="flex h-14 w-full items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700"
+                        >
+                            <UserPlusIcon className="h-5 w-5" />
+                        </button>
                     )}
                 </div>
             </div>
