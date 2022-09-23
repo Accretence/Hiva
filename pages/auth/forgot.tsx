@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo'
+
 import { useEffect, useState } from 'react'
 import { useAuth } from '../../state/Auth'
 
@@ -10,7 +12,7 @@ export default function Forgot() {
     const router = useRouter()
     const { locale = config['defaultLocale'] } = useRouter()
 
-    const { title, description } = i18n['pages']['reset']
+    const { title, description } = i18n['pages']['forgot']
 
     const [loading, setLoading] = useState(false)
     const [nextStage, setNextStage] = useState(false)
@@ -26,5 +28,11 @@ export default function Forgot() {
         setLoading(true)
     }
 
-    return <div></div>
+    return (
+        <>
+            <NextSeo title={title[locale]} description={description[locale]} />
+            {title[locale]}
+            {description[locale]}
+        </>
+    )
 }

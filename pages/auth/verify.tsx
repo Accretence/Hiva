@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useAuth } from '../../state/Auth'
+import { NextSeo } from 'next-seo'
 import Link from 'next/link'
+
+import { useAuth } from '../../state/Auth'
 
 import i18n from 'i18n.config'
 import config from 'main.config'
@@ -35,5 +37,11 @@ export default function Verify() {
         }
     }
 
-    return <div></div>
+    return (
+        <>
+            <NextSeo title={title[locale]} description={description[locale]} />
+            {title[locale]}
+            {description[locale]}
+        </>
+    )
 }
