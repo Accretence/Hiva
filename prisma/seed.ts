@@ -4,7 +4,7 @@ import {
     getRandomIntInRange,
 } from '../lib/rng'
 import prisma from '../lib/prisma'
-import { clients, users, blogPosts, discounts } from './seed.data'
+import { clients, users, blogPosts, discounts, products } from './seed.data'
 import {
     calculateDiscountAmount,
     calculatePayableAmount,
@@ -19,9 +19,6 @@ async function main() {
 
     const client = await prisma.client.findFirst()
     const { title: clientTitle } = client
-
-    const productsRes = await fetch('https://dummyjson.com/products')
-    const { products } = await productsRes.json()
 
     for (let product of products) {
         const {
