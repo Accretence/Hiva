@@ -17,7 +17,6 @@ export default async function (req, res) {
 
     res.status(200).json({
         products,
-        page: currentPage,
-        pages: Math.ceil(count / pageSize),
+        totalPages: Math.ceil(count / pageSize),
     })
 }

@@ -1,5 +1,10 @@
 import Link from 'next/link'
-import { FacebookIcon, GithubIcon, InstagramIcon, TwitterIcon } from './Icons'
+import {
+    FacebookIcon,
+    GithubIcon,
+    InstagramIcon,
+    TwitterIcon,
+} from 'components/Icons'
 
 export default function Footer() {
     return (

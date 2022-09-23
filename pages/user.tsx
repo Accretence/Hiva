@@ -189,12 +189,12 @@ function Logout() {
     )
 }
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps(context) {
     let decoded = null,
         user = null,
         omitted = null
 
-    const { AJWT } = ctx.req.cookies
+    const { AJWT } = context.req.cookies
 
     if (AJWT) decoded = await decodeJWT(AJWT)
 

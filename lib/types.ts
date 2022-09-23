@@ -7,8 +7,12 @@ export type Post = {
     date: string
     excerpt: string
     coverImage: string
-    readingTime: string
     tweets: any[]
+}
+
+export type ProductsList = {
+    products: any[]
+    totalPages: number
 }
 
 export enum Form {

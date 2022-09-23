@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
+import useSWR from 'swr'
+import Link from 'next/link'
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
 
 import { Form, FormState, Subscribers } from 'lib/types'
 import fetcher from 'lib/fetcher'
 
-import useSWR from 'swr'
 import gradient from 'lib/gradient'
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { getGoogleURL } from 'lib/google'
 
 import { useAuth } from 'state/Auth'
-import Link from 'next/link'
 
 export default function Login() {
     const router = useRouter()
@@ -138,7 +138,7 @@ export default function Login() {
                             >
                                 Login
                             </button>
-                            <Link href="/auth/reset">
+                            <Link href="/auth/forgot">
                                 <a className="text-sm font-medium transition duration-300 hover:text-red-700 dark:text-gray-400">
                                     Forgot your password?
                                 </a>

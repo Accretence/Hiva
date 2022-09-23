@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 
-import { useAuth } from '../../state/Auth'
+import { useAuth } from 'state/Auth'
 
 import i18n from 'i18n.config'
 import config from 'main.config'

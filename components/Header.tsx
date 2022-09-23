@@ -102,7 +102,7 @@ export default function Header() {
                             showDrawer={showDrawer}
                         />
                         <NavItem href="/" text="Hiva" />
-                        <NavItem href="/dashboard" text="Dashboard" />
+                        <NavItem href="/products" text="products" />
                         <NavItem href="/blog" text="Blog" />
                     </div>
                     {mounted && (
