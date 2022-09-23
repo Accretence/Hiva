@@ -10,14 +10,23 @@ import fetcher from 'lib/fetcher'
 import { ProductsList } from 'lib/types'
 
 export default function Products({ currentPage, category, tags, sort }) {
-    const res = useSWR<ProductsList>(
-        `https://hiva.vercel.app/api/products/list`,
-        fetcher
-    )
+    const swrd = useSWR<ProductsList>(`/api/products/list`, fetcher)
+
+    useEffect(() => {
+        async function resolve() {
+            const fetched = await fetch('/api/products/list')
+
+            console.log(await fetched.json())
+        }
+
+        resolve()
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     // const products = data?.products
     // const totalPages = data?.totalPages
-    console.log({ res })
+    console.log({ swrd })
 
     const { locale = config['defaultLocale'] } = useRouter()
     const { title, description } = i18n['pages']['products']
