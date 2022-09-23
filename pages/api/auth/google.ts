@@ -64,7 +64,7 @@ export default async function (req, res) {
 
         const user = await prisma.user.create({
             data: {
-                client: {
+                clients: {
                     connect: {
                         title: process.env.CLIENT_TITLE,
                     },

@@ -57,7 +57,7 @@ model User {
   referralsProvided Referral[] @relation("referralsProvided")
   referralsConsumed Referral[] @relation("referralsConsumed")
   blogPosts         BlogPost[]
-  clients            Client[]
+  clients           Client[]
 }
 
 model VerificationCode {
@@ -115,8 +115,8 @@ model ProductCategory {
   title       String  @id
   description String?
 
-  product Product[]
-  client  Client[]
+  products Product[]
+  clients  Client[]
 }
 
 model Listing {
@@ -199,8 +199,8 @@ model BlogPostCategory {
   title       String  @id
   description String?
 
-  blogPost BlogPost[]
-  client   Client[]
+  blogPosts BlogPost[]
+  clients   Client[]
 }
 
 model Discount {

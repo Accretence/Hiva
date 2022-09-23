@@ -58,7 +58,7 @@ async function main() {
                             },
                             create: {
                                 title: category,
-                                client: {
+                                clients: {
                                     connect: {
                                         title: clientTitle,
                                     },
@@ -117,7 +117,7 @@ async function main() {
 
         await prisma.user.create({
             data: {
-                client: {
+                clients: {
                     connect: {
                         title: clientTitle,
                     },
@@ -155,7 +155,7 @@ async function main() {
                             where: { title: category },
                             create: {
                                 title: category,
-                                client: {
+                                clients: {
                                     connect: {
                                         title: clientTitle,
                                     },

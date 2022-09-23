@@ -42,7 +42,7 @@ export async function gateUser(req, res) {
             referralsProvided: true,
             referralsConsumed: true,
             blogPosts: true,
-            client: true,
+            clients: true,
         },
     })
 
@@ -73,7 +73,7 @@ export async function gateAdmin(req, res) {
             referralsProvided: true,
             referralsConsumed: true,
             blogPosts: true,
-            client: true,
+            clients: true,
         },
     })
 
