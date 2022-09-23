@@ -5,6 +5,7 @@ import { NextSeo } from 'next-seo'
 
 import i18n from 'i18n.config'
 import config from 'main.config'
+import Image from 'next/image'
 
 export default function Product({ product }) {
     const router = useRouter()
@@ -98,7 +99,7 @@ const ProductImages = ({ product }) => {
                     <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-semibold text-white dark:text-gray-800 sm:text-3xl">
                         First Slide
                     </span>
-                    <img
+                    <Image
                         src="/docs/images/carousel/carousel-1.svg"
                         className="absolute top-1/2 left-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                         alt="..."
@@ -108,7 +109,7 @@ const ProductImages = ({ product }) => {
                     className="hidden duration-700 ease-in-out"
                     data-carousel-item
                 >
-                    <img
+                    <Image
                         src="/docs/images/carousel/carousel-2.svg"
                         className="absolute top-1/2 left-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                         alt="..."
@@ -118,7 +119,7 @@ const ProductImages = ({ product }) => {
                     className="hidden duration-700 ease-in-out"
                     data-carousel-item
                 >
-                    <img
+                    <Image
                         src="/docs/images/carousel/carousel-3.svg"
                         className="absolute top-1/2 left-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                         alt="..."

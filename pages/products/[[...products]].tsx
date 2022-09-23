@@ -8,6 +8,7 @@ import i18n from 'i18n.config'
 import config from 'main.config'
 import fetcher from 'lib/fetcher'
 import { ProductsList } from 'lib/types'
+import Image from 'next/image'
 
 export default function Products({ currentPage, category, tags, sort }) {
     const { data } = useSWR<ProductsList>(`/api/products/list`, fetcher)
@@ -28,9 +29,12 @@ export default function Products({ currentPage, category, tags, sort }) {
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {products &&
                     products.map((product) => (
-                        <div className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+                        <div
+                            key={product.id}
+                            className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800"
+                        >
                             <a href="#">
-                                <img
+                                <Image
                                     className="rounded-t-lg p-8"
                                     src={product.images[0]}
                                     alt="product image"
