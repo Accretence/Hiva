@@ -1,7 +1,7 @@
 import prisma from 'lib/prisma'
 
 export default async function (req, res) {
-    const pageSize = 15
+    const take = 5
 
     const count = await prisma.product.count({
         where: { clientTitle: process.env.CLIENT_TITLE },
@@ -15,12 +15,12 @@ export default async function (req, res) {
             images: true,
             listings: true,
         },
+        take,
     })
 
     console.log({ products, count })
 
     return res.status(200).json({
-        products,
-        totalPages: Math.ceil(count / pageSize),
+        data: { products, totalPages: Math.ceil(count / take) },
     })
 }

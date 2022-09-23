@@ -34,5 +34,8 @@ export default async function (req, res) {
         },
     })
 
-    return res.status(200).json(product)
+    if (product) {
+        return res.status(200).json(product)
+    } else {
+    }
 }

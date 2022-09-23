@@ -2,10 +2,9 @@ import prisma from 'lib/prisma'
 
 export default async function (req, res) {
     const { id } = req.query
-    const product = await prisma.product.findFirst({
+    const product = await prisma.product.findUnique({
         where: {
             id,
-            clientTitle: process.env.CLIENT_TITLE.toString(),
         },
         include: {
             categories: true,
@@ -17,6 +16,8 @@ export default async function (req, res) {
     if (product) {
         return res.status(200).json(product)
     } else {
-        return res.status(404).send('Product not found.')
+        return res
+            .status(404)
+            .json({ Success: false, Message: 'Product not found.' })
     }
 }

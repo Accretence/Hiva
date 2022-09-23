@@ -10,8 +10,7 @@ export default async function (req, res) {
     })
 
     if (!id_token || !access_token) {
-        res.redirect(502, '/')
-        return
+        return res.redirect(502, '/')
     }
 
     const { id, email, verified_email, name, picture, locale } =
@@ -21,8 +20,7 @@ export default async function (req, res) {
         })
 
     if (!email) {
-        res.redirect(502, '/')
-        return
+        return res.redirect(502, '/')
     }
 
     const exists = await prisma.user.findUnique({ where: { email } })
@@ -55,8 +53,8 @@ export default async function (req, res) {
         }
 
         const AJWT = await cookie({ id: exists.id.toString(), sameSite: 'Lax' })
-        res.setHeader('Set-Cookie', AJWT)
-        res.redirect(302, '/')
+
+        return res.setHeader('Set-Cookie', AJWT).redirect(302, '/')
     }
 
     if (!exists) {
@@ -93,10 +91,9 @@ export default async function (req, res) {
                 sameSite: 'Lax',
             })
 
-            res.setHeader('Set-Cookie', AJWT)
-            res.redirect(302, '/')
+            return res.setHeader('Set-Cookie', AJWT).redirect(302, '/')
         } else {
-            res.redirect(302, '/auth/error')
+            return res.redirect(302, '/auth/error')
         }
     }
 }
