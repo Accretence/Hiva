@@ -1,9 +1,11 @@
 import prisma from 'lib/prisma'
 
 export default async function (req, res) {
-    const { pageSize = 15, currentPage = 1 } = req.body
+    const pageSize = 15
 
-    const count = await prisma.product.count()
+    const count = await prisma.product.count({
+        where: { clientTitle: process.env.CLIENT_TITLE },
+    })
     const products = await prisma.product.findMany({
         where: {
             clientTitle: process.env.CLIENT_TITLE,
@@ -14,6 +16,8 @@ export default async function (req, res) {
             listings: true,
         },
     })
+
+    console.log({ products, count })
 
     res.status(200).json({
         products,

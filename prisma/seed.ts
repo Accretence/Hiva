@@ -18,7 +18,6 @@ async function main() {
     })
 
     const client = await prisma.client.findFirst()
-    const { title: clientTitle } = client
 
     for (let product of products) {
         const {
@@ -43,7 +42,7 @@ async function main() {
 
         await prisma.product.create({
             data: {
-                clientTitle,
+                clientTitle: process.env.CLIENT_TITLE,
                 title,
                 description,
                 brand,
@@ -57,7 +56,7 @@ async function main() {
                                 title: category,
                                 clients: {
                                     connect: {
-                                        title: clientTitle,
+                                        title: process.env.CLIENT_TITLE,
                                     },
                                 },
                             },
@@ -95,7 +94,7 @@ async function main() {
                 burntUses,
                 maxAmount,
                 percentage,
-                clientTitle,
+                clientTitle: process.env.CLIENT_TITLE,
             },
         })
     }
@@ -116,7 +115,7 @@ async function main() {
             data: {
                 clients: {
                     connect: {
-                        title: clientTitle,
+                        title: process.env.CLIENT_TITLE,
                     },
                 },
                 email,
@@ -141,7 +140,7 @@ async function main() {
 
         await prisma.blogPost.create({
             data: {
-                clientTitle,
+                clientTitle: process.env.CLIENT_TITLE,
                 authorId,
                 title,
                 description,
@@ -154,7 +153,7 @@ async function main() {
                                 title: category,
                                 clients: {
                                     connect: {
-                                        title: clientTitle,
+                                        title: process.env.CLIENT_TITLE,
                                     },
                                 },
                             },
