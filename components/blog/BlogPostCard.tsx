@@ -1,26 +1,29 @@
 import Link from 'next/link'
-import useSWR from 'swr'
 
-import fetcher from 'lib/fetcher'
-import { EyeIcon } from '@heroicons/react/24/solid'
-import gradient from 'lib/gradient'
+export default function BlogPostCard({ post }) {
+    const { title, description, image, id } = post
 
-export default function BlogPostCard({ title, id }) {
     return (
         <Link href={`/blog/${id}`}>
-            <a
-                className={`w-full transform rounded-xl bg-gradient-to-r p-1 transition-all hover:scale-[1.01] md:w-1/3 ${gradient(
-                    { seed: id }
-                )}`}
-            >
-                <div className="flex h-full flex-col justify-between rounded-lg bg-white p-4 dark:bg-[#0c0c0c]">
-                    <div className="flex flex-col justify-between md:flex-row">
-                        <h4 className="mb-6 w-full text-lg font-normal tracking-tight text-gray-900 dark:text-gray-100 sm:mb-10 md:text-lg">
+            <div className="max-w-sm rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+                <a href="#">
+                    <img
+                        className="rounded-t-lg"
+                        src={image}
+                        alt="Blog Post Cover"
+                    />
+                </a>
+                <div className="p-5">
+                    <a href="#">
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                             {title}
-                        </h4>
-                    </div>
+                        </h5>
+                    </a>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        {description}
+                    </p>
                 </div>
-            </a>
+            </div>
         </Link>
     )
 }

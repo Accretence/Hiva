@@ -6,18 +6,24 @@ import { NextSeo } from 'next-seo'
 import i18n from 'i18n.config'
 import config from 'main.config'
 import Image from 'next/image'
+import prisma from 'lib/prisma'
 
-export default function Product({ product }) {
+export default function Product({ unserialized }) {
     const router = useRouter()
 
     const { locale = config['defaultLocale'] } = useRouter()
 
+    const [product, setProduct] = useState(JSON.parse(unserialized))
     const [listingID, setListingID] = useState(null)
     const [loading, setLoading] = useState(false)
 
     return (
         <>
-            <NextSeo title="Blog" description="Blogs Directory" />
+            <NextSeo
+                title={product.title || 'Product'}
+                description={product.description || 'Product Page'}
+                openGraph={{ images: product.images[0]['url'] }}
+            />
         </>
     )
 }
@@ -224,7 +230,16 @@ const ProductDescription = ({ product }) => {
 export async function getServerSideProps(context) {
     const { id } = context.query
 
-    return {
-        props: {},
+    try {
+        return {
+            props: {
+                unserialized:
+                    JSON.stringify(
+                        await prisma.blogPost.findUnique({ where: { id } })
+                    ) || null,
+            },
+        }
+    } catch (error) {
+        return { props: {} }
     }
 }

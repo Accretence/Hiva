@@ -10,7 +10,9 @@ import { useAuth } from 'state/Auth'
 import { NextSeo } from 'next-seo'
 
 export default function Index({ auth, unserialized }) {
-    const [posts, setPosts] = useState(JSON.parse(unserialized) || null)
+    const [posts, setPosts] = useState(
+        (unserialized && JSON.parse(unserialized)) || null
+    )
     const { isAuthenticated, setLocalAuthentication } = useAuth()
 
     useEffect(() => {
@@ -29,11 +31,7 @@ export default function Index({ auth, unserialized }) {
             <div className="flex flex-col gap-6 md:flex-row">
                 {posts &&
                     posts.map((post: any) => (
-                        <BlogPostCard
-                            key={post.id}
-                            title={post.title}
-                            id={post.id}
-                        />
+                        <BlogPostCard key={post.id} post={post} />
                     ))}
             </div>
             <Link href="/blog">
@@ -87,13 +85,19 @@ export default function Index({ auth, unserialized }) {
 }
 
 export async function getServerSideProps(ctx) {
-    const { AJWT } = ctx.req.cookies
+    try {
+        const { AJWT } = ctx.req.cookies
 
-    return {
-        props: {
-            auth: AJWT ? true : false,
-            unserialized:
-                JSON.stringify(await prisma.blogPost.findMany()) || null,
-        },
+        return {
+            props: {
+                auth: AJWT ? true : false,
+                unserialized:
+                    JSON.stringify(
+                        await prisma.blogPost.findMany({ take: 3 })
+                    ) || null,
+            },
+        }
+    } catch (error) {
+        return { props: {} }
     }
 }

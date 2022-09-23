@@ -190,29 +190,33 @@ function Logout() {
 }
 
 export async function getServerSideProps(context) {
-    let decoded = null,
-        user = null,
-        omitted = null
+    try {
+        let decoded = null,
+            user = null,
+            omitted = null
 
-    const { AJWT } = context.req.cookies
+        const { AJWT } = context.req.cookies
 
-    if (AJWT) decoded = await decodeJWT(AJWT)
+        if (AJWT) decoded = await decodeJWT(AJWT)
 
-    if (decoded)
-        user = await prisma.user.findUnique({
-            where: {
-                id: decoded.id.toString(),
-            },
-            include: {
-                orders: true,
-                cart: true,
-                referralsProvided: true,
-                googleIntegration: true,
-            },
-        })
+        if (decoded)
+            user = await prisma.user.findUnique({
+                where: {
+                    id: decoded.id.toString(),
+                },
+                include: {
+                    orders: true,
+                    cart: true,
+                    referralsProvided: true,
+                    googleIntegration: true,
+                },
+            })
 
-    if (user) omitted = omitUser(user)
-    return {
-        props: { auth: AJWT ? true : false, omitted },
+        if (user) omitted = omitUser(user)
+        return {
+            props: { auth: AJWT ? true : false, omitted },
+        }
+    } catch (error) {
+        return { props: {} }
     }
 }

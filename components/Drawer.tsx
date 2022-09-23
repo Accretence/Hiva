@@ -19,9 +19,9 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
     const router = useRouter()
     const { resolvedTheme, setTheme } = useTheme()
 
+    const [toast, setToast] = useState(null)
     const { isAuthenticated, setLocalAuthentication } = useAuth()
     const [loading, setLoading] = useState(false)
-    const [toastVisibility, setToastVisibility] = useState(false)
     const [loginModalVisibility, setLoginModalVisibility] = useState(false)
 
     async function onLogout() {
@@ -29,11 +29,8 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
 
         if (status == 200) {
             setLocalAuthentication(false)
-            setToastVisibility(true)
             router.replace('/')
-            setTimeout(() => {
-                setToastVisibility(false)
-            }, 5000)
+            setToast('Successfully logged out.')
         }
     }
 
@@ -45,10 +42,7 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
             >
                 <Login />
             </Modal>
-            <Toast
-                toastVisibility={toastVisibility}
-                setToastVisibility={setToastVisibility}
-            />
+            {toast && <Toast message={toast} />}
             <div
                 className={`${
                     showDrawer ? 'translate-x-0' : '-translate-x-full'

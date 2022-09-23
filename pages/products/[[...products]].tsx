@@ -15,7 +15,6 @@ export default function Products({ currentPage, category, tags, sort }) {
 
     const products = data?.products
     const totalPages = data?.totalPages
-    console.log({ data, products, totalPages })
 
     const { locale = config['defaultLocale'] } = useRouter()
     const { title, description } = i18n['pages']['products']
@@ -25,7 +24,7 @@ export default function Products({ currentPage, category, tags, sort }) {
 
     return (
         <>
-            <NextSeo title="Blog" description="Blogs Directory" />
+            <NextSeo title={title[locale]} description={description[locale]} />
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {products &&
                     products.map((product) => (
@@ -36,7 +35,7 @@ export default function Products({ currentPage, category, tags, sort }) {
                             <a href="#">
                                 <Image
                                     className="rounded-t-lg p-8"
-                                    src={product.images[0]}
+                                    src={product.images[0]['url']}
                                     alt="product image"
                                 />
                             </a>

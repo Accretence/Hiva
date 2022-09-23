@@ -3,7 +3,6 @@ import useSWR from 'swr'
 import Link from 'next/link'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
 
-import { Form, FormState, Subscribers } from 'lib/types'
 import fetcher from 'lib/fetcher'
 
 import gradient from 'lib/gradient'
@@ -16,15 +15,14 @@ export default function Login() {
     const router = useRouter()
     const { isAuthenticated, setLocalAuthentication } = useAuth()
 
+    const [toast, setToast] = useState(null)
     const [registerVisibility, setRegisterVisibility] = useState(false)
     const [loginVisibility, setLoginVisibility] = useState(false)
-    const [form, setForm] = useState<FormState>({ state: Form.Initial })
     const emailRef = useRef(null)
     const passwordRef = useRef(null)
 
     const onLogin = async (e) => {
         e.preventDefault()
-        setForm({ state: Form.Loading })
 
         const res = await fetch(`/api/auth/register`, {
             method: 'POST',
@@ -37,23 +35,20 @@ export default function Login() {
             }),
         })
 
-        const { error } = await res.json()
+        const json = await res.json()
+        const { error } = json
 
         if (error) {
-            setForm({
-                state: Form.Error,
-                message: error,
-            })
-            return
+            setToast(error.message)
         } else {
             setLocalAuthentication(true)
             router.replace('/')
+            setToast('Successfully logged in.')
         }
     }
 
     const onRegister = async (e) => {
         e.preventDefault()
-        setForm({ state: Form.Loading })
 
         const res = await fetch(`/api/auth/register`, {
             method: 'POST',
@@ -69,14 +64,11 @@ export default function Login() {
         const { error } = await res.json()
 
         if (error) {
-            setForm({
-                state: Form.Error,
-                message: error,
-            })
-            return
+            setToast(error.message)
         } else {
             setLocalAuthentication(true)
             router.replace('/')
+            setToast('Successfully logged in.')
         }
     }
 
