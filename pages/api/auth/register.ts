@@ -9,12 +9,10 @@ export default async function (req, res) {
     const { email, password }: { email: string; password: string } = req.body
 
     if (!email || !password || !isEmail(email)) {
-        res.status(400).json({
+        return res.status(400).json({
             Success: false,
             Message: 'Invalid input...',
         })
-
-        return
     }
 
     const exists = await prisma.user.findUnique({
@@ -24,7 +22,7 @@ export default async function (req, res) {
     })
 
     if (exists) {
-        res.status(400).json({
+        return res.status(400).json({
             Success: false,
             Message: 'Email is already registered...',
         })
@@ -57,13 +55,12 @@ export default async function (req, res) {
                 sameSite: 'Strict',
             })
 
-            res.setHeader('Set-Cookie', AJWT)
-            res.status(200).json({
+            return res.setHeader('Set-Cookie', AJWT).status(200).json({
                 Success: true,
                 Message: 'Success...',
             })
         } else {
-            res.status(401).json({
+            return res.status(401).json({
                 Success: false,
                 Message: 'Failed to create User...',
             })

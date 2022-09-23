@@ -5,12 +5,10 @@ export default async function (req, res) {
     const { isEmailSubscribed } = req.body
 
     if (!isEmailSubscribed) {
-        res.status(400).json({
+        return res.status(400).json({
             Success: false,
             Message: 'Invalid input...',
         })
-
-        return
     }
 
     const user = await gateJWT(req, res)
@@ -25,7 +23,7 @@ export default async function (req, res) {
             },
         })
 
-        res.status(200).json({
+        return res.status(200).json({
             Success: true,
             Message: 'Email Subscription successfully modified.',
         })

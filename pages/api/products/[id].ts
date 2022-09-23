@@ -15,8 +15,8 @@ export default async function (req, res) {
     })
 
     if (product) {
-        res.status(200).json(product)
+        return res.status(200).json(product)
     } else {
-        res.status(404).send('Product not found.')
+        return res.status(404).send('Product not found.')
     }
 }

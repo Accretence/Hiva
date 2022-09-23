@@ -8,12 +8,10 @@ export default async function (req, res) {
     const { email, password } = req.body
 
     if (!email || !password || !isEmail(email)) {
-        res.status(400).json({
+        return res.status(400).json({
             Success: false,
             Message: 'Invalid input...',
         })
-
-        return
     }
 
     const user = await prisma.user.findUnique({ where: { email } })
@@ -24,8 +22,7 @@ export default async function (req, res) {
             sameSite: 'Strict',
         })
 
-        res.setHeader('Set-Cookie', AJWT)
-        res.status(200).json({
+        return res.setHeader('Set-Cookie', AJWT).status(200).json({
             Success: true,
             Message: 'Success',
         })
