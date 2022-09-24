@@ -25,47 +25,49 @@ export default function Products({ currentPage, category, tags, sort }) {
     return (
         <>
             <NextSeo title={title[locale]} description={description[locale]} />
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {products &&
-                    products.map((product) => (
-                        <div
-                            key={product.id}
-                            className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800"
-                        >
-                            <a href="#">
-                                <Image
-                                    className="rounded-t-lg p-8"
-                                    src={product.images[0]['url']}
-                                    alt="product image"
-                                />
-                            </a>
-                            <div className="px-5 pb-5">
-                                <a href="#">
-                                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                        {product.title}
-                                    </h5>
-                                </a>
-                                <div className="flex items-center justify-between">
-                                    <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                                        $599
-                                    </span>
-                                    <a
-                                        href="#"
-                                        className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                        Add to cart
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-            </div>
+            <ProductGrid products={products} />
         </>
     )
 }
 
 const ProductGrid = ({ products }) => {
-    return <div></div>
+    return (
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {products &&
+                products.map((product) => (
+                    <div
+                        key={product.id}
+                        className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800"
+                    >
+                        <Link href={`/product/${product.id}`}>
+                            <a>
+                                <div className="relative h-64 w-96">
+                                    <Image
+                                        className="rounded-t-lg"
+                                        src={product.images[0]['url']}
+                                        alt="product image"
+                                        layout="fill"
+                                        objectFit="cover"
+                                    />
+                                </div>
+                                <div className="px-5 pb-5">
+                                    <a href="#">
+                                        <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {product.title}
+                                        </h5>
+                                    </a>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                                            $599
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </Link>
+                    </div>
+                ))}
+        </div>
+    )
 }
 
 const Paginated = ({ totalPages, currentPage }) => {

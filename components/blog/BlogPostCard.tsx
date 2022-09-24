@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function BlogPostCard({ post }) {
@@ -7,11 +8,15 @@ export default function BlogPostCard({ post }) {
         <Link href={`/blog/${id}`}>
             <div className="max-w-sm rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
                 <a href="#">
-                    <img
-                        className="rounded-t-lg"
-                        src={image}
-                        alt="Blog Post Cover"
-                    />
+                    <div className="relative h-64 w-96">
+                        <Image
+                            className="rounded-t-lg"
+                            src={image}
+                            alt="Blog Post Cover"
+                            layout="fill"
+                            objectFit="cover"
+                        />
+                    </div>
                 </a>
                 <div className="p-5">
                     <a href="#">
