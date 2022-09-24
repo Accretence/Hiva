@@ -28,7 +28,7 @@ export default function Index({ auth, unserialized }) {
             <h3 className="mb-6 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
                 Featured
             </h3>
-            <div className="flex flex-col gap-6 md:flex-row">
+            <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
                 {posts &&
                     posts.map((post: any) => (
                         <BlogPostCard key={post.id} post={post} />

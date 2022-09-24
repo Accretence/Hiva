@@ -6,9 +6,9 @@ export default function BlogPostCard({ post }) {
 
     return (
         <Link href={`/blog/${id}`}>
-            <div className="max-w-sm rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
-                <a href="#">
-                    <div className="relative h-64 w-96">
+            <div className="rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+                <a>
+                    <div className="relative h-full w-full">
                         <Image
                             className="rounded-t-lg"
                             src={image}
@@ -17,17 +17,16 @@ export default function BlogPostCard({ post }) {
                             objectFit="cover"
                         />
                     </div>
-                </a>
-                <div className="p-5">
-                    <a href="#">
+                    <div className="p-5">
                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                             {title}
                         </h5>
-                    </a>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        {description}
-                    </p>
-                </div>
+
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            {description} Read more...
+                        </p>
+                    </div>
+                </a>
             </div>
         </Link>
     )

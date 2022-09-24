@@ -6,7 +6,7 @@ module.exports = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: '**.parametric-architecture.com',
+                hostname: 'parametric-architecture.com',
             },
             {
                 protocol: 'https',
@@ -18,7 +18,7 @@ module.exports = {
             },
             {
                 protocol: 'https',
-                hostname: '**.dummyjson.com',
+                hostname: 'dummyjson.com',
             },
         ],
     },
