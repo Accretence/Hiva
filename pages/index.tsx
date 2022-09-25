@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react'
 import Image from 'next/future/image'
 import Link from 'next/link'
 
-import BlogPostCard from 'components/blog/BlogPostCard'
+import {
+    BlogPostCard,
+    BlogPostCardSkeleton,
+} from 'components/blog/BlogPostCard'
 import VideoCard from 'components/VideoCard'
 
 import prisma from 'lib/prisma'
@@ -26,13 +29,16 @@ export default function Index({ auth, unserialized }) {
                 description="A short description goes here."
             />
             <h3 className="mb-6 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
-                Featured
+                Recent Blog Posts
             </h3>
-            <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
-                {posts &&
-                    posts.map((post: any) => (
-                        <BlogPostCard key={post.id} post={post} />
-                    ))}
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                {posts
+                    ? posts.map((post: any) => (
+                          <BlogPostCard key={post.id} post={post} />
+                      ))
+                    : [...Array(3)].map(() => (
+                          <BlogPostCardSkeleton key={Math.random()} />
+                      ))}
             </div>
             <Link href="/blog">
                 <a className="mt-8 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
