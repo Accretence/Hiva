@@ -11,6 +11,14 @@ import { getGoogleURL } from 'lib/google'
 
 import { useAuth } from 'state/Auth'
 
+import CoinbaseWalletCard from '../cards/CoinbaseWalletCard'
+import GnosisSafeCard from '../cards/GnosisSafeCard'
+import MetaMaskCard from '../cards/MetaMaskCard'
+import NetworkCard from '../cards/NetworkCard'
+import WalletConnectCard from '../cards/WalletConnectCard'
+import ProviderExample from '../ProviderExample'
+import { getButtonStyles } from 'lib/styles'
+
 export default function Login() {
     const router = useRouter()
     const { isAuthenticated, setLocalAuthentication } = useAuth()
@@ -124,10 +132,7 @@ export default function Login() {
                                     required
                                 />
                             </div>
-                            <button
-                                type="submit"
-                                className="mb-4 w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 py-2.5 text-center font-medium text-neutral-100 transition duration-300 hover:bg-neutral-900 hover:text-neutral-100  dark:hover:bg-neutral-100 hover:dark:text-neutral-900"
-                            >
+                            <button type="submit" className={getButtonStyles()}>
                                 Login
                             </button>
                             <Link
@@ -213,10 +218,7 @@ export default function Login() {
                                     .
                                 </label>
                             </div>
-                            <button
-                                type="submit"
-                                className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 py-2.5 text-center font-medium text-neutral-100 transition duration-300 hover:bg-neutral-900 hover:text-neutral-100  dark:hover:bg-neutral-100 hover:dark:text-neutral-900"
-                            >
+                            <button type="submit" className={getButtonStyles()}>
                                 Register
                             </button>
                         </form>
@@ -227,7 +229,7 @@ export default function Login() {
                 <hr className="my-4 h-px w-64 border-0 bg-neutral-300 dark:bg-gray-600" />
             </div>
             <a href={getGoogleURL()}>
-                <button className="block w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600  py-2 font-normal text-neutral-100 transition duration-300 hover:bg-neutral-100 hover:text-neutral-900 hover:dark:text-neutral-100">
+                <button className={getButtonStyles()}>
                     Sign-in with Google
                 </button>
             </a>
