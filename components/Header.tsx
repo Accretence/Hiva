@@ -37,19 +37,18 @@ export default function Header() {
         const isActive = router.asPath === href || href == '/'
 
         return (
-            <Link href={href}>
-                <a
-                    className={`${
-                        isActive
-                            ? 'font-semibold text-gray-800 dark:text-gray-200'
-                            : 'font-normal text-gray-600 dark:text-gray-400'
-                    } ${
-                        href == '/' ? 'inline-block' : 'hidden'
-                    } rounded-lg p-1 transition-all hover:bg-gray-200 dark:hover:bg-gray-800 sm:px-3 sm:py-2 md:inline-block
+            <Link
+                href={href}
+                className={`${
+                    isActive
+                        ? 'font-semibold text-gray-800 dark:text-gray-200'
+                        : 'font-normal text-gray-600 dark:text-gray-400'
+                } ${
+                    href == '/' ? 'inline-block' : 'hidden'
+                } rounded-lg p-1 transition-all hover:bg-gray-200 dark:hover:bg-gray-800 sm:px-3 sm:py-2 md:inline-block
                 `}
-                >
-                    <span className="capsize">{text}</span>
-                </a>
+            >
+                <span className="capsize">{text}</span>
             </Link>
         )
     }
@@ -110,26 +109,22 @@ export default function Header() {
                             {isAuthenticated ? (
                                 <>
                                     <Link href="/cart">
-                                        <a>
-                                            <button
-                                                aria-label="Shopping Cart"
-                                                type="button"
-                                                className="mx-2 hidden h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 md:flex"
-                                            >
-                                                <ShoppingCartIcon className="h-5 w-5" />
-                                            </button>
-                                        </a>
+                                        <button
+                                            aria-label="Shopping Cart"
+                                            type="button"
+                                            className="mx-2 hidden h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 md:flex"
+                                        >
+                                            <ShoppingCartIcon className="h-5 w-5" />
+                                        </button>
                                     </Link>
                                     <Link href="/user">
-                                        <a>
-                                            <button
-                                                aria-label="Authentication"
-                                                type="button"
-                                                className="hidden h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 md:flex"
-                                            >
-                                                <UserIcon className="h-5 w-5" />
-                                            </button>
-                                        </a>
+                                        <button
+                                            aria-label="Authentication"
+                                            type="button"
+                                            className="hidden h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 md:flex"
+                                        >
+                                            <UserIcon className="h-5 w-5" />
+                                        </button>
                                     </Link>
                                 </>
                             ) : (

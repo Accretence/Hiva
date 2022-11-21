@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import {
@@ -40,10 +40,11 @@ export default function Index({ auth, unserialized }) {
                           <BlogPostCardSkeleton key={Math.random()} />
                       ))}
             </div>
-            <Link href="/blog">
-                <a className="mt-8 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
-                    Read all posts...
-                </a>
+            <Link
+                className="mt-8 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+                href="/blog"
+            >
+                Read all posts...
             </Link>
 
             <h3 className="mb-4 mt-16 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">

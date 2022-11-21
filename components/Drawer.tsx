@@ -69,7 +69,6 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
                     {isAuthenticated ? (
                         <>
                             <Link href="/cart">
-                                <a>
                                     <button
                                         aria-label="Shopping Cart"
                                         type="button"
@@ -77,10 +76,8 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
                                     >
                                         <ShoppingCartIcon className="h-5 w-5" />
                                     </button>
-                                </a>
                             </Link>
                             <Link href="/user">
-                                <a>
                                     <button
                                         aria-label="Authentication"
                                         type="button"
@@ -88,7 +85,6 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
                                     >
                                         <UserIcon className="h-5 w-5" />
                                     </button>
-                                </a>
                             </Link>
                             <div className="inline-flex w-full items-center justify-center">
                                 <hr className="my-4 h-px w-64 border-0 bg-neutral-300 dark:bg-gray-600" />

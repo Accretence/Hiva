@@ -28,15 +28,14 @@ export default function Footer() {
                         </h2>
                         <ul className="text-gray-600 dark:text-gray-400">
                             <li className="mb-2 text-sm">
-                                <Link href="/blog">
-                                    <a className="">Blog</a>
-                                </Link>
+                                <Link href="/blog">Blog</Link>
                             </li>
                             <li className="text-sm">
-                                <Link href="/tutorials">
-                                    <a className="transition duration-300 hover:text-red-700">
-                                        Tutorials
-                                    </a>
+                                <Link
+                                    href="/tutorials"
+                                    className="transition duration-300 hover:text-red-700"
+                                >
+                                    Tutorials
                                 </Link>
                             </li>
                         </ul>
@@ -75,9 +74,7 @@ export default function Footer() {
                                 </a>
                             </li>
                             <li className="text-sm">
-                                <Link href="#">
-                                    <a className="">Terms &amp; Conditions</a>
-                                </Link>
+                                <Link href="#">Terms &amp; Conditions</Link>
                             </li>
                         </ul>
                     </div>

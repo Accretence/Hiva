@@ -130,10 +130,11 @@ export default function Login() {
                             >
                                 Login
                             </button>
-                            <Link href="/auth/forgot">
-                                <a className="text-sm font-medium text-gray-700 transition duration-300 hover:text-red-700 dark:text-gray-400">
-                                    Forgot your password?
-                                </a>
+                            <Link
+                                className="text-sm font-medium text-gray-700 transition duration-300 hover:text-red-700 dark:text-gray-400"
+                                href="/auth/forgot"
+                            >
+                                Forgot your password?
                             </Link>
                         </form>
                     </div>

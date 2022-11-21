@@ -45,10 +45,11 @@ const Breadcrumbs = ({ product }) => {
                 <li>
                     <div className="flex items-center">
                         <ChevronRight />
-                        <Link href="/products">
-                            <a className="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white md:ml-2">
-                                Products
-                            </a>
+                        <Link
+                            className="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white md:ml-2"
+                            href="/products"
+                        >
+                            Products
                         </Link>
                     </div>
                 </li>
