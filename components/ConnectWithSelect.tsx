@@ -4,8 +4,20 @@ import { GnosisSafe } from '@web3-react/gnosis-safe'
 import type { MetaMask } from '@web3-react/metamask'
 import { Network } from '@web3-react/network'
 import { WalletConnect } from '@web3-react/walletconnect'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { CHAINS, getAddChainParameters, URLS } from '../lib/web3'
+import { hooks, metaMask } from '../connectors/metaMask'
+import { useAuth } from 'state/Auth'
+import { useRouter } from 'next/router'
+
+const {
+    useChainId,
+    useAccounts,
+    useIsActivating,
+    useIsActive,
+    useProvider,
+    useENSNames,
+} = hooks
 
 function ChainSelect({
     chainId,
@@ -51,6 +63,11 @@ export function ConnectWithSelect({
     error: Error | undefined
     setError: (error: Error | undefined) => void
 }) {
+    const accounts = useAccounts()
+    const { isAuthenticated, setLocalAuthentication } = useAuth()
+    const router = useRouter()
+    const [toast, setToast] = useState(null)
+
     const isNetwork = connector instanceof Network
     const displayDefault = !isNetwork
     const chainIds = (isNetwork ? Object.keys(URLS) : Object.keys(CHAINS)).map(
@@ -126,6 +143,33 @@ export function ConnectWithSelect({
                 .catch(setError)
         }
     }, [connector, desiredChainId, setError])
+
+    useEffect(() => {
+        if (accounts && !isAuthenticated) onConnect(accounts[0])
+    }, [accounts])
+
+    async function onConnect(wallet) {
+        const res = await fetch(`/api/auth/wallet`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json;charset=UTF-8',
+            },
+            body: JSON.stringify({
+                wallet,
+            }),
+        })
+
+        const json = await res.json()
+        const { error } = json
+
+        if (error) {
+            setToast(error.message)
+        } else {
+            setLocalAuthentication(true)
+            router.replace('/')
+            setToast('Successfully logged in.')
+        }
+    }
 
     if (error) {
         return (
@@ -207,7 +251,9 @@ export function ConnectWithSelect({
                                                           desiredChainId
                                                       )
                                             )
-                                            .then(() => setError(undefined))
+                                            .then(() => {
+                                                setError(undefined)
+                                            })
                                             .catch(setError)
                     }
                     disabled={isActivating}

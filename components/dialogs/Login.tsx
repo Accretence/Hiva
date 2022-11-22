@@ -233,6 +233,7 @@ export default function Login() {
                     Sign-in with Google
                 </button>
             </a>
+            <MetaMaskCard />
         </div>
     )
 }
