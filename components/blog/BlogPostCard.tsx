@@ -7,7 +7,7 @@ export function BlogPostCard({ post }) {
 
     return (
         <Link href={`/blog/${id}`}>
-            <div className="rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+            <div className="h-full w-full rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
                 <div className="relative h-40 w-full">
                     <Image
                         className="rounded-t-lg"

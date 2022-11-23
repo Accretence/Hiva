@@ -29,6 +29,40 @@ export default function Product({ unserialized }) {
                 }}
             />
             <Breadcrumbs product={product} />
+            <div className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-3">
+                <div className="col-span-2 h-full w-full rounded-lg bg-gray-100 p-6 dark:bg-gray-900">
+                    <h3 className="mb-4 text-xl font-medium text-black dark:text-white">
+                        {product.title}
+                    </h3>
+                    <small className="text-black dark:text-white">
+                        {product.description}
+                    </small>
+                    <hr className="my-4 h-px w-64 border-0 bg-neutral-300 dark:bg-gray-600" />
+                    <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                        Select an option
+                    </label>
+                    <select
+                        id="countries"
+                        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    >
+                        <option selected>Choose a country</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="FR">France</option>
+                        <option value="DE">Germany</option>
+                    </select>
+                </div>
+                <div className="col-span-1 h-full w-full rounded-lg bg-gray-100 p-8 dark:bg-gray-900">
+                    <Image
+                        src="https://flowbite.com/docs/images/products/apple-watch.png"
+                        alt="Product Image"
+                        width="100"
+                        height="100"
+                        className="h-full w-full rounded-lg"
+                        style={{ objectFit: 'contain' }}
+                    />
+                </div>
+            </div>
         </>
     )
 }
@@ -68,145 +102,6 @@ const Breadcrumbs = ({ product }) => {
             </ol>
         </nav>
     )
-}
-
-const ProductImages = ({ product }) => {
-    return (
-        <div id="default-carousel" className="relative" data-carousel="static">
-            <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-                <div
-                    className="hidden duration-700 ease-in-out"
-                    data-carousel-item
-                >
-                    <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-semibold text-white dark:text-gray-800 sm:text-3xl">
-                        First Slide
-                    </span>
-                    <Image
-                        src="http://hd.wallpaperswide.com/thumbs/mirrors_edge_catalyst_faith_2016-t2.jpg"
-                        className="absolute top-1/2 left-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                        alt="..."
-                        width="100"
-                        height="100"
-                    />
-                </div>
-                <div
-                    className="hidden duration-700 ease-in-out"
-                    data-carousel-item
-                >
-                    <Image
-                        src="http://hd.wallpaperswide.com/thumbs/mirrors_edge_3-t2.jpg"
-                        className="absolute top-1/2 left-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                        alt="..."
-                        width="100"
-                        height="100"
-                    />
-                </div>
-                <div
-                    className="hidden duration-700 ease-in-out"
-                    data-carousel-item
-                >
-                    <Image
-                        src="http://hd.wallpaperswide.com/thumbs/mirrors_edge_8-t2.jpg"
-                        className="absolute top-1/2 left-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                        alt="..."
-                        width="100"
-                        height="100"
-                    />
-                </div>
-            </div>
-            <div className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3">
-                <button
-                    type="button"
-                    className="h-3 w-3 rounded-full"
-                    aria-current="false"
-                    aria-label="Slide 1"
-                    data-carousel-slide-to="0"
-                />
-                <button
-                    type="button"
-                    className="h-3 w-3 rounded-full"
-                    aria-current="false"
-                    aria-label="Slide 2"
-                    data-carousel-slide-to="1"
-                />
-                <button
-                    type="button"
-                    className="h-3 w-3 rounded-full"
-                    aria-current="false"
-                    aria-label="Slide 3"
-                    data-carousel-slide-to="2"
-                />
-            </div>
-            <button
-                type="button"
-                className="group absolute top-0 left-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-                data-carousel-prev
-            >
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70 sm:h-10 sm:w-10">
-                    <svg
-                        aria-hidden="true"
-                        className="h-5 w-5 text-white dark:text-gray-800 sm:h-6 sm:w-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15 19l-7-7 7-7"
-                        />
-                    </svg>
-                    <span className="sr-only">Previous</span>
-                </span>
-            </button>
-            <button
-                type="button"
-                className="group absolute top-0 right-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-                data-carousel-next
-            >
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70 sm:h-10 sm:w-10">
-                    <svg
-                        aria-hidden="true"
-                        className="h-5 w-5 text-white dark:text-gray-800 sm:h-6 sm:w-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M9 5l7 7-7 7"
-                        />
-                    </svg>
-                    <span className="sr-only">Next</span>
-                </span>
-            </button>
-        </div>
-    )
-}
-
-const ProductMain = ({
-    product,
-    listingID,
-    setListingID,
-    loading,
-    setLoading,
-}) => {
-    const router = useRouter()
-
-    const { locale = config['defaultLocale'] } = useRouter()
-
-    async function insertToCart() {}
-
-    return <div></div>
-}
-
-const ProductDescription = ({ product }) => {
-    return <div></div>
 }
 
 export async function getServerSideProps(context) {

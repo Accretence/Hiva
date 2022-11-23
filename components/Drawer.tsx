@@ -38,6 +38,7 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
         <>
             <Modal
                 title="Default"
+                header={false}
                 modalVisibility={loginModalVisibility}
                 setModalVisibility={setLoginModalVisibility}
             >

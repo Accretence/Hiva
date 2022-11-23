@@ -318,6 +318,7 @@ function Integrations(userObject) {
     return (
         <>
             <Modal
+                header={false}
                 title="Login"
                 modalVisibility={connectModalVisibility}
                 setModalVisibility={setConnectModalVisibility}

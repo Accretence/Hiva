@@ -24,6 +24,10 @@ module.exports = {
                 protocol: 'http',
                 hostname: 'hd.wallpaperswide.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'flowbite.com',
+            },
         ],
     },
     reactStrictMode: true,

@@ -46,7 +46,6 @@ export default function Index({ auth, unserialized }) {
             >
                 Read all posts...
             </Link>
-
             <h3 className="mb-4 mt-16 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
                 Learn React & Next.js
             </h3>
