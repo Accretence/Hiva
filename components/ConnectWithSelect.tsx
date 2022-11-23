@@ -146,7 +146,7 @@ export function ConnectWithSelect({
 
     useEffect(() => {
         if (accounts && !isAuthenticated) onConnect(accounts[0])
-    }, [accounts])
+    }, [isActivating])
 
     async function onConnect(wallet) {
         const res = await fetch(`/api/auth/wallet`, {

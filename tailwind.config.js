@@ -12,6 +12,7 @@ module.exports = {
         './components/**/**/*.tsx',
         './layouts/**/*.tsx',
         './lib/gradient.ts',
+        './lib/styles.ts',
     ],
     darkMode: 'class',
     theme: {

@@ -56,12 +56,14 @@ export default function Header() {
     return (
         <>
             <Modal
+                title="Search"
                 modalVisibility={searchModalVisibility}
                 setModalVisibility={setSearchModalVisibility}
             >
                 <Search />
             </Modal>
             <Modal
+                title="Login"
                 modalVisibility={loginModalVisibility}
                 setModalVisibility={setLoginModalVisibility}
             >

@@ -37,6 +37,7 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
     return (
         <>
             <Modal
+                title="Default"
                 modalVisibility={loginModalVisibility}
                 setModalVisibility={setLoginModalVisibility}
             >
@@ -69,22 +70,22 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
                     {isAuthenticated ? (
                         <>
                             <Link href="/cart">
-                                    <button
-                                        aria-label="Shopping Cart"
-                                        type="button"
-                                        className="flex h-14 w-full items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700"
-                                    >
-                                        <ShoppingCartIcon className="h-5 w-5" />
-                                    </button>
+                                <button
+                                    aria-label="Shopping Cart"
+                                    type="button"
+                                    className="flex h-14 w-full items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700"
+                                >
+                                    <ShoppingCartIcon className="h-5 w-5" />
+                                </button>
                             </Link>
                             <Link href="/user">
-                                    <button
-                                        aria-label="Authentication"
-                                        type="button"
-                                        className="flex h-14 w-full items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700"
-                                    >
-                                        <UserIcon className="h-5 w-5" />
-                                    </button>
+                                <button
+                                    aria-label="Authentication"
+                                    type="button"
+                                    className="flex h-14 w-full items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700"
+                                >
+                                    <UserIcon className="h-5 w-5" />
+                                </button>
                             </Link>
                             <div className="inline-flex w-full items-center justify-center">
                                 <hr className="my-4 h-px w-64 border-0 bg-neutral-300 dark:bg-gray-600" />
