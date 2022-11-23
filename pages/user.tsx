@@ -12,8 +12,15 @@ import { getGoogleURL } from 'lib/google'
 import { useAuth } from 'state/Auth'
 import { decodeJWT } from 'lib/jwt'
 import { omitUser } from 'lib/omit'
-import { Spinner } from 'components/Icons'
+import {
+    DiscordIcon,
+    GoogleBAWIcon,
+    MetamaskIcon,
+    Spinner,
+} from 'components/Icons'
 import { NextSeo } from 'next-seo'
+import Modal from 'components/Modal'
+import Connect from 'components/modals/ConnectModal'
 
 export default function User({ auth, omitted }) {
     const router = useRouter()
@@ -306,9 +313,17 @@ function Referrals(userObject) {
 
 function Integrations(userObject) {
     const [visibility, setVisibility] = useState(false)
+    const [connectModalVisibility, setConnectModalVisibility] = useState(false)
 
     return (
-        <div>
+        <>
+            <Modal
+                title="Login"
+                modalVisibility={connectModalVisibility}
+                setModalVisibility={setConnectModalVisibility}
+            >
+                <Connect />
+            </Modal>
             <button
                 type="button"
                 className={`flex w-full items-center justify-between ${
@@ -329,9 +344,40 @@ function Integrations(userObject) {
             <div className={!visibility && 'hidden'}>
                 <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
                     <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200"></p>
+                    <div className="p-2">
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                            <a
+                                href="#"
+                                className="group flex items-center rounded-lg bg-gray-50 py-3 px-6  text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
+                            >
+                                <GoogleBAWIcon />
+                                <span className="ml-3 flex-1 whitespace-nowrap font-medium">
+                                    Google Integration
+                                </span>
+                            </a>
+                            <a
+                                href="#"
+                                className="group flex items-center rounded-lg bg-gray-50 p-3 text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
+                            >
+                                <DiscordIcon />
+                                <span className="ml-3 flex-1 whitespace-nowrap font-medium">
+                                    Discord Integration
+                                </span>
+                            </a>
+                            <button
+                                onClick={() => setConnectModalVisibility(true)}
+                                className="group flex items-center rounded-lg bg-gray-50 py-3 px-6 text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
+                            >
+                                <MetamaskIcon />
+                                <span className=" ml-3 flex-1 whitespace-nowrap text-left font-medium">
+                                    Web3 Wallet Integration
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

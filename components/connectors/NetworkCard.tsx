@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { gnosisSafe, hooks } from '../../connectors/gnosisSafe'
-import { Card } from '../Card'
+import { hooks, network } from '../../connectors/network'
+import { Connector } from './Connector'
 
 const {
     useChainId,
@@ -11,7 +11,7 @@ const {
     useENSNames,
 } = hooks
 
-export default function GnosisSafeCard() {
+export default function Network() {
     const chainId = useChainId()
     const accounts = useAccounts()
     const isActivating = useIsActivating()
@@ -25,14 +25,14 @@ export default function GnosisSafeCard() {
 
     // attempt to connect eagerly on mount
     useEffect(() => {
-        void gnosisSafe.connectEagerly().catch(() => {
-            console.debug('Failed to connect eagerly to gnosis safe')
+        void network.activate().catch(() => {
+            console.debug('Failed to connect to network')
         })
     }, [])
 
     return (
-        <Card
-            connector={gnosisSafe}
+        <Connector
+            connector={network}
             chainId={chainId}
             isActivating={isActivating}
             isActive={isActive}
@@ -41,6 +41,8 @@ export default function GnosisSafeCard() {
             accounts={accounts}
             provider={provider}
             ENSNames={ENSNames}
+            icon={null}
+            text={null}
         />
     )
 }

@@ -14,7 +14,8 @@ export default function Product({ unserialized }) {
 
     const { locale = config['defaultLocale'] } = useRouter()
 
-    const [product, setProduct] = useState(JSON.parse(unserialized))
+    const [product, setProduct] = useState(JSON.parse(unserialized) || null)
+
     const [listingID, setListingID] = useState(null)
     const [loading, setLoading] = useState(false)
 
@@ -23,7 +24,9 @@ export default function Product({ unserialized }) {
             <NextSeo
                 title={product.title || 'Product'}
                 description={product.description || 'Product Page'}
-                openGraph={{ images: product.images[0]['url'] }}
+                openGraph={{
+                    images: [{ url: product.images[0]['url'] }],
+                }}
             />
             <Breadcrumbs product={product} />
         </>
@@ -35,11 +38,12 @@ const Breadcrumbs = ({ product }) => {
         <nav className="flex" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
                 <li className="inline-flex items-center">
-                    <Link href="/">
-                        <a className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                            <HomeIcon />
-                            Home
-                        </a>
+                    <Link
+                        href="/"
+                        className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                    >
+                        <HomeIcon />
+                        Home
                     </Link>
                 </li>
                 <li>
@@ -78,9 +82,11 @@ const ProductImages = ({ product }) => {
                         First Slide
                     </span>
                     <Image
-                        src="/docs/images/carousel/carousel-1.svg"
+                        src="http://hd.wallpaperswide.com/thumbs/mirrors_edge_catalyst_faith_2016-t2.jpg"
                         className="absolute top-1/2 left-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                         alt="..."
+                        width="100"
+                        height="100"
                     />
                 </div>
                 <div
@@ -88,9 +94,11 @@ const ProductImages = ({ product }) => {
                     data-carousel-item
                 >
                     <Image
-                        src="/docs/images/carousel/carousel-2.svg"
+                        src="http://hd.wallpaperswide.com/thumbs/mirrors_edge_3-t2.jpg"
                         className="absolute top-1/2 left-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                         alt="..."
+                        width="100"
+                        height="100"
                     />
                 </div>
                 <div
@@ -98,9 +106,11 @@ const ProductImages = ({ product }) => {
                     data-carousel-item
                 >
                     <Image
-                        src="/docs/images/carousel/carousel-3.svg"
+                        src="http://hd.wallpaperswide.com/thumbs/mirrors_edge_8-t2.jpg"
                         className="absolute top-1/2 left-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                         alt="..."
+                        width="100"
+                        height="100"
                     />
                 </div>
             </div>
@@ -111,21 +121,21 @@ const ProductImages = ({ product }) => {
                     aria-current="false"
                     aria-label="Slide 1"
                     data-carousel-slide-to="0"
-                ></button>
+                />
                 <button
                     type="button"
                     className="h-3 w-3 rounded-full"
                     aria-current="false"
                     aria-label="Slide 2"
                     data-carousel-slide-to="1"
-                ></button>
+                />
                 <button
                     type="button"
                     className="h-3 w-3 rounded-full"
                     aria-current="false"
                     aria-label="Slide 3"
                     data-carousel-slide-to="2"
-                ></button>
+                />
             </div>
             <button
                 type="button"
@@ -146,7 +156,7 @@ const ProductImages = ({ product }) => {
                             stroke-linejoin="round"
                             stroke-width="2"
                             d="M15 19l-7-7 7-7"
-                        ></path>
+                        />
                     </svg>
                     <span className="sr-only">Previous</span>
                 </span>
@@ -170,7 +180,7 @@ const ProductImages = ({ product }) => {
                             stroke-linejoin="round"
                             stroke-width="2"
                             d="M9 5l7 7-7 7"
-                        ></path>
+                        />
                     </svg>
                     <span className="sr-only">Next</span>
                 </span>
@@ -205,10 +215,16 @@ export async function getServerSideProps(context) {
     try {
         return {
             props: {
-                unserialized:
-                    JSON.stringify(
-                        await prisma.blogPost.findUnique({ where: { id } })
-                    ) || null,
+                unserialized: JSON.stringify(
+                    await prisma.product.findUnique({
+                        where: { id },
+                        include: {
+                            categories: true,
+                            images: true,
+                            listings: true,
+                        },
+                    })
+                ),
             },
         }
     } catch (error) {

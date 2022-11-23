@@ -1,6 +1,7 @@
+import { CoinbaseIcon } from 'components/Icons'
 import { useEffect, useState } from 'react'
-import { hooks, network } from '../../connectors/network'
-import { Card } from '../Card'
+import { coinbaseWallet, hooks } from '../../connectors/coinbaseWallet'
+import { Connector } from './Connector'
 
 const {
     useChainId,
@@ -11,7 +12,7 @@ const {
     useENSNames,
 } = hooks
 
-export default function NetworkCard() {
+export default function CoinbaseWallet() {
     const chainId = useChainId()
     const accounts = useAccounts()
     const isActivating = useIsActivating()
@@ -25,14 +26,14 @@ export default function NetworkCard() {
 
     // attempt to connect eagerly on mount
     useEffect(() => {
-        void network.activate().catch(() => {
-            console.debug('Failed to connect to network')
+        void coinbaseWallet.connectEagerly().catch(() => {
+            console.debug('Failed to connect eagerly to coinbase wallet')
         })
     }, [])
 
     return (
-        <Card
-            connector={network}
+        <Connector
+            connector={coinbaseWallet}
             chainId={chainId}
             isActivating={isActivating}
             isActive={isActive}
@@ -41,6 +42,8 @@ export default function NetworkCard() {
             accounts={accounts}
             provider={provider}
             ENSNames={ENSNames}
+            icon={<CoinbaseIcon />}
+            text="Coinbase Wallet"
         />
     )
 }

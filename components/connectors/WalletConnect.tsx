@@ -1,7 +1,8 @@
 import { URI_AVAILABLE } from '@web3-react/walletconnect'
+import { WalletConnectIcon } from 'components/Icons'
 import { useEffect, useState } from 'react'
 import { hooks, walletConnect } from '../../connectors/walletConnect'
-import { Card } from '../Card'
+import { Connector } from './Connector'
 
 const {
     useChainId,
@@ -12,7 +13,7 @@ const {
     useENSNames,
 } = hooks
 
-export default function WalletConnectCard() {
+export default function WalletConnect() {
     const chainId = useChainId()
     const accounts = useAccounts()
     const isActivating = useIsActivating()
@@ -39,7 +40,7 @@ export default function WalletConnectCard() {
     }, [])
 
     return (
-        <Card
+        <Connector
             connector={walletConnect}
             chainId={chainId}
             isActivating={isActivating}
@@ -49,6 +50,8 @@ export default function WalletConnectCard() {
             accounts={accounts}
             provider={provider}
             ENSNames={ENSNames}
+            icon={<WalletConnectIcon />}
+            text="WalletConnect"
         />
     )
 }

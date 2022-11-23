@@ -33,7 +33,7 @@ export default function Products({ currentPage, category, tags, sort }) {
 
 const ProductGrid = ({ products }) => {
     return (
-        <div className="grid grid-cols-1 gap-3  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {products
                 ? products.map((product) => (
                       <Product product={product} key={product.id} />
@@ -47,29 +47,28 @@ const ProductGrid = ({ products }) => {
 
 const Product = ({ product }) => {
     return (
-        <div className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
-            <Link href={`/product/${product.id}`}>
-                <div className="relative h-full w-full">
-                    <Image
-                        className="rounded-t-lg"
-                        src={product.images[0]['url']}
-                        alt="product image"
-                        fill
-                        style={{ objectFit: 'cover' }}
-                    />
-                </div>
+        <Link href={`/product/${product.id}`}>
+            <div className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+                <img
+                    className="rounded-t-lg p-8"
+                    src="https://flowbite.com/docs/images/products/apple-watch.png"
+                    alt="product image"
+                />
                 <div className="px-5 pb-5">
-                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                    <h5 className="text-xl font-medium tracking-tight text-gray-900 dark:text-white">
                         {product.title}
                     </h5>
-                    <div className="flex items-center justify-between">
+                    <div className="mt-5 flex items-center justify-between">
                         <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                            $599
+                            ${product.listings[0]['price']}
                         </span>
+                        <a className="rounded-lg bg-gray-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                            Add to cart
+                        </a>
                     </div>
                 </div>
-            </Link>
-        </div>
+            </div>
+        </Link>
     )
 }
 

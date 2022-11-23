@@ -1,6 +1,7 @@
+import { GnosisIcon } from 'components/Icons'
 import { useEffect, useState } from 'react'
-import { coinbaseWallet, hooks } from '../../connectors/coinbaseWallet'
-import { Card } from '../Card'
+import { gnosisSafe, hooks } from '../../connectors/gnosisSafe'
+import { Connector } from './Connector'
 
 const {
     useChainId,
@@ -11,7 +12,7 @@ const {
     useENSNames,
 } = hooks
 
-export default function CoinbaseWalletCard() {
+export default function GnosisSafe() {
     const chainId = useChainId()
     const accounts = useAccounts()
     const isActivating = useIsActivating()
@@ -25,14 +26,14 @@ export default function CoinbaseWalletCard() {
 
     // attempt to connect eagerly on mount
     useEffect(() => {
-        void coinbaseWallet.connectEagerly().catch(() => {
-            console.debug('Failed to connect eagerly to coinbase wallet')
+        void gnosisSafe.connectEagerly().catch(() => {
+            console.debug('Failed to connect eagerly to gnosis safe')
         })
     }, [])
 
     return (
-        <Card
-            connector={coinbaseWallet}
+        <Connector
+            connector={gnosisSafe}
             chainId={chainId}
             isActivating={isActivating}
             isActive={isActive}
@@ -41,6 +42,8 @@ export default function CoinbaseWalletCard() {
             accounts={accounts}
             provider={provider}
             ENSNames={ENSNames}
+            icon={<GnosisIcon />}
+            text="Gnosis Safe"
         />
     )
 }

@@ -13,7 +13,7 @@ import { useState } from 'react'
 import { useAuth } from 'state/Auth'
 import Toast from 'components/Toast'
 import Modal from 'components/Modal'
-import Login from 'components/dialogs/Login'
+import Login from 'components/modals/LoginModal'
 
 export default function Drawer({ showDrawer, setShowDrawer }) {
     const router = useRouter()

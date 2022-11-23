@@ -20,6 +20,10 @@ module.exports = {
                 protocol: 'https',
                 hostname: 'dummyjson.com',
             },
+            {
+                protocol: 'http',
+                hostname: 'hd.wallpaperswide.com',
+            },
         ],
     },
     reactStrictMode: true,

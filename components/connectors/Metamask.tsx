@@ -1,6 +1,7 @@
+import { MetamaskIcon } from 'components/Icons'
 import { useEffect, useState } from 'react'
 import { hooks, metaMask } from '../../connectors/metaMask'
-import { Card } from '../Card'
+import { Connector } from './Connector'
 
 const {
     useChainId,
@@ -11,13 +12,11 @@ const {
     useENSNames,
 } = hooks
 
-export default function MetaMaskCard() {
+export default function Metamask() {
     const chainId = useChainId()
     const accounts = useAccounts()
     const isActivating = useIsActivating()
-
     const isActive = useIsActive()
-
     const provider = useProvider()
     const ENSNames = useENSNames(provider)
 
@@ -31,7 +30,7 @@ export default function MetaMaskCard() {
     }, [])
 
     return (
-        <Card
+        <Connector
             connector={metaMask}
             chainId={chainId}
             isActivating={isActivating}
@@ -41,6 +40,8 @@ export default function MetaMaskCard() {
             accounts={accounts}
             provider={provider}
             ENSNames={ENSNames}
+            icon={<MetamaskIcon />}
+            text="Metamask"
         />
     )
 }

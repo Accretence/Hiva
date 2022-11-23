@@ -16,9 +16,9 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useAuth } from 'state/Auth'
 import Drawer from 'components/Drawer'
-import Search from 'components/dialogs/Search'
+import Search from 'components/modals/SearchModal'
 import Modal from 'components/Modal'
-import Login from 'components/dialogs/Login'
+import Login from 'components/modals/LoginModal'
 
 export default function Header() {
     const { resolvedTheme, setTheme } = useTheme()
