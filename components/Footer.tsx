@@ -5,6 +5,7 @@ import {
     InstagramIcon,
     TwitterIcon,
 } from 'components/Icons'
+import { getLinkStyles } from 'lib/styles'
 
 export default function Footer() {
     return (
@@ -28,12 +29,12 @@ export default function Footer() {
                         </h2>
                         <ul className="text-gray-600 dark:text-gray-400">
                             <li className="mb-2 text-sm">
-                                <Link href="/blog">Blog</Link>
+                                <Link href="/blog" className={getLinkStyles()}>Blog</Link>
                             </li>
                             <li className="text-sm">
                                 <Link
                                     href="/tutorials"
-                                    className="transition duration-300 hover:text-red-700"
+                                    className={getLinkStyles()}
                                 >
                                     Tutorials
                                 </Link>
@@ -48,7 +49,8 @@ export default function Footer() {
                             <li className="mb-2 text-sm">
                                 <a
                                     href="https://github.com/themesberg/flowbite"
-                                    className=" "
+                                    target="_blank"
+                                    className={getLinkStyles()}
                                 >
                                     Github
                                 </a>
@@ -56,7 +58,8 @@ export default function Footer() {
                             <li className="text-sm">
                                 <a
                                     href="https://discord.gg/4eeurUVvTy"
-                                    className=""
+                                    target="_blank"
+                                    className={getLinkStyles()}
                                 >
                                     Discord
                                 </a>
@@ -69,12 +72,12 @@ export default function Footer() {
                         </h2>
                         <ul className="text-gray-600 dark:text-gray-400">
                             <li className="mb-2 text-sm">
-                                <a href="#" className="">
+                                <a href="#" className={getLinkStyles()}>
                                     Privacy Policy
                                 </a>
                             </li>
                             <li className="text-sm">
-                                <Link href="#">Terms &amp; Conditions</Link>
+                                <Link href="#" className={getLinkStyles()}>Terms &amp; Conditions</Link>
                             </li>
                         </ul>
                     </div>
@@ -83,29 +86,33 @@ export default function Footer() {
             <hr className="mt-8 border-gray-200 dark:border-gray-800 sm:mx-auto" />
             <div className="my-8 flex justify-center space-x-6">
                 <a
-                    href="#"
-                    className="text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
+                    href="https://facebook.com"
+                    target="_blank"
+                    className={`${getLinkStyles()} + text-gray-500`}
+                    >
                     <FacebookIcon />
                     <span className="sr-only">Facebook page</span>
                 </a>
                 <a
-                    href="#"
-                    className="text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                    href="https://instagram.com"
+                    target="_blank"
+                    className={`${getLinkStyles()} + text-gray-500`}
                 >
                     <InstagramIcon />
                     <span className="sr-only">Instagram page</span>
                 </a>
                 <a
-                    href="#"
-                    className="text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                    href="https://twitter.com"
+                    target="_blank"
+                    className={`${getLinkStyles()} + text-gray-500`}
                 >
                     <TwitterIcon />
                     <span className="sr-only">Twitter page</span>
                 </a>
                 <a
-                    href="#"
-                    className="text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                    href="https://github.com"
+                    target="_blank"
+                    className={`${getLinkStyles()} + text-gray-500`}
                 >
                     <GithubIcon />
                     <span className="sr-only">GitHub account</span>

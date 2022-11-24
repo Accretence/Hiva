@@ -73,8 +73,8 @@ export const CHAINS: {
             process.env.INFURA_MAINNET_KEY
                 ? `https://mainnet.infura.io/v3/${process.env.INFURA_MAINNET_KEY}`
                 : '',
-            process.env.ALCHEM_MAINNET_KEY
-                ? `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEM_MAINNET_KEY}`
+            process.env.ALCHEMY_MAINNET_KEY
+                ? `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_MAINNET_KEY}`
                 : '',
             'https://cloudflare-eth.com',
         ].filter((url) => url !== ''),
