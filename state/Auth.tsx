@@ -1,3 +1,4 @@
+import { client } from 'lib/wagmi'
 import {
     createContext,
     useContext,
@@ -5,6 +6,8 @@ import {
     useEffect,
     useCallback,
 } from 'react'
+
+import { WagmiConfig } from 'wagmi'
 
 const AuthContext = createContext({
     isAuthenticated: false,
@@ -35,7 +38,7 @@ export const AuthProvider = ({ children }) => {
                 setLocalAuthentication,
             }}
         >
-            {children}
+            <WagmiConfig client={client}>{children}</WagmiConfig>
         </AuthContext.Provider>
     )
 }

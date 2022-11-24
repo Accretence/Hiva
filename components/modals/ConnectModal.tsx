@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import useSWR from 'swr'
 import Link from 'next/link'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
-import { hooks, metaMask } from '../../connectors/metaMask'
 
 import fetcher from 'lib/fetcher'
 
@@ -14,10 +13,7 @@ import { useAuth } from 'state/Auth'
 
 import { getButtonStyles } from 'lib/styles'
 import { QuestionIcon } from 'components/Icons'
-import Metamask from 'components/connectors/Metamask'
-import CoinbaseWallet from 'components/connectors/CoinbaseWallet'
-import WalletConnect from 'components/connectors/WalletConnect'
-import GnosisSafe from 'components/connectors/GnosisSafe'
+import Connector from 'components/connectors/Connector'
 
 export default function Connect() {
     const router = useRouter()
@@ -28,10 +24,7 @@ export default function Connect() {
     return (
         <div className="mt-4 px-8">
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                <Metamask />
-                <CoinbaseWallet />
-                <WalletConnect />
-                <GnosisSafe />
+                <Connector />
             </div>
             <div className="my-6">
                 <a
