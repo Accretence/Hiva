@@ -37,7 +37,7 @@ export default function Tweet({
                     className="flex h-12 w-12"
                     href={authorUrl}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                 >
                     <Image
                         alt={author.username}
@@ -50,7 +50,7 @@ export default function Tweet({
                 <a
                     href={authorUrl}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                     className="author ml-4 flex flex-col !no-underline"
                 >
                     <span
@@ -71,7 +71,7 @@ export default function Tweet({
                     className="ml-auto"
                     href={authorUrl}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                 >
                     <svg
                         viewBox="328 355 335 276"
@@ -114,7 +114,7 @@ export default function Tweet({
                 className="text-sm !text-gray-500 hover:!underline"
                 href={tweetUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer"
             >
                 <time
                     title={`Time Posted: ${createdAt.toUTCString()}`}
@@ -128,7 +128,7 @@ export default function Tweet({
                     className="mr-4 flex items-center !text-gray-500 transition hover:!text-blue-600 hover:!underline"
                     href={replyUrl}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                 >
                     <svg
                         className="mr-2"
@@ -154,7 +154,7 @@ export default function Tweet({
                     className="mr-4 flex items-center !text-gray-500 transition hover:!text-green-600 hover:!underline"
                     href={retweetUrl}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                 >
                     <svg
                         className="mr-2"
@@ -179,7 +179,7 @@ export default function Tweet({
                     className="flex items-center !text-gray-500 transition hover:!text-red-600 hover:!underline"
                     href={likeUrl}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                 >
                     <svg
                         className="mr-2"

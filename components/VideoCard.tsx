@@ -7,8 +7,7 @@ export default function VideoCard({ href, length, title, index }) {
             href={href}
             aria-label={title}
             target="_blank"
-            rel="noopener noreferrer"
-        >
+            rel="noreferrer">
             <div className="w-full transform border-b border-gray-200 py-3 transition-all hover:scale-[1.01] dark:border-gray-700">
                 <div className="flex flex-col items-baseline justify-between sm:flex-row">
                     <div className="flex items-center">

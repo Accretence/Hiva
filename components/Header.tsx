@@ -45,10 +45,12 @@ export default function Header() {
                         : 'font-normal text-gray-600 dark:text-gray-400'
                 } ${
                     href == '/' ? 'inline-block' : 'hidden'
-                } rounded-lg p-1 transition-all hover:bg-gray-200 dark:hover:bg-gray-800 sm:px-3 sm:py-2 md:inline-block
+                } transition-all  sm:px-3 sm:py-2 md:inline-block
                 `}
             >
-                <span className="capsize">{text}</span>
+                <span className="capsize transition duration-300 hover:text-purple-500">
+                    {text}
+                </span>
             </Link>
         )
     }
@@ -64,8 +66,8 @@ export default function Header() {
                 <Search />
             </Modal>
             <Modal
-                header={false}
-                title="Login"
+                header={true}
+                title="Login / Register"
                 modalVisibility={loginModalVisibility}
                 setModalVisibility={setLoginModalVisibility}
             >

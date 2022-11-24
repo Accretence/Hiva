@@ -37,16 +37,14 @@ export default function BlogLayout({
                             `https://leerob.io/blog/${post.id}`
                         )}`}
                         target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                        rel="noreferrer"                    >
                         {'Discuss on Twitter'}
                     </a>
                     {` • `}
                     <a
                         href="https://github.com/leerob/leerob.io/issues"
                         target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                        rel="noreferrer"                    >
                         {'Suggest Change'}
                     </a>
                 </div>

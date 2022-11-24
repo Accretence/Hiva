@@ -50,6 +50,7 @@ export default function Footer() {
                                 <a
                                     href="https://github.com/themesberg/flowbite"
                                     target="_blank"
+                                    rel="noreferrer"
                                     className={getLinkStyles()}
                                 >
                                     Github
@@ -59,6 +60,7 @@ export default function Footer() {
                                 <a
                                     href="https://discord.gg/4eeurUVvTy"
                                     target="_blank"
+                                    rel="noreferrer"
                                     className={getLinkStyles()}
                                 >
                                     Discord
@@ -88,6 +90,7 @@ export default function Footer() {
                 <a
                     href="https://facebook.com"
                     target="_blank"
+                    rel="noreferrer"
                     className={`${getLinkStyles()} + text-gray-500`}
                     >
                     <FacebookIcon />
@@ -96,6 +99,7 @@ export default function Footer() {
                 <a
                     href="https://instagram.com"
                     target="_blank"
+                    rel="noreferrer"
                     className={`${getLinkStyles()} + text-gray-500`}
                 >
                     <InstagramIcon />
@@ -104,6 +108,7 @@ export default function Footer() {
                 <a
                     href="https://twitter.com"
                     target="_blank"
+                    rel="noreferrer"
                     className={`${getLinkStyles()} + text-gray-500`}
                 >
                     <TwitterIcon />
@@ -112,6 +117,7 @@ export default function Footer() {
                 <a
                     href="https://github.com"
                     target="_blank"
+                    rel="noreferrer"
                     className={`${getLinkStyles()} + text-gray-500`}
                 >
                     <GithubIcon />

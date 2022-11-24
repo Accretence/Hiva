@@ -80,7 +80,7 @@ export default function Index({ auth, unserialized }) {
             />
             <a
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer"
                 href="https://www.youtube.com/playlist?list=PL6bwFJ82M6FXgctyoWXqj7H0GK8_YIeF1"
                 className="mt-8 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
             >

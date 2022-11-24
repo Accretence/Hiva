@@ -24,20 +24,16 @@ import {
 
 export default function Login() {
     return (
-        <div className="p-6">
-            <ul className="my-4 space-y-3">
-                <li>
-                    <a
-                        href={getGoogleURL()}
-                        className="group flex items-center rounded-lg  bg-purple-600 p-3 text-white hover:animate-pulse"
-                    >
-                        <GoogleBAWIcon />
-                        <span className="ml-3 flex-1 whitespace-nowrap">
-                            Sign-in with Google
-                        </span>
-                    </a>
-                </li>
-            </ul>
+        <div className="px-6 pt-0 pb-6">
+            <a
+                href={getGoogleURL()}
+                className="group mb-2 flex rounded-lg bg-purple-600 p-3 text-white hover:animate-pulse"
+            >
+                <GoogleBAWIcon />
+                <span className="ml-3 flex-1 whitespace-nowrap font-medium">
+                    Login with Google
+                </span>
+            </a>
             <small className="text-xs font-normal text-gray-500  dark:text-gray-400">
                 By signing in, you agree to our{' '}
                 <Link
