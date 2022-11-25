@@ -47,7 +47,7 @@ const ProductGrid = ({ products }) => {
 
 const Product = ({ product }) => {
     return (
-        <Link href={`/product/${product.id}`}>
+        <Link className="" href={`/product/${product.id}`}>
             <div className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
                 <img
                     className="rounded-t-lg p-8"

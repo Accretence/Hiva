@@ -13,7 +13,7 @@ import { useAuth } from 'state/Auth'
 
 import { getButtonStyles } from 'lib/styles'
 import { QuestionIcon } from 'components/Icons'
-import Connector from 'components/connectors/Connector'
+import Connector from 'components/Connector'
 
 export default function Connect() {
     const router = useRouter()
