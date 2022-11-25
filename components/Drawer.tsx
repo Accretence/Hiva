@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAuth } from 'state/Auth'
 import Toast from 'components/Toast'
-import Modal from 'components/Modal'
+import Modal from 'components/modals/Modal'
 import Login from 'components/modals/LoginModal'
 
 export default function Drawer({ showDrawer, setShowDrawer }) {
@@ -38,7 +38,6 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
         <>
             <Modal
                 title="Default"
-                header={false}
                 modalVisibility={loginModalVisibility}
                 setModalVisibility={setLoginModalVisibility}
             >

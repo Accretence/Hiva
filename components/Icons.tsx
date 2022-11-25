@@ -30,7 +30,7 @@ export const VerifiedAccount = () => (
 )
 
 export const Checkbox = ({ colorCode }) => (
-    <svg className={`h-4 w-4 ${colorCode}`} viewBox="0 0 24 24">
+    <svg className={`h-5 w-5 ${colorCode}`} viewBox="0 0 24 24">
         <g
             fill="none"
             stroke="currentColor"
@@ -46,9 +46,8 @@ export const Checkbox = ({ colorCode }) => (
 
 export const GoogleBAWIcon = () => (
     <svg
-        width="16px"
-        height="16px"
-        viewBox="0 0 16 16"
+        className="h-5 w-5"
+        viewBox="0 0 18 18"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
     >

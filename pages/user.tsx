@@ -19,7 +19,7 @@ import {
     Spinner,
 } from 'components/Icons'
 import { NextSeo } from 'next-seo'
-import Modal from 'components/Modal'
+import Modal from 'components/modals/Modal'
 import Connect from 'components/modals/ConnectModal'
 
 export default function User({ auth, omitted }) {
@@ -318,8 +318,7 @@ function Integrations(userObject) {
     return (
         <>
             <Modal
-                header={false}
-                title="Login"
+                title="Connect Wallet"
                 modalVisibility={connectModalVisibility}
                 setModalVisibility={setConnectModalVisibility}
             >

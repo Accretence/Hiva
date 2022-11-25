@@ -17,9 +17,8 @@ import Link from 'next/link'
 import { useAuth } from 'state/Auth'
 import Drawer from 'components/Drawer'
 import Search from 'components/modals/SearchModal'
-import Modal from 'components/Modal'
-import Login from 'components/modals/LoginModal'
-import Connect from './modals/ConnectModal'
+import Modal from 'components/modals/Modal'
+import LoginModal from 'components/modals/LoginModal'
 
 export default function Header() {
     const { resolvedTheme, setTheme } = useTheme()
@@ -59,7 +58,6 @@ export default function Header() {
     return (
         <>
             <Modal
-                header={false}
                 title="Search"
                 modalVisibility={searchModalVisibility}
                 setModalVisibility={setSearchModalVisibility}
@@ -67,12 +65,11 @@ export default function Header() {
                 <Search />
             </Modal>
             <Modal
-                header={true}
                 title="Login / Register"
                 modalVisibility={loginModalVisibility}
                 setModalVisibility={setLoginModalVisibility}
             >
-                <Connect />
+                <LoginModal />
             </Modal>
             <div className="flex flex-col justify-center">
                 <nav className="relative flex w-full items-center justify-between border-gray-200 bg-opacity-60 pt-4 text-gray-900 dark:border-gray-700 dark:text-gray-100">

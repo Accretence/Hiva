@@ -1,6 +1,6 @@
 import { PhotoIcon } from '@heroicons/react/24/solid'
 
-export default function Write() {
+export default function RichTextEditor() {
     return (
         <form>
             <div className="mb-4 w-full rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">

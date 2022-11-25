@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from 'react'
 
-export default function Search() {
+export default function SearchModal() {
     return (
         <>
             <form>
