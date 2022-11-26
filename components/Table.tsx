@@ -8,7 +8,7 @@ export default function Table({ data, keys }) {
                     <tr>
                         {keys &&
                             keys.map((key) => (
-                                <th scope="col" className="py-3 px-6">
+                                <th key={key} scope="col" className="py-3 px-6">
                                     {key}
                                 </th>
                             ))}
@@ -17,11 +17,14 @@ export default function Table({ data, keys }) {
                 <tbody>
                     {data &&
                         data.map((row, index) => (
-                            <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
+                            <tr
+                                key={row}
+                                className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+                            >
                                 {keys &&
                                     keys.map((key) => {
                                         return (
-                                            <td className="py-4 px-6">
+                                            <td key={key} className="py-4 px-6">
                                                 {row[key]}
                                             </td>
                                         )
