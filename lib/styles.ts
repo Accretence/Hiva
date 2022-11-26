@@ -5,3 +5,7 @@ export function getButtonStyles() {
 export function getLinkStyles() {
     return 'transition duration-300 hover:text-purple-500'
 }
+
+export function getTableRowStyles() {
+    return 'border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600'
+}

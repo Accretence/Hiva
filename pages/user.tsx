@@ -21,7 +21,8 @@ import {
 import { NextSeo } from 'next-seo'
 import Modal from 'components/modals/Modal'
 import Connect from 'components/modals/ConnectModal'
-import Table from 'components/Table'
+import Table from 'components/tables/Table'
+import OrderTable from 'components/tables/OrderTable'
 
 export default function User({ auth, omitted }) {
     const router = useRouter()
@@ -104,10 +105,9 @@ function Orders(userObject) {
             </button>
             <div className={!visibility && 'hidden'}>
                 <div className="border border-gray-200 p-5 font-light dark:border-gray-700">
-                    <Table
-                        data={userObject.orders}
-                        keys={['id', 'isPaid', 'isDelivered']}
-                    />
+                    {userObject && userObject['orders'] && (
+                        <OrderTable orders={userObject.orders} />
+                    )}
                 </div>
             </div>
         </div>
