@@ -3,9 +3,10 @@ import type { NextRequest } from 'next/server'
 import { getJWTPayload } from 'lib/jwt'
 
 export async function middleware(request: NextRequest) {
-    const { value: AJWT } = request.cookies.get('AJWT')
-
-    if (!AJWT || !(await getJWTPayload(AJWT)))
+    if (
+        !request.cookies.get('AJWT') ||
+        !(await getJWTPayload(request.cookies.get('AJWT').value))
+    )
         return NextResponse.redirect(new URL('/', request.url))
 }
 
