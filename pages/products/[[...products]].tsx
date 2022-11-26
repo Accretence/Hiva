@@ -48,13 +48,17 @@ const ProductGrid = ({ products }) => {
 const Product = ({ product }) => {
     return (
         <Link className="" href={`/product/${product.id}`}>
-            <div className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
-                <img
-                    className="rounded-t-lg p-8"
-                    src="https://flowbite.com/docs/images/products/apple-watch.png"
-                    alt="product image"
-                />
-                <div className="px-5 pb-5">
+            <div className="h-full w-full  rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+                <div className="relative h-40 w-full">
+                    <Image
+                        className="rounded-t-lg"
+                        src={product.images[0]['url']}
+                        alt="product image"
+                        fill
+                        style={{ objectFit: 'cover' }}
+                    />
+                </div>
+                <div className="p-5">
                     <h5 className="text-xl font-medium tracking-tight text-gray-900 dark:text-white">
                         {product.title}
                     </h5>

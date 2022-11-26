@@ -99,4 +99,94 @@ export const products = [
             'https://gameluster.com/wp-content/uploads/2022/07/Stray-Cover-Image-scaled.jpg',
         ],
     },
+    {
+        id: 3,
+        title: 'Elden Ring Definitive Edition',
+        description:
+            'THE NEW FANTASY ACTION-adventure RPG. Rise, Tarnished, and be guided by grace to publisherish the power of the Elden Ring and become an Elden Lord in the Lands Between.',
+        price: 549,
+        discountPercentage: 12.96,
+        rating: 4.69,
+        stock: 94,
+        brand: 'Bandai Namco',
+        category: 'games',
+        images: [
+            'https://image.api.playstation.com/vulcan/img/rnd/202201/1918/0P25Aw0mnLS1AwPYEUb6kIYC.png',
+        ],
+    },
+    {
+        id: 4,
+        title: 'Stray',
+        description:
+            'Lost, alone and separated from family, a stray cat must untangle an ancient mystery to escape a long-forgotten cybercity and find their way home.',
+        price: 549,
+        discountPercentage: 12.96,
+        rating: 4.69,
+        stock: 94,
+        brand: 'Bandai Namco',
+        category: 'games',
+        images: [
+            'https://gameluster.com/wp-content/uploads/2022/07/Stray-Cover-Image-scaled.jpg',
+        ],
+    },
+    {
+        id: 5,
+        title: 'Elden Ring Definitive Edition',
+        description:
+            'THE NEW FANTASY ACTION-adventure RPG. Rise, Tarnished, and be guided by grace to publisherish the power of the Elden Ring and become an Elden Lord in the Lands Between.',
+        price: 549,
+        discountPercentage: 12.96,
+        rating: 4.69,
+        stock: 94,
+        brand: 'Bandai Namco',
+        category: 'games',
+        images: [
+            'https://image.api.playstation.com/vulcan/img/rnd/202201/1918/0P25Aw0mnLS1AwPYEUb6kIYC.png',
+        ],
+    },
+    {
+        id: 6,
+        title: 'Stray',
+        description:
+            'Lost, alone and separated from family, a stray cat must untangle an ancient mystery to escape a long-forgotten cybercity and find their way home.',
+        price: 549,
+        discountPercentage: 12.96,
+        rating: 4.69,
+        stock: 94,
+        brand: 'Bandai Namco',
+        category: 'games',
+        images: [
+            'https://gameluster.com/wp-content/uploads/2022/07/Stray-Cover-Image-scaled.jpg',
+        ],
+    },
+    {
+        id: 7,
+        title: 'Elden Ring Definitive Edition',
+        description:
+            'THE NEW FANTASY ACTION-adventure RPG. Rise, Tarnished, and be guided by grace to publisherish the power of the Elden Ring and become an Elden Lord in the Lands Between.',
+        price: 549,
+        discountPercentage: 12.96,
+        rating: 4.69,
+        stock: 94,
+        brand: 'Bandai Namco',
+        category: 'games',
+        images: [
+            'https://image.api.playstation.com/vulcan/img/rnd/202201/1918/0P25Aw0mnLS1AwPYEUb6kIYC.png',
+        ],
+    },
+    {
+        id: 8,
+        title: 'Stray',
+        description:
+            'Lost, alone and separated from family, a stray cat must untangle an ancient mystery to escape a long-forgotten cybercity and find their way home.',
+        price: 549,
+        discountPercentage: 12.96,
+        rating: 4.69,
+        stock: 94,
+        brand: 'Bandai Namco',
+        category: 'games',
+        images: [
+            'https://gameluster.com/wp-content/uploads/2022/07/Stray-Cover-Image-scaled.jpg',
+        ],
+    },
 ]

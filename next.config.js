@@ -28,6 +28,14 @@ module.exports = {
                 protocol: 'https',
                 hostname: 'flowbite.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'image.api.playstation.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'gameluster.com',
+            },
         ],
     },
     reactStrictMode: true,

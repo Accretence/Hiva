@@ -17,6 +17,8 @@ async function main() {
         data: clients,
     })
 
+    console.log('Created Clients...')
+
     const client = await prisma.client.findFirst()
 
     for (let product of products) {
@@ -84,6 +86,8 @@ async function main() {
         })
     }
 
+    console.log('Created Products...')
+
     for (let discount of discounts) {
         const { code, maxUses, maxAmount, burntUses, percentage } = discount
 
@@ -99,8 +103,12 @@ async function main() {
         })
     }
 
+    console.log('Created Discounts...')
+
     const foundProducts = await prisma.product.findMany()
     const foundDiscounts = await prisma.discount.findMany()
+
+    console.log('Fetched Products & Discounts...')
 
     for (let user of users) {
         const { email, password, referralCode, isAdmin, isEmailVerified } = user
@@ -133,6 +141,8 @@ async function main() {
         })
     }
 
+    console.log('Created Users...')
+
     const { id: authorId } = await prisma.user.findFirst()
 
     for (let blogPost of blogPosts) {
@@ -163,6 +173,8 @@ async function main() {
             },
         })
     }
+
+    console.log('Created Blog Posts...')
 }
 
 try {
@@ -256,6 +268,8 @@ async function generateListings(client, foundProducts, foundDiscounts) {
             discountCode: discount.code,
         })
     }
+
+    console.log('Created Listings...')
 
     return { orders, listingIDs }
 }
