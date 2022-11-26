@@ -10,7 +10,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { getGoogleURL } from 'lib/google'
 import { useAuth } from 'state/Auth'
-import { decodeJWT } from 'lib/jwt'
+import { getJWTPayload } from 'lib/jwt'
 import { omitUser } from 'lib/omit'
 import {
     DiscordIcon,
@@ -21,12 +21,14 @@ import {
 import { NextSeo } from 'next-seo'
 import Modal from 'components/modals/Modal'
 import Connect from 'components/modals/ConnectModal'
+import Table from 'components/Table'
 
 export default function User({ auth, omitted }) {
     const router = useRouter()
     const { isAuthenticated, setLocalAuthentication } = useAuth()
-    const [userObject, setUserObject] = useState(JSON.parse(omitted) || null)
-    console.log(userObject)
+    const [userObject, setUserObject] = useState(
+        (omitted && JSON.parse(omitted)) || null
+    )
 
     useEffect(() => {
         setLocalAuthentication(auth)
@@ -38,12 +40,14 @@ export default function User({ auth, omitted }) {
                 title="Simple Usage Example"
                 description="A short description goes here."
             />
-            <div className="rounded-lg bg-neutral-100 dark:bg-neutral-900">
-                <UserInfo userObject={userObject} />
-                <Orders userObject={userObject} />
-                <Referrals userObject={userObject} />
-                <Integrations userObject={userObject} />
-            </div>
+            {userObject && (
+                <div className="rounded-lg bg-neutral-100 dark:bg-neutral-900">
+                    <UserInfo userObject={userObject} />
+                    <Orders userObject={userObject} />
+                    <Referrals userObject={userObject} />
+                    <Integrations userObject={userObject} />
+                </div>
+            )}
             <Logout />
         </>
     )
@@ -72,9 +76,7 @@ function UserInfo(userObject) {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className="border border-gray-200 p-5 font-light dark:border-gray-700 ">
-                    <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200"></p>
-                </div>
+                <div className="border border-gray-200 p-5 font-light dark:border-gray-700 "></div>
             </div>
         </div>
     )
@@ -101,179 +103,11 @@ function Orders(userObject) {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className=" border border-gray-200 p-5 font-light dark:border-gray-700">
-                    <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200"></p>
-                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-                            <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" className="py-3 px-6">
-                                        Product name
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Color
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Category
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Accesories
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Available
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Price
-                                    </th>
-                                    <th scope="col" className="py-3 px-6">
-                                        Weight
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-                                    <th
-                                        scope="row"
-                                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        Apple MacBook Pro 17"
-                                    </th>
-                                    <td className="py-4 px-6">Sliver</td>
-                                    <td className="py-4 px-6">Laptop</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">$2999</td>
-                                    <td className="py-4 px-6">3.0 lb.</td>
-                                </tr>
-                                <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-                                    <th
-                                        scope="row"
-                                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        Microsoft Surface Pro
-                                    </th>
-                                    <td className="py-4 px-6">White</td>
-                                    <td className="py-4 px-6">Laptop PC</td>
-                                    <td className="py-4 px-6">No</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">$1999</td>
-                                    <td className="py-4 px-6">1.0 lb.</td>
-                                </tr>
-                                <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-                                    <th
-                                        scope="row"
-                                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        Magic Mouse 2
-                                    </th>
-                                    <td className="py-4 px-6">Black</td>
-                                    <td className="py-4 px-6">Accessories</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">No</td>
-                                    <td className="py-4 px-6">$99</td>
-                                    <td className="py-4 px-6">0.2 lb.</td>
-                                </tr>
-                                <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-                                    <th
-                                        scope="row"
-                                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        Apple Watch
-                                    </th>
-                                    <td className="py-4 px-6">Black</td>
-                                    <td className="py-4 px-6">Watches</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">No</td>
-                                    <td className="py-4 px-6">$199</td>
-                                    <td className="py-4 px-6">0.12 lb.</td>
-                                </tr>
-                                <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-                                    <th
-                                        scope="row"
-                                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        Apple iMac
-                                    </th>
-                                    <td className="py-4 px-6">Silver</td>
-                                    <td className="py-4 px-6">PC</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">$2999</td>
-                                    <td className="py-4 px-6">7.0 lb.</td>
-                                </tr>
-                                <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-                                    <th
-                                        scope="row"
-                                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        Apple AirPods
-                                    </th>
-                                    <td className="py-4 px-6">White</td>
-                                    <td className="py-4 px-6">Accessories</td>
-                                    <td className="py-4 px-6">No</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">$399</td>
-                                    <td className="py-4 px-6">38 g</td>
-                                </tr>
-                                <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-                                    <th
-                                        scope="row"
-                                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        iPad Pro
-                                    </th>
-                                    <td className="py-4 px-6">Gold</td>
-                                    <td className="py-4 px-6">Tablet</td>
-                                    <td className="py-4 px-6">No</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">$699</td>
-                                    <td className="py-4 px-6">1.3 lb.</td>
-                                </tr>
-                                <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-                                    <th
-                                        scope="row"
-                                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        Magic Keyboard
-                                    </th>
-                                    <td className="py-4 px-6">Black</td>
-                                    <td className="py-4 px-6">Accessories</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">$99</td>
-                                    <td className="py-4 px-6">453 g</td>
-                                </tr>
-                                <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-                                    <th
-                                        scope="row"
-                                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        Apple TV 4K
-                                    </th>
-                                    <td className="py-4 px-6">Black</td>
-                                    <td className="py-4 px-6">TV</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">No</td>
-                                    <td className="py-4 px-6">$179</td>
-                                    <td className="py-4 px-6">1.78 lb.</td>
-                                </tr>
-                                <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-                                    <th
-                                        scope="row"
-                                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        AirTag
-                                    </th>
-                                    <td className="py-4 px-6">Silver</td>
-                                    <td className="py-4 px-6">Accessories</td>
-                                    <td className="py-4 px-6">Yes</td>
-                                    <td className="py-4 px-6">No</td>
-                                    <td className="py-4 px-6">$29</td>
-                                    <td className="py-4 px-6">53 g</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div className="border border-gray-200 p-5 font-light dark:border-gray-700">
+                    <Table
+                        data={userObject.orders}
+                        keys={['id', 'isPaid', 'isDelivered']}
+                    />
                 </div>
             </div>
         </div>
@@ -303,9 +137,7 @@ function Referrals(userObject) {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className=" border border-gray-200 p-5 font-light dark:border-gray-700">
-                    <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200"></p>
-                </div>
+                <div className=" border border-gray-200 p-5 font-light dark:border-gray-700"></div>
             </div>
         </div>
     )
@@ -343,7 +175,6 @@ function Integrations(userObject) {
             </button>
             <div className={!visibility && 'hidden'}>
                 <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
-                    <p className="mb-2 text-justify font-normal text-neutral-700 dark:text-neutral-200"></p>
                     <div className="p-2">
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                             <a
@@ -410,35 +241,38 @@ function Logout() {
 
 export async function getServerSideProps(context) {
     try {
-        let decoded = null,
-            user = null,
-            omitted = null
-
         const { AJWT } = context.req.cookies
 
-        if (AJWT) decoded = await decodeJWT(AJWT)
+        if (AJWT) {
+            const decoded = await getJWTPayload(AJWT)
 
-        if (decoded)
-            user = await prisma.user.findUnique({
-                where: {
-                    id: decoded.id.toString(),
-                },
-                include: {
-                    orders: true,
-                    cart: true,
-                    referralsProvided: true,
-                    googleIntegration: true,
-                    walletIntegration: true,
-                },
-            })
+            if (decoded) {
+                const user = await prisma.user.findUnique({
+                    where: {
+                        id: decoded.id.toString(),
+                    },
+                    include: {
+                        orders: true,
+                        cart: true,
+                        referralsProvided: true,
+                        googleIntegration: true,
+                        walletIntegration: true,
+                    },
+                })
 
-        if (user) omitted = omitUser(user)
-        return {
-            props: {
-                auth: AJWT ? true : false,
-                omitted: JSON.stringify(omitted),
-            },
+                if (user) {
+                    const omitted = omitUser(user)
+                    return {
+                        props: {
+                            auth: AJWT ? true : false,
+                            omitted: JSON.stringify(omitted),
+                        },
+                    }
+                }
+            }
         }
+
+        return { props: {} }
     } catch (error) {
         return { props: {} }
     }

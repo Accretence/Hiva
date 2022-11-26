@@ -10,7 +10,7 @@ export async function signJWT(id) {
         .sign(new TextEncoder().encode(secret))
 }
 
-export async function decodeJWT(jwt) {
+export async function getJWTPayload(jwt) {
     const { payload } = await jose.jwtVerify(
         jwt,
         new TextEncoder().encode(secret)

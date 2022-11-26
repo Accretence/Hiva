@@ -1,4 +1,4 @@
-import { decodeJWT } from 'lib/jwt'
+import { getJWTPayload } from 'lib/jwt'
 import prisma from 'lib/prisma'
 
 export async function gateJWT(req, res) {
@@ -20,7 +20,7 @@ export async function gateJWT(req, res) {
         })
     }
 
-    return await decodeJWT(AJWT)
+    return await getJWTPayload(AJWT)
 }
 
 export async function gateUser(req, res) {
@@ -53,23 +53,7 @@ export async function gateUser(req, res) {
 }
 
 export async function gateAdmin(req, res) {
-    const decoded = await gateJWT(req, res)
-
-    const user = await prisma.user.findFirst({
-        where: {
-            id: decoded.id,
-        },
-        include: {
-            googleIntegration: true,
-            verificationCode: true,
-            cart: true,
-            orders: true,
-            referralsProvided: true,
-            referralsConsumed: true,
-            blogPosts: true,
-            clients: true,
-        },
-    })
+    const user = await gateUser(req, res)
 
     if (!user || !user.isAdmin) {
         return res.status(400).json({

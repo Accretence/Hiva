@@ -38,7 +38,9 @@ export const AuthProvider = ({ children }) => {
                 setLocalAuthentication,
             }}
         >
-            <WagmiConfig client={client}>{children}</WagmiConfig>
+            {/* <WagmiConfig client={client}> */}
+            {children}
+            {/* </WagmiConfig> */}
         </AuthContext.Provider>
     )
 }
