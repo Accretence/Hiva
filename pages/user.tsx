@@ -105,8 +105,8 @@ function Orders(userObject) {
             </button>
             <div className={!visibility && 'hidden'}>
                 <div className="border border-gray-200 p-5 font-light dark:border-gray-700">
-                    {userObject && userObject['orders'] && (
-                        <OrderTable orders={userObject.orders} />
+                    {userObject && userObject['userObject']['orders'] && (
+                        <OrderTable orders={userObject.userObject.orders} />
                     )}
                 </div>
             </div>
@@ -149,13 +149,10 @@ function Integrations(userObject) {
 
     return (
         <>
-            <Modal
-                title="Connect Wallet"
+            <Connect
                 modalVisibility={connectModalVisibility}
                 setModalVisibility={setConnectModalVisibility}
-            >
-                <Connect />
-            </Modal>
+            />
             <button
                 type="button"
                 className={`flex w-full items-center justify-between ${

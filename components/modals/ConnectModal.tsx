@@ -22,28 +22,30 @@ import {
     useEnsAvatar,
     useEnsName,
 } from 'wagmi'
+import Modal from './Modal'
 
-export default function ConnectModal() {
-    const router = useRouter()
-    const { isAuthenticated, setLocalAuthentication } = useAuth()
-
-    const [toast, setToast] = useState(null)
-
+export default function ConnectModal({ modalVisibility, setModalVisibility }) {
     return (
-        <div className="mt-2 px-6">
-            <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                <Connector />
+        <Modal
+            title="Connect Wallet"
+            modalVisibility={modalVisibility}
+            setModalVisibility={setModalVisibility}
+        >
+            <div className="mt-2 px-6">
+                <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                    <Connector />
+                </div>
+                <div className="my-4">
+                    <a
+                        href="#"
+                        className="inline-flex items-center text-xs font-normal text-gray-500 hover:underline dark:text-gray-400"
+                    >
+                        <QuestionIcon />
+                        Why do I need to connect with my wallet?
+                    </a>
+                </div>
             </div>
-            <div className="my-4">
-                <a
-                    href="#"
-                    className="inline-flex items-center text-xs font-normal text-gray-500 hover:underline dark:text-gray-400"
-                >
-                    <QuestionIcon />
-                    Why do I need to connect with my wallet?
-                </a>
-            </div>
-        </div>
+        </Modal>
     )
 }
 

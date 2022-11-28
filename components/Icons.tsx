@@ -487,7 +487,7 @@ export const GnosisIcon = () => (
 
 export const DiscordIcon = () => (
     <svg
-        className="h-4"
+        className="h-6 w-5"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 127.14 96.36"
         fill="currentColor"

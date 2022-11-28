@@ -1,7 +1,7 @@
 import { signJWT } from 'lib/jwt'
 import { serialize } from 'cookie'
 
-export default async function cookie({ id, sameSite }) {
+export default async function bakeCookie({ id, sameSite }) {
     return serialize('AJWT', await signJWT(id), {
         httpOnly: true,
         secure: process.env.NODE_ENV !== 'development',

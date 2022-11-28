@@ -1,6 +1,6 @@
 import { CloseIcon } from '../Icons'
 
-export default function SearchDialog({
+export default function Modal({
     children,
     title,
     modalVisibility,

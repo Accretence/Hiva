@@ -21,29 +21,46 @@ import {
     MetamaskIcon,
     WalletConnectIcon,
 } from 'components/Icons'
+import Modal from './Modal'
+import { getDiscordURL } from 'lib/discord'
 
-export default function LoginModal() {
+export default function LoginModal({ modalVisibility, setModalVisibility }) {
     return (
-        <div className="px-6 pt-0 pb-6">
-            <a
-                href={getGoogleURL()}
-                className="group mb-2 flex rounded-lg bg-purple-600 px-3 pt-3 pb-2 text-white hover:animate-pulse"
-            >
-                <GoogleBAWIcon />
-                <span className="ml-3 mt-0 whitespace-nowrap font-medium">
-                    Login with Google
-                </span>
-            </a>
-            <small className="text-xs font-normal text-gray-500  dark:text-gray-400">
-                By signing in, you agree to our{' '}
-                <Link
-                    className="font-semibold text-purple-500 hover:text-purple-300"
-                    href="/terms"
+        <Modal
+            title="Search"
+            modalVisibility={modalVisibility}
+            setModalVisibility={setModalVisibility}
+        >
+            <div className="px-6 pt-0 pb-6">
+                {/* <a
+                    href={getGoogleURL()}
+                    className="group mb-2 flex rounded-lg border-2 border-solid border-purple-500 bg-transparent px-3 pt-3 pb-2 text-white hover:animate-pulse"
                 >
-                    terms of service
-                </Link>
-                .
-            </small>
-        </div>
+                    <GoogleBAWIcon />
+                    <span className="ml-3 mt-0 whitespace-nowrap font-medium">
+                        Login with Google
+                    </span>
+                </a> */}
+                <a
+                    href={getDiscordURL()}
+                    className="group mb-2 flex rounded-lg border-2 border-solid border-purple-500 bg-transparent px-3 pt-3 pb-2 text-black hover:animate-pulse dark:text-white"
+                >
+                    <DiscordIcon />
+                    <span className="ml-3 mb-1 whitespace-nowrap font-medium">
+                        Login with Discord
+                    </span>
+                </a>
+                <small className="text-xs font-normal text-gray-500  dark:text-gray-400">
+                    By signing in, you agree to our{' '}
+                    <Link
+                        className="font-semibold text-purple-500 hover:text-purple-300"
+                        href="/terms"
+                    >
+                        terms of service
+                    </Link>
+                    .
+                </small>
+            </div>
+        </Modal>
     )
 }

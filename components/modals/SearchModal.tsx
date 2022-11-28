@@ -1,9 +1,14 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from 'react'
+import Modal from './Modal'
 
-export default function SearchModal() {
+export default function SearchModal({ modalVisibility, setModalVisibility }) {
     return (
-        <>
+        <Modal
+            title="Search"
+            modalVisibility={modalVisibility}
+            setModalVisibility={setModalVisibility}
+        >
             <form>
                 <label className="sr-only text-sm font-medium text-gray-900 dark:text-gray-300">
                     Search
@@ -33,6 +38,6 @@ export default function SearchModal() {
                 <div className="h-2 max-w-[360px] rounded-full bg-gray-200 dark:bg-gray-600"></div>
                 <span className="sr-only">Loading...</span>
             </div>
-        </>
+        </Modal>
     )
 }

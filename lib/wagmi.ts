@@ -1,9 +1,4 @@
-import {
-    WagmiConfig,
-    createClient,
-    defaultChains,
-    configureChains,
-} from 'wagmi'
+import { createClient, defaultChains, configureChains } from 'wagmi'
 
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'

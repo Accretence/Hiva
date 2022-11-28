@@ -1,18 +1,18 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider             = "postgresql"
-  url                  = env("SUPABASE_URL")
+  provider = "postgresql"
+  url      = env("SUPABASE_URL")
 }
 
 model Client {
-  title                                String   @id
-  referralRewardPercentageToProvider   Int     @default(3)
-  referralDiscountPercentageToConsumer Int     @default(3)
-  maxReferralReward                    Int     @default(100)
-  maxReferralDiscount                  Int     @default(100)
+  title                                String @id
+  referralRewardPercentageToProvider   Int    @default(3)
+  referralDiscountPercentageToConsumer Int    @default(3)
+  maxReferralReward                    Int    @default(100)
+  maxReferralDiscount                  Int    @default(100)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -47,10 +47,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  googleIntegration GoogleIntegration? 
-  walletIntegration WalletIntegration?
-  verificationCode  VerificationCode?
-  cart              Listing[]
+  googleIntegration  GoogleIntegration?
+  discordIntegration DiscordIntegration?
+  walletIntegration  WalletIntegration?
+  verificationCode   VerificationCode?
+  cart               Listing[]
 
   orders            Order[]
   referralsProvided Referral[] @relation("referralsProvided")
@@ -82,9 +83,23 @@ model GoogleIntegration {
   user   User   @relation(fields: [userId], references: [id])
   userId String @id
 }
+
+model DiscordIntegration {
+  id       String  @unique
+  email    String  @unique
+  username String?
+  avatar   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @id
+}
+
 model WalletIntegration {
-  wallet  String  @unique
-  method  String?
+  wallet String  @unique
+  method String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -103,11 +118,11 @@ model Product {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  categories ProductCategory[]
-  images     ProductImage[]
-  listings   Listing[]
-  client     Client            @relation(fields: [clientTitle], references: [title])
-  clientTitle   String
+  categories  ProductCategory[]
+  images      ProductImage[]
+  listings    Listing[]
+  client      Client            @relation(fields: [clientTitle], references: [title])
+  clientTitle String
 }
 
 model ProductImage {
@@ -173,7 +188,7 @@ model Order {
   user         User      @relation(fields: [userId], references: [id])
   userId       String
   client       Client    @relation(fields: [clientTitle], references: [title])
-  clientTitle     String
+  clientTitle  String
 }
 
 model Referral {
@@ -198,10 +213,10 @@ model BlogPost {
 
   categories BlogPostCategory[]
 
-  client   Client @relation(fields: [clientTitle], references: [title])
+  client      Client @relation(fields: [clientTitle], references: [title])
   clientTitle String
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String
+  author      User   @relation(fields: [authorId], references: [id])
+  authorId    String
 }
 
 model BlogPostCategory {
@@ -224,6 +239,6 @@ model Discount {
 
   orders Order[]
 
-  client   Client @relation(fields: [clientTitle], references: [title])
+  client      Client @relation(fields: [clientTitle], references: [title])
   clientTitle String
 }
