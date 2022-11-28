@@ -4,20 +4,19 @@ import bakeCookie from 'lib/cookie'
 import { getDiscordTokens, getDiscordUser } from 'lib/discord'
 
 export default async function (req, res) {
-    console.log(req.query)
+    const { id: parsedId } = JSON.parse(req.query.state)
+
     const { access_token } = await getDiscordTokens({
         code: req.query.code,
     })
 
-    if (!access_token) {
+    if (!parsedId || !access_token) {
         return res.redirect(502, '/')
     }
 
-    const { id, username, avatar, discriminator, email } = await getDiscordUser(
-        {
-            access_token,
-        }
-    )
+    const { id, username, avatar, email } = await getDiscordUser({
+        access_token,
+    })
 
     if (!email) {
         return res.redirect(502, '/')
@@ -28,16 +27,12 @@ export default async function (req, res) {
     })
 
     if (exists) {
-        return res.status(400).json({
-            Success: false,
-            Message:
-                'This Discord account is already integrated with another user.',
-        })
+        return res.redirect(502, '/')
     }
 
     if (!exists) {
         const user = await prisma.user.findUnique({
-            where: { id: req.query.id },
+            where: { id: parsedId },
         })
 
         if (user)
@@ -52,10 +47,7 @@ export default async function (req, res) {
             })
 
         if (user) {
-            return res.status(200).json({
-                Success: true,
-                Message: 'Discord integrated.',
-            })
+            return res.redirect(200, '/user')
         } else {
             return res.redirect(302, '/auth/error')
         }

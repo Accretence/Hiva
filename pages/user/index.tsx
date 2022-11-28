@@ -108,7 +108,7 @@ function Orders({ userObject }) {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className="border border-gray-200 font-light dark:border-gray-700">
+                <div className="border border-gray-200 p-3 font-light dark:border-gray-700">
                     {userObject && userObject['orders'] && (
                         <OrderTable orders={userObject.orders} />
                     )}
@@ -175,10 +175,7 @@ function Integrations({ userObject }) {
                 >
                     <GoogleBAWIcon />
                     <span className="ml-3 flex-1 whitespace-nowrap font-medium">
-                        Google Integration
-                    </span>
-                    <span className="ml-3 inline-flex items-center justify-center rounded bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400">
-                        Connected
+                        Integrate your Google Account
                     </span>
                 </a>
             )
@@ -187,10 +184,13 @@ function Integrations({ userObject }) {
     function DiscordIntegration() {
         if (discordIntegration)
             return (
-                <p className="no-scrollbar group flex items-center overflow-x-auto rounded-md border-2 border-solid border-gray-200 bg-transparent py-3 px-6 text-gray-200  hover:bg-gray-100 dark:border-gray-500 dark:text-gray-500 dark:hover:bg-gray-500">
+                <p className="no-scrollbar group flex items-center overflow-x-auto rounded-md border-2 border-solid border-gray-300/50 bg-transparent py-3 px-6 text-gray-300/50 dark:border-gray-500 dark:text-gray-500">
                     <DiscordIcon />
                     <span className="ml-3 flex-1 whitespace-nowrap font-medium">
                         Discord Integrated
+                    </span>
+                    <span className="ml-3 inline-flex items-center justify-center whitespace-nowrap rounded bg-gray-200 px-2 py-1 text-xs font-medium text-purple-400 dark:bg-gray-700 ">
+                        Integrated with {discordIntegration.username}
                     </span>
                 </p>
             )
