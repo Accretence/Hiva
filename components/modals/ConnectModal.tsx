@@ -121,7 +121,7 @@ function Connector() {
                                 connector.id === pendingConnector?.id &&
                                 ' (connecting)'}
                             {icon}
-                            <span className="mt-1 ml-3 flex-1 whitespace-nowrap text-left font-medium">
+                            <span className="mt-0 ml-3 flex-1 whitespace-nowrap text-left font-medium">
                                 {error
                                     ? 'Try Again'
                                     : isLoading

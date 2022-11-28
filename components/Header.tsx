@@ -47,7 +47,7 @@ export default function Header() {
                 } transition-all  sm:px-3 sm:py-2 md:inline-block
                 `}
             >
-                <span className="capsize transition duration-300 hover:text-purple-500">
+                <span className="capsize transition duration-300 hover:text-purple-400">
                     {text}
                 </span>
             </Link>

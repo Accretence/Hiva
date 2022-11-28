@@ -1,7 +1,8 @@
 import querystring from 'querystring'
 
-export function getDiscordURL() {
-    return process.env.NEXT_PUBLIC_DISCORD_OAUTH_URL
+export function getDiscordURL({ id }) {
+    const state = JSON.stringify(`{id:${id}}`)
+    return process.env.NEXT_PUBLIC_DISCORD_OAUTH_URL + `&state=${state}`
 }
 
 export async function getDiscordTokens({ code }) {

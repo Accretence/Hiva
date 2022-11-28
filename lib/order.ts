@@ -1,5 +1,3 @@
-import { ca } from 'date-fns/locale'
-
 export function calculateDiscountAmount(
     isDiscounted: boolean,
     totalAmount: number,

@@ -1,9 +1,9 @@
 export default function Table({ children, headers }) {
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+        <div className="overflow-x-auto rounded-lg">
+            <table className="text-sm text-gray-500 first-letter:text-left dark:text-gray-400">
                 <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
+                    <tr className="">
                         {headers &&
                             headers.map((header) => (
                                 <th
@@ -16,7 +16,7 @@ export default function Table({ children, headers }) {
                             ))}
                     </tr>
                 </thead>
-                <tbody>{children}</tbody>
+                <tbody className="">{children}</tbody>
             </table>
         </div>
     )

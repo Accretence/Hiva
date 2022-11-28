@@ -16,7 +16,7 @@ export default function Modal({
                 <div className="fixed top-1/2 left-1/2 z-20 mx-auto my-auto flex w-[60vw] max-w-lg -translate-y-1/2 -translate-x-1/2 flex-col gap-2 rounded-xl bg-white shadow-2xl dark:bg-gray-700 md:w-1/2">
                     <button
                         type="button"
-                        className="absolute right-3 top-2 ml-auto inline-flex items-center bg-transparent p-3 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white"
+                        className="absolute right-3 top-2 ml-auto inline-flex items-center rounded-lg bg-transparent p-3 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white"
                         onClick={() => setModalVisibility(false)}
                     >
                         <CloseIcon />

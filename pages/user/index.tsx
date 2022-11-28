@@ -6,7 +6,11 @@ import prisma from 'lib/prisma'
 import fetcher from 'lib/fetcher'
 import useSWR from 'swr'
 import gradient from 'lib/gradient'
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
+import {
+    ChevronDownIcon,
+    ChevronUpIcon,
+    WalletIcon,
+} from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { getGoogleURL } from 'lib/google'
 import { useAuth } from 'state/Auth'
@@ -22,6 +26,7 @@ import { NextSeo } from 'next-seo'
 import ConnectModal from 'components/modals/ConnectModal'
 import Table from 'components/tables/Table'
 import OrderTable from 'components/tables/OrderTable'
+import { getDiscordURL } from 'lib/discord'
 
 export default function User({ auth, omitted }) {
     const router = useRouter()
@@ -53,7 +58,7 @@ export default function User({ auth, omitted }) {
     )
 }
 
-function UserInfo(userObject) {
+function UserInfo({ userObject }) {
     const [visibility, setVisibility] = useState(false)
 
     return (
@@ -82,7 +87,7 @@ function UserInfo(userObject) {
     )
 }
 
-function Orders(userObject) {
+function Orders({ userObject }) {
     const [visibility, setVisibility] = useState(false)
 
     return (
@@ -103,9 +108,9 @@ function Orders(userObject) {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className="border border-gray-200 p-5 font-light dark:border-gray-700">
-                    {userObject && userObject['userObject']['orders'] && (
-                        <OrderTable orders={userObject.userObject.orders} />
+                <div className="border border-gray-200 font-light dark:border-gray-700">
+                    {userObject && userObject['orders'] && (
+                        <OrderTable orders={userObject.orders} />
                     )}
                 </div>
             </div>
@@ -113,7 +118,7 @@ function Orders(userObject) {
     )
 }
 
-function Referrals(userObject) {
+function Referrals({ userObject }) {
     const [visibility, setVisibility] = useState(false)
 
     return (
@@ -142,9 +147,95 @@ function Referrals(userObject) {
     )
 }
 
-function Integrations(userObject) {
+function Integrations({ userObject }) {
     const [visibility, setVisibility] = useState(false)
     const [connectModalVisibility, setConnectModalVisibility] = useState(false)
+    const { discordIntegration, googleIntegration, walletIntegration } =
+        userObject
+
+    function GoogleIntegration() {
+        if (googleIntegration)
+            return (
+                <p className="no-scrollbar group flex items-center overflow-x-auto rounded-md border-2 border-solid border-gray-300/50 bg-transparent py-3 px-6 text-gray-300/50 dark:border-gray-500 dark:text-gray-500">
+                    <GoogleBAWIcon />
+                    <span className="ml-3 flex-1 whitespace-nowrap font-medium">
+                        Google Integrated
+                    </span>
+                    <span className="ml-3 inline-flex items-center justify-center whitespace-nowrap rounded bg-gray-200 px-2 py-1 text-xs font-medium text-purple-400 dark:bg-gray-700 ">
+                        Integrated with {googleIntegration.email}
+                    </span>
+                </p>
+            )
+
+        if (!googleIntegration)
+            return (
+                <a
+                    href={getGoogleURL()}
+                    className="group flex items-center rounded-md border-2 border-solid border-blue-500 bg-transparent py-3 px-6  text-purple-500 hover:bg-gray-100 hover:shadow  dark:text-white dark:hover:bg-gray-500"
+                >
+                    <GoogleBAWIcon />
+                    <span className="ml-3 flex-1 whitespace-nowrap font-medium">
+                        Google Integration
+                    </span>
+                    <span className="ml-3 inline-flex items-center justify-center rounded bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400">
+                        Connected
+                    </span>
+                </a>
+            )
+    }
+
+    function DiscordIntegration() {
+        if (discordIntegration)
+            return (
+                <p className="no-scrollbar group flex items-center overflow-x-auto rounded-md border-2 border-solid border-gray-200 bg-transparent py-3 px-6 text-gray-200  hover:bg-gray-100 dark:border-gray-500 dark:text-gray-500 dark:hover:bg-gray-500">
+                    <DiscordIcon />
+                    <span className="ml-3 flex-1 whitespace-nowrap font-medium">
+                        Discord Integrated
+                    </span>
+                </p>
+            )
+
+        if (!discordIntegration)
+            return (
+                <a
+                    href={getDiscordURL({ id: userObject['id'] })}
+                    className="group flex items-center rounded-md bg-purple-600 py-3 px-6 text-gray-100 transition duration-300  hover:bg-black dark:text-gray-900 dark:hover:bg-white"
+                >
+                    <DiscordIcon />
+                    <span className="ml-4 flex-1 whitespace-nowrap font-medium">
+                        Integrate your Discord Account
+                    </span>
+                </a>
+            )
+    }
+
+    function WalletIntegration() {
+        if (walletIntegration)
+            return (
+                <button
+                    onClick={() => setConnectModalVisibility(true)}
+                    className="no-scrollbar group flex items-center rounded-md bg-transparent py-3 px-6 text-gray-900 transition duration-300  hover:bg-gray-100 hover:shadow dark:text-white dark:hover:bg-gray-500"
+                >
+                    <WalletIcon className="h-6 w-5" />
+                    <span className=" ml-3 flex-1 whitespace-nowrap text-left font-medium">
+                        Web3 Wallet Integrated
+                    </span>
+                </button>
+            )
+
+        if (!walletIntegration)
+            return (
+                <button
+                    onClick={() => setConnectModalVisibility(true)}
+                    className="group flex items-center rounded-md bg-purple-600 py-3 px-6 text-gray-100 transition duration-300  hover:bg-black dark:text-gray-900 dark:hover:bg-white"
+                >
+                    <WalletIcon className="h-6 w-5" />
+                    <span className="ml-3 flex-1 whitespace-nowrap text-left font-medium">
+                        Integrate your Web3 Wallet
+                    </span>
+                </button>
+            )
+    }
 
     return (
         <>
@@ -161,7 +252,9 @@ function Integrations(userObject) {
             >
                 <span className="flex flex-col">
                     <h1>Integrations</h1>
-                    <small className="text-gray-300">Your integrations.</small>
+                    <small className="text-gray-300">
+                        Your integrations with third-party services.
+                    </small>
                 </span>
                 {visibility ? (
                     <ChevronUpIcon className="h-5 w-5" />
@@ -171,36 +264,10 @@ function Integrations(userObject) {
             </button>
             <div className={!visibility && 'hidden'}>
                 <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
-                    <div className="p-2">
-                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                            <a
-                                href="#"
-                                className="group flex items-center rounded-lg bg-gray-50 py-3 px-6  text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
-                            >
-                                <GoogleBAWIcon />
-                                <span className="ml-3 flex-1 whitespace-nowrap font-medium">
-                                    Google Integration
-                                </span>
-                            </a>
-                            <a
-                                href="#"
-                                className="group flex items-center rounded-lg bg-gray-50 p-3 text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
-                            >
-                                <DiscordIcon />
-                                <span className="ml-3 flex-1 whitespace-nowrap font-medium">
-                                    Discord Integration
-                                </span>
-                            </a>
-                            <button
-                                onClick={() => setConnectModalVisibility(true)}
-                                className="group flex items-center rounded-lg bg-gray-50 py-3 px-6 text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
-                            >
-                                <MetamaskIcon />
-                                <span className=" ml-3 flex-1 whitespace-nowrap text-left font-medium">
-                                    Web3 Wallet Integration
-                                </span>
-                            </button>
-                        </div>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <GoogleIntegration />
+                        <DiscordIntegration />
+                        <WalletIntegration />
                     </div>
                 </div>
             </div>
@@ -252,6 +319,7 @@ export async function getServerSideProps(context) {
                         cart: true,
                         referralsProvided: true,
                         googleIntegration: true,
+                        discordIntegration: true,
                         walletIntegration: true,
                     },
                 })

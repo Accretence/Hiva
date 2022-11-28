@@ -4,15 +4,7 @@ import bakeCookie from 'lib/cookie'
 import { getDiscordTokens, getDiscordUser } from 'lib/discord'
 
 export default async function (req, res) {
-    async function bakeAndServe({ id }) {
-        const AJWT = await bakeCookie({
-            id,
-            sameSite: 'Lax',
-        })
-
-        return res.setHeader('Set-Cookie', AJWT).redirect(302, '/')
-    }
-
+    console.log(req.query)
     const { access_token } = await getDiscordTokens({
         code: req.query.code,
     })
@@ -31,31 +23,21 @@ export default async function (req, res) {
         return res.redirect(502, '/')
     }
 
-    const existsByID = await prisma.discordIntegration.findUnique({
+    const exists = await prisma.discordIntegration.findUnique({
         where: { id },
-        include: {
-            user: true,
-        },
     })
 
-    if (existsByID) {
-        await bakeAndServe({ id: existsByID.user.id.toString() })
+    if (exists) {
+        return res.status(400).json({
+            Success: false,
+            Message:
+                'This Discord account is already integrated with another user.',
+        })
     }
 
-    if (!existsByID) {
-        const referralCode = await createSerialNumber(3)
-
-        const user = await prisma.user.create({
-            data: {
-                clients: {
-                    connect: {
-                        title: process.env.CLIENT_TITLE,
-                    },
-                },
-                email,
-                referralCode,
-                isEmailVerified: true,
-            },
+    if (!exists) {
+        const user = await prisma.user.findUnique({
+            where: { id: req.query.id },
         })
 
         if (user)
@@ -70,7 +52,10 @@ export default async function (req, res) {
             })
 
         if (user) {
-            await bakeAndServe({ id: user.id.toString() })
+            return res.status(200).json({
+                Success: true,
+                Message: 'Discord integrated.',
+            })
         } else {
             return res.redirect(302, '/auth/error')
         }
