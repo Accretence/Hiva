@@ -32,26 +32,17 @@ export default function LoginModal({ modalVisibility, setModalVisibility }) {
             setModalVisibility={setModalVisibility}
         >
             <div className="px-6 pt-0 pb-6">
-                {/* <a
+                <a
                     href={getGoogleURL()}
-                    className="group mb-2 flex rounded-lg border-2 border-solid border-purple-500 bg-transparent px-3 pt-3 pb-2 text-white hover:animate-pulse"
+                    className="group mb-2 flex rounded-lg border-2 border-solid border-purple-500 bg-transparent px-3 pt-3 pb-3 text-white hover:animate-pulse"
                 >
                     <GoogleBAWIcon />
                     <span className="ml-3 mt-0 whitespace-nowrap font-medium">
                         Login with Google
                     </span>
-                </a> */}
-                <a
-                    href={getDiscordURL()}
-                    className="group mb-2 flex rounded-lg border-2 border-solid border-purple-500 bg-transparent px-3 pt-3 pb-2 text-black hover:animate-pulse dark:text-white"
-                >
-                    <DiscordIcon />
-                    <span className="ml-3 mb-1 whitespace-nowrap font-medium">
-                        Login with Discord
-                    </span>
                 </a>
-                <small className="text-xs font-normal text-gray-500  dark:text-gray-400">
-                    By signing in, you agree to our{' '}
+                <small className="text-xs font-normal text-gray-500 dark:text-gray-400">
+                    By logging in, you agree to our{' '}
                     <Link
                         className="font-semibold text-purple-500 hover:text-purple-300"
                         href="/terms"
