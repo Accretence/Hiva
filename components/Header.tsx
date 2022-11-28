@@ -17,7 +17,6 @@ import Link from 'next/link'
 import { useAuth } from 'state/Auth'
 import Drawer from 'components/Drawer'
 import SearchModal from 'components/modals/SearchModal'
-import Modal from 'components/modals/Modal'
 import LoginModal from 'components/modals/LoginModal'
 
 export default function Header() {

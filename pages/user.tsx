@@ -19,8 +19,7 @@ import {
     Spinner,
 } from 'components/Icons'
 import { NextSeo } from 'next-seo'
-import Modal from 'components/modals/Modal'
-import Connect from 'components/modals/ConnectModal'
+import ConnectModal from 'components/modals/ConnectModal'
 import Table from 'components/tables/Table'
 import OrderTable from 'components/tables/OrderTable'
 
@@ -149,7 +148,7 @@ function Integrations(userObject) {
 
     return (
         <>
-            <Connect
+            <ConnectModal
                 modalVisibility={connectModalVisibility}
                 setModalVisibility={setConnectModalVisibility}
             />
