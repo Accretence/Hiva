@@ -41,7 +41,7 @@ export default function Index({ auth, unserialized }) {
                       ))}
             </div>
             <Link
-                className="mt-8 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+                className="mt-4 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
                 href="/blog"
             >
                 Read all posts...

@@ -21,9 +21,9 @@ export default function OrderTable({ orders }) {
                 orders.map((order, index) => (
                     <tr
                         key={index}
-                        className="border-b bg-transparent hover:bg-gray-50 dark:border-gray-700  dark:hover:bg-gray-600"
+                        className="border-b bg-transparent hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-600 hover:dark:text-white"
                     >
-                        <td className="py-4 px-6 font-semibold text-black hover:text-pink-600 dark:text-white">
+                        <td className="py-4 px-6 font-semibold">
                             <Link href={`/user/order/${order.id}`}>
                                 Order #{index} ◥
                             </Link>

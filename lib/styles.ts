@@ -3,7 +3,7 @@ export function getButtonStyles() {
 }
 
 export function getLinkStyles() {
-    return 'transition duration-300 hover:text-purple-500'
+    return 'transition duration-300 hover:text-purple-600'
 }
 
 export function getTableRowStyles() {

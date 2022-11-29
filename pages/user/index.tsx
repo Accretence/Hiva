@@ -156,12 +156,12 @@ function Integrations({ userObject }) {
     function GoogleIntegration() {
         if (googleIntegration)
             return (
-                <p className="no-scrollbar group flex items-center overflow-x-auto rounded-md border-2 border-solid border-gray-300/50 bg-transparent py-3 px-6 text-gray-300/50 dark:border-gray-500 dark:text-gray-500">
+                <p className={getDisabledButtonStyles()}>
                     <GoogleBAWIcon />
                     <span className="ml-3 flex-1 whitespace-nowrap font-medium">
                         Google Integrated
                     </span>
-                    <span className="ml-3 inline-flex items-center justify-center whitespace-nowrap rounded bg-gray-200 px-2 py-1 text-xs font-medium text-purple-400 dark:bg-gray-700 ">
+                    <span className="ml-3 inline-flex items-center justify-center whitespace-nowrap rounded bg-gray-200 px-2 py-1 text-xs font-medium text-purple-600 dark:bg-gray-700 ">
                         Integrated with {googleIntegration.email}
                     </span>
                 </p>
@@ -169,10 +169,7 @@ function Integrations({ userObject }) {
 
         if (!googleIntegration)
             return (
-                <a
-                    href={getGoogleURL()}
-                    className="group flex items-center rounded-md border-2 border-solid border-blue-500 bg-transparent py-3 px-6  text-purple-500 hover:bg-gray-100 hover:shadow  dark:text-white dark:hover:bg-gray-500"
-                >
+                <a href={getGoogleURL()} className={getActiveButtonStyles()}>
                     <GoogleBAWIcon />
                     <span className="ml-3 flex-1 whitespace-nowrap font-medium">
                         Integrate your Google Account
@@ -184,12 +181,12 @@ function Integrations({ userObject }) {
     function DiscordIntegration() {
         if (discordIntegration)
             return (
-                <p className="no-scrollbar group flex items-center overflow-x-auto rounded-md border-2 border-solid border-gray-300/50 bg-transparent py-3 px-6 text-gray-300/50 dark:border-gray-500 dark:text-gray-500">
+                <p className={getDisabledButtonStyles()}>
                     <DiscordIcon />
                     <span className="ml-3 flex-1 whitespace-nowrap font-medium">
                         Discord Integrated
                     </span>
-                    <span className="ml-3 inline-flex items-center justify-center whitespace-nowrap rounded bg-gray-200 px-2 py-1 text-xs font-medium text-purple-400 dark:bg-gray-700 ">
+                    <span className="ml-3 inline-flex items-center justify-center whitespace-nowrap rounded bg-gray-200 px-2 py-1 text-xs font-medium text-purple-600 dark:bg-gray-700 ">
                         Integrated with {discordIntegration.username}
                     </span>
                 </p>
@@ -199,7 +196,7 @@ function Integrations({ userObject }) {
             return (
                 <a
                     href={getDiscordURL({ id: userObject['id'] })}
-                    className="group flex items-center rounded-md bg-purple-600 py-3 px-6 text-gray-100 transition duration-300  hover:bg-black dark:text-gray-900 dark:hover:bg-white"
+                    className={getActiveButtonStyles()}
                 >
                     <DiscordIcon />
                     <span className="ml-4 flex-1 whitespace-nowrap font-medium">
@@ -214,7 +211,7 @@ function Integrations({ userObject }) {
             return (
                 <button
                     onClick={() => setConnectModalVisibility(true)}
-                    className="no-scrollbar group flex items-center rounded-md bg-transparent py-3 px-6 text-gray-900 transition duration-300  hover:bg-gray-100 hover:shadow dark:text-white dark:hover:bg-gray-500"
+                    className={getDisabledButtonStyles()}
                 >
                     <WalletIcon className="h-6 w-5" />
                     <span className=" ml-3 flex-1 whitespace-nowrap text-left font-medium">
@@ -227,7 +224,7 @@ function Integrations({ userObject }) {
             return (
                 <button
                     onClick={() => setConnectModalVisibility(true)}
-                    className="group flex items-center rounded-md bg-purple-600 py-3 px-6 text-gray-100 transition duration-300  hover:bg-black dark:text-gray-900 dark:hover:bg-white"
+                    className={getActiveButtonStyles()}
                 >
                     <WalletIcon className="h-6 w-5" />
                     <span className="ml-3 flex-1 whitespace-nowrap text-left font-medium">
@@ -264,7 +261,7 @@ function Integrations({ userObject }) {
             </button>
             <div className={!visibility && 'hidden'}>
                 <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                         <GoogleIntegration />
                         <DiscordIntegration />
                         <WalletIntegration />
@@ -340,4 +337,12 @@ export async function getServerSideProps(context) {
     } catch (error) {
         return { props: {} }
     }
+}
+
+function getActiveButtonStyles() {
+    return 'group flex items-center rounded-md bg-purple-700 py-3 px-6 text-gray-100 transition duration-300 hover:bg-black'
+}
+
+function getDisabledButtonStyles() {
+    return 'no-scrollbar group flex items-center overflow-x-auto rounded-md border-2 border-solid border-gray-300/50 bg-transparent py-3 px-6 text-gray-300/50 dark:border-gray-500 dark:text-gray-500'
 }

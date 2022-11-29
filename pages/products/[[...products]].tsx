@@ -48,7 +48,7 @@ const ProductGrid = ({ products }) => {
 const Product = ({ product }) => {
     return (
         <Link className="" href={`/product/${product.id}`}>
-            <div className="h-full w-full  rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+            <div className="h-full w-full rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
                 <div className="relative h-40 w-full">
                     <Image
                         className="rounded-t-lg"
@@ -66,9 +66,9 @@ const Product = ({ product }) => {
                         <span className="text-3xl font-bold text-gray-900 dark:text-white">
                             ${product.listings[0]['price']}
                         </span>
-                        <a className="rounded-lg bg-gray-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                        <button className="rounded-lg bg-purple-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-black">
                             Add to cart
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -13,11 +13,10 @@ export default async function (req, res) {
         return res.redirect(502, '/')
     }
 
-    const { id, email, verified_email, name, picture, locale } =
-        await getGoogleUser({
-            id_token,
-            access_token,
-        })
+    const { id, email, verified_email, name, picture } = await getGoogleUser({
+        id_token,
+        access_token,
+    })
 
     if (!email) {
         return res.redirect(502, '/')
@@ -39,19 +38,24 @@ export default async function (req, res) {
     if (!exists) {
         const referralCode = await createSerialNumber(3)
 
-        const user = await prisma.user.create({
-            data: {
-                clients: {
-                    connect: {
-                        title: process.env.CLIENT_TITLE,
+        const user =
+            (await prisma.user.findUnique({
+                where: { email },
+                include: { googleIntegration: true },
+            })) ||
+            (await prisma.user.create({
+                data: {
+                    clients: {
+                        connect: {
+                            title: process.env.CLIENT_TITLE,
+                        },
                     },
+                    name: name && name,
+                    email,
+                    referralCode,
+                    isEmailVerified: true,
                 },
-                name: name && name,
-                email,
-                referralCode,
-                isEmailVerified: true,
-            },
-        })
+            }))
 
         if (user)
             await prisma.googleIntegration.create({
@@ -60,7 +64,6 @@ export default async function (req, res) {
                     email,
                     name,
                     picture,
-                    locale,
                 },
             })
 

@@ -47,7 +47,7 @@ export default async function (req, res) {
             })
 
         if (user) {
-            return res.redirect(200, '/user')
+            return res.redirect(302, '/user')
         } else {
             return res.redirect(302, '/auth/error')
         }

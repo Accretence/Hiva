@@ -47,7 +47,7 @@ export default function Header() {
                 } transition-all  sm:px-3 sm:py-2 md:inline-block
                 `}
             >
-                <span className="capsize transition duration-300 hover:text-purple-400">
+                <span className="capsize transition duration-300 hover:text-purple-600">
                     {text}
                 </span>
             </Link>
@@ -71,14 +71,14 @@ export default function Header() {
                             onClick={() => setSearchModalVisibility(true)}
                             aria-label="Search Button"
                             type="button"
-                            className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300  transition-all hover:ring-2  dark:bg-gray-700"
+                            className={`flex ${getHeaderButtonStyles()}`}
                         >
                             <MagnifyingGlassIcon className="h-5 w-5" />
                         </button>
                         <button
-                            aria-label="Toggle Dark Mode"
+                            aria-label="Toggle Dark / Light Theme"
                             type="button"
-                            className="ml-2 hidden h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 md:flex"
+                            className={`ml-2 hidden md:flex ${getHeaderButtonStyles()}`}
                             onClick={() =>
                                 setTheme(
                                     resolvedTheme === 'dark' ? 'light' : 'dark'
@@ -109,7 +109,7 @@ export default function Header() {
                                         <button
                                             aria-label="Shopping Cart"
                                             type="button"
-                                            className="mx-2 hidden h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 md:flex"
+                                            className={`mr-2 hidden md:flex ${getHeaderButtonStyles()}`}
                                         >
                                             <ShoppingCartIcon className="h-5 w-5" />
                                         </button>
@@ -118,7 +118,7 @@ export default function Header() {
                                         <button
                                             aria-label="Authentication"
                                             type="button"
-                                            className="hidden h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 md:flex"
+                                            className={`hidden md:flex ${getHeaderButtonStyles()}`}
                                         >
                                             <UserIcon className="h-5 w-5" />
                                         </button>
@@ -131,7 +131,7 @@ export default function Header() {
                                     }
                                     aria-label="Authentication"
                                     type="button"
-                                    className="hidden h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 sm:flex"
+                                    className={`hidden md:flex ${getHeaderButtonStyles()}`}
                                 >
                                     <UserPlusIcon className="h-5 w-5" />
                                 </button>
@@ -151,4 +151,8 @@ export default function Header() {
             <hr className="border-1 mt-4 mb-8 w-full border-gray-200 dark:border-gray-800" />
         </>
     )
+}
+
+function getHeaderButtonStyles() {
+    return 'h-9 w-9 items-center justify-center rounded-lg bg-gray-200 transition-all hover:bg-purple-600                                             hover:text-white dark:bg-gray-700 hover:dark:bg-purple-600'
 }
