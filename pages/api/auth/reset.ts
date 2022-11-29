@@ -1,4 +1,3 @@
-import { isEmail } from 'lib/regex'
 import prisma from 'lib/prisma'
 import { createSerialNumber } from 'lib/serial'
 import bcrypt from 'bcryptjs'

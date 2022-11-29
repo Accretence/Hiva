@@ -23,36 +23,15 @@ export default async function (req, res) {
         return res.redirect(502, '/')
     }
 
-    const exists = await prisma.user.findUnique({ where: { email } })
+    const exists = await prisma.googleIntegration.findUnique({
+        where: { email },
+    })
 
     if (exists) {
-        const integrated = await prisma.googleIntegration.findUnique({
-            where: { userId: exists.id },
+        const AJWT = await cookie({
+            id: exists.userId.toString(),
+            sameSite: 'Lax',
         })
-
-        if (!integrated) {
-            await prisma.googleIntegration.create({
-                data: {
-                    userId: exists.id,
-                    email,
-                    name,
-                    picture,
-                    locale,
-                },
-            })
-
-            await prisma.user.update({
-                where: {
-                    email,
-                },
-                data: {
-                    name: name && name,
-                    isEmailVerified: exists.email == email && true,
-                },
-            })
-        }
-
-        const AJWT = await cookie({ id: exists.id.toString(), sameSite: 'Lax' })
 
         return res.setHeader('Set-Cookie', AJWT).redirect(302, '/')
     }
