@@ -9,22 +9,38 @@ export default function Doc({ docObject }) {
                 title="Simple Usage Example"
                 description="A short description goes here."
             />
-            <Sidebar docObject={docObject} />
+            {docObject && <Sidebar docObject={docObject} />}
         </>
     )
 }
 
 export async function getStaticProps({ params }) {
-    return { props: {} }
+    const docs = await prisma.documentPage.findMany()
+    const categories = new Set(docs.map((doc) => doc.category))
+
+    let docObject = {}
+    categories.forEach((category) => {
+        docObject[category] = []
+
+        docs.forEach((doc) => {
+            if (doc.category == category) {
+                docObject[category].push({
+                    title: doc.title,
+                    route: doc.slug,
+                })
+            }
+        })
+    })
+
+    console.log(docObject)
+
+    return { props: { docObject } }
 }
 
 export async function getStaticPaths() {
     const docs = await prisma.documentPage.findMany()
-    console.log(docs)
     const slugs = docs.map((doc) => doc.slug)
-    console.log(slugs)
     const paths = slugs.map((slug) => ({ params: { slug } }))
-    console.log(paths)
 
     return { paths, fallback: false }
 }

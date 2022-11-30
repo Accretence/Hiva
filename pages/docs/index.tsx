@@ -1,32 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-
-import prisma from 'lib/prisma'
-import fetcher from 'lib/fetcher'
-import useSWR from 'swr'
-import {
-    ChevronDownIcon,
-    ChevronUpIcon,
-    WalletIcon,
-} from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
-import { getGoogleURL } from 'lib/google'
-import { useAuth } from 'state/Auth'
-import { getJWTPayload } from 'lib/jwt'
-import { omitUser } from 'lib/omit'
-import {
-    DiscordIcon,
-    GoogleBAWIcon,
-    MetamaskIcon,
-    Spinner,
-} from 'components/Icons'
 import { NextSeo } from 'next-seo'
-import ConnectModal from 'components/modals/ConnectModal'
-import Table from 'components/tables/Table'
-import OrderTable from 'components/tables/OrderTable'
-import { getDiscordURL } from 'lib/discord'
+
 import Sidebar from 'components/docs/sidebar'
+import prisma from 'lib/prisma'
 
 export default function User({ doc }) {
     const router = useRouter()
@@ -47,45 +23,27 @@ export default function User({ doc }) {
     )
 }
 
-export async function getStaticProps(context) {
-    const doc = {
-        'Getting Started': [
-            {
-                title: 'Welcome',
-                route: '/docs/welcome',
-            },
-            {
-                title: 'How to create an account?',
-                route: '/docs/how-to-create-an-account',
-            },
-            {
-                title: 'What is a wallet?',
-                route: '/docs/what-is-a-wallet',
-            },
-        ],
-        Coin: [
-            {
-                title: 'What is Coin?',
-                route: '/docs/coin',
-            },
-            {
-                title: 'What is coin used for?',
-                route: '/docs/what-is-coin-used-for',
-            },
-            {
-                title: 'Buying and selling coin',
-                route: '/docs/buying-and-selling-coin',
-            },
-        ],
-    }
+export async function getStaticProps({ params }) {
+    const docs = await prisma.documentPage.findMany()
+    const categories = new Set(docs.map((doc) => doc.category))
 
-    try {
-        return {
-            props: { doc: JSON.stringify(doc) },
-        }
-    } catch (error) {
-        return { props: {} }
-    }
+    let docObject = {}
+    categories.forEach((category) => {
+        docObject[category] = []
+
+        docs.forEach((doc) => {
+            if (doc.category == category) {
+                docObject[category].push({
+                    title: doc.title,
+                    route: doc.slug,
+                })
+            }
+        })
+    })
+
+    console.log(docObject)
+
+    return { props: { docObject } }
 }
 
 function getActiveButtonStyles() {
