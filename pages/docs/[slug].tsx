@@ -2,29 +2,30 @@ import Sidebar from 'components/docs/sidebar'
 import prisma from 'lib/prisma'
 import { NextSeo } from 'next-seo'
 
-export default function Doc({ docObject }) {
+export default function Doc({ sideData, doc }) {
     return (
         <>
             <NextSeo
                 title="Simple Usage Example"
                 description="A short description goes here."
             />
-            {docObject && <Sidebar docObject={docObject} />}
+            {sideData && <Sidebar sideData={sideData} />}
         </>
     )
 }
 
 export async function getStaticProps({ params }) {
+    const { slug } = params
     const docs = await prisma.documentPage.findMany()
     const categories = new Set(docs.map((doc) => doc.category))
 
-    let docObject = {}
+    let sideData = {}
     categories.forEach((category) => {
-        docObject[category] = []
+        sideData[category] = []
 
         docs.forEach((doc) => {
             if (doc.category == category) {
-                docObject[category].push({
+                sideData[category].push({
                     title: doc.title,
                     route: doc.slug,
                 })
@@ -32,9 +33,9 @@ export async function getStaticProps({ params }) {
         })
     })
 
-    console.log(docObject)
+    const doc = await prisma.documentPage.findUnique({ where: { slug } })
 
-    return { props: { docObject } }
+    return { props: { sideData, doc: JSON.stringify(doc) } }
 }
 
 export async function getStaticPaths() {

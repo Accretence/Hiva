@@ -100,7 +100,7 @@ export default function Header() {
                         <NavItem href="/" text="Hiva" />
                         <NavItem href="/products" text="Products" />
                         <NavItem href="/blog" text="Blog" />
-                        <NavItem href="/docs" text="Documentation" />
+                        <NavItem href="/docs/welcome" text="Documentation" />
                     </div>
                     {mounted && (
                         <div className="flex">

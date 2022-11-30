@@ -150,7 +150,7 @@ async function main() {
     console.log('Created Blog Posts...')
 
     for (let doc of docs) {
-        const { title, index, category, categoryIndex, slug } = doc
+        const { title, index, category, categoryIndex, slug, content } = doc
 
         await prisma.documentPage.create({
             data: {
@@ -160,6 +160,7 @@ async function main() {
                 category,
                 categoryIndex,
                 slug,
+                content,
             },
         })
     }
