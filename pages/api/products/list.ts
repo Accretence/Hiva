@@ -3,13 +3,8 @@ import prisma from 'lib/prisma'
 export default async function (req, res) {
     const take = 5
 
-    const count = await prisma.product.count({
-        where: { clientTitle: process.env.CLIENT_TITLE },
-    })
+    const count = await prisma.product.count({})
     const products = await prisma.product.findMany({
-        where: {
-            clientTitle: process.env.CLIENT_TITLE,
-        },
         include: {
             categories: true,
             images: true,

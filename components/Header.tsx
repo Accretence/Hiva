@@ -33,7 +33,7 @@ export default function Header() {
 
     function NavItem({ href, text }) {
         const router = useRouter()
-        const isActive = router.asPath === href || href == '/'
+        const isActive = router.asPath === href
 
         return (
             <Link
@@ -100,6 +100,7 @@ export default function Header() {
                         <NavItem href="/" text="Hiva" />
                         <NavItem href="/products" text="Products" />
                         <NavItem href="/blog" text="Blog" />
+                        <NavItem href="/docs" text="Documentation" />
                     </div>
                     {mounted && (
                         <div className="flex">
@@ -139,7 +140,7 @@ export default function Header() {
                             <button
                                 aria-label="Mobile Menu"
                                 type="button"
-                                className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 sm:hidden"
+                                className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700 md:hidden"
                                 onClick={() => setShowDrawer(true)}
                             >
                                 <Bars3Icon className="h-5 w-5 " />

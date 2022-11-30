@@ -4,15 +4,8 @@ import prisma from 'lib/prisma'
 export default async function (req, res) {
     const admin = gateAdmin(req, res)
 
-    const {
-        title,
-        description,
-        brand,
-        isPhysical,
-        clientTitle,
-        images,
-        categories,
-    } = req.body
+    const { title, description, brand, isPhysical, images, categories } =
+        req.body
 
     const product = await prisma.product.create({
         data: {
@@ -30,7 +23,6 @@ export default async function (req, res) {
                     title,
                 })),
             },
-            clientTitle,
         },
     })
 

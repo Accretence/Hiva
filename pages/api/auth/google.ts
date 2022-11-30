@@ -45,11 +45,6 @@ export default async function (req, res) {
             })) ||
             (await prisma.user.create({
                 data: {
-                    clients: {
-                        connect: {
-                            title: process.env.CLIENT_TITLE,
-                        },
-                    },
                     name: name && name,
                     email,
                     referralCode,

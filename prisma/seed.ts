@@ -4,7 +4,7 @@ import {
     getRandomIntInRange,
 } from '../lib/rng'
 import prisma from '../lib/prisma'
-import { clients, users, blogPosts, discounts, products } from './seed.data'
+import { users, blogPosts, discounts, products, docs } from './seed.data'
 import {
     calculateDiscountAmount,
     calculatePayableAmount,
@@ -13,14 +13,6 @@ import {
 } from '../lib/order'
 
 async function main() {
-    await prisma.client.createMany({
-        data: clients,
-    })
-
-    console.log('Created Clients...')
-
-    const client = await prisma.client.findFirst()
-
     for (let product of products) {
         const {
             title,
@@ -44,7 +36,6 @@ async function main() {
 
         await prisma.product.create({
             data: {
-                clientTitle: process.env.CLIENT_TITLE,
                 title,
                 description,
                 brand,
@@ -56,11 +47,6 @@ async function main() {
                             },
                             create: {
                                 title: category,
-                                clients: {
-                                    connect: {
-                                        title: process.env.CLIENT_TITLE,
-                                    },
-                                },
                             },
                         },
                     ],
@@ -98,7 +84,6 @@ async function main() {
                 burntUses,
                 maxAmount,
                 percentage,
-                clientTitle: process.env.CLIENT_TITLE,
             },
         })
     }
@@ -114,18 +99,12 @@ async function main() {
         const { email, password, referralCode, isAdmin, isEmailVerified } = user
 
         const { orders, listingIDs } = await generateListings(
-            client,
             foundProducts,
             foundDiscounts
         )
 
         await prisma.user.create({
             data: {
-                clients: {
-                    connect: {
-                        title: process.env.CLIENT_TITLE,
-                    },
-                },
                 email,
                 password,
                 referralCode,
@@ -150,7 +129,6 @@ async function main() {
 
         await prisma.blogPost.create({
             data: {
-                clientTitle: process.env.CLIENT_TITLE,
                 authorId,
                 title,
                 description,
@@ -161,11 +139,6 @@ async function main() {
                             where: { title: category },
                             create: {
                                 title: category,
-                                clients: {
-                                    connect: {
-                                        title: process.env.CLIENT_TITLE,
-                                    },
-                                },
                             },
                         }
                     }),
@@ -175,6 +148,23 @@ async function main() {
     }
 
     console.log('Created Blog Posts...')
+
+    for (let doc of docs) {
+        const { title, index, category, categoryIndex, slug } = doc
+
+        await prisma.documentPage.create({
+            data: {
+                authorId,
+                title,
+                index,
+                category,
+                categoryIndex,
+                slug,
+            },
+        })
+    }
+
+    console.log('Created Documentation Pages...')
 }
 
 try {
@@ -185,9 +175,7 @@ try {
     process.exit(1)
 }
 
-async function generateListings(client, foundProducts, foundDiscounts) {
-    const { title: clientTitle } = await prisma.client.findFirst()
-
+async function generateListings(foundProducts, foundDiscounts) {
     let orders = []
     let listingIDs = []
 
@@ -247,11 +235,7 @@ async function generateListings(client, foundProducts, foundDiscounts) {
                 connect: listingIDs,
             },
             totalAmount,
-            referralAmount: calculateReferralAmount(
-                isReferred,
-                totalAmount,
-                client
-            ),
+            referralAmount: calculateReferralAmount(isReferred, totalAmount),
             discountAmount: calculateDiscountAmount(
                 isDiscounted,
                 totalAmount,
@@ -261,10 +245,8 @@ async function generateListings(client, foundProducts, foundDiscounts) {
                 isDiscounted,
                 isReferred,
                 totalAmount,
-                discount,
-                client
+                discount
             ),
-            clientTitle,
             discountCode: discount.code,
         })
     }

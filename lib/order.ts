@@ -20,17 +20,12 @@ export function calculateDiscountAmount(
 
 export function calculateReferralAmount(
     isReferred: boolean,
-    totalAmount: number,
-    clientObject
+    totalAmount: number
 ) {
-    if (isReferred && clientObject) {
-        const {
-            referralRewardPercentageToProvider,
-            referralDiscountPercentageToConsumer,
-            maxReferralReward,
-            maxReferralDiscount,
-        } = clientObject
+    const referralDiscountPercentageToConsumer = 10
+    const maxReferralDiscount = 10
 
+    if (isReferred) {
         const discountableAmount = Math.floor(
             totalAmount * (referralDiscountPercentageToConsumer / 100)
         )
@@ -47,8 +42,7 @@ export function calculatePayableAmount(
     isDiscounted: boolean,
     isReferred: boolean,
     totalAmount: number,
-    discountObject,
-    clientObject
+    discountObject
 ) {
     let payableAmount = totalAmount
 
@@ -60,12 +54,8 @@ export function calculatePayableAmount(
         )
     }
 
-    if (isReferred && clientObject) {
-        payableAmount -= calculateReferralAmount(
-            isReferred,
-            totalAmount,
-            clientObject
-        )
+    if (isReferred) {
+        payableAmount -= calculateReferralAmount(isReferred, totalAmount)
     }
 
     return payableAmount

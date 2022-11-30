@@ -1,7 +1,5 @@
 import bcrypt from 'bcryptjs'
 
-export const clients = [{ title: 'DEV' }, { title: 'PUBLIC' }]
-
 export const users = [
     {
         name: 'Admin User',
@@ -188,5 +186,50 @@ export const products = [
         images: [
             'https://gameluster.com/wp-content/uploads/2022/07/Stray-Cover-Image-scaled.jpg',
         ],
+    },
+]
+
+export const docs = [
+    {
+        title: 'Welcome',
+        index: 0,
+        category: 'Getting Started',
+        categoryIndex: 0,
+        slug: 'welcome',
+    },
+    {
+        title: 'How to create an account?',
+        index: 1,
+        category: 'Getting Started',
+        categoryIndex: 0,
+        slug: 'how-to-create-an-account',
+    },
+    {
+        title: 'What is a wallet?',
+        index: 2,
+        category: 'Getting Started',
+        categoryIndex: 0,
+        slug: 'what-is-a-wallet',
+    },
+    {
+        title: 'What is $COIN?',
+        index: 0,
+        category: '$COIN',
+        categoryIndex: 1,
+        slug: 'what-is-coin',
+    },
+    {
+        title: 'What is $COIN used for?',
+        index: 1,
+        category: '$COIN',
+        categoryIndex: 1,
+        slug: 'what-is-coin-used-for',
+    },
+    {
+        title: 'Buying and selling $COIN?',
+        index: 2,
+        category: '$COIN',
+        categoryIndex: 1,
+        slug: 'buying-and-selling-coin',
     },
 ]

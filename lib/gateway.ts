@@ -38,7 +38,6 @@ export async function gateUser(req, res) {
             referralsProvided: true,
             referralsConsumed: true,
             blogPosts: true,
-            clients: true,
         },
     })
 
