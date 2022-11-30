@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import {
-    BlogPostCard,
-    BlogPostCardSkeleton,
-} from 'components/blog/BlogPostCard'
+import { BlogPostCard, BlogPostCardSkeleton } from 'components/BlogPostCard'
 import VideoCard from 'components/VideoCard'
 
 import prisma from 'lib/prisma'
@@ -82,9 +79,9 @@ export default function Index({ auth, unserialized }) {
                 target="_blank"
                 rel="noreferrer"
                 href="https://www.youtube.com/playlist?list=PL6bwFJ82M6FXgctyoWXqj7H0GK8_YIeF1"
-                className="mt-8 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+                className="mt-4 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
             >
-                Watch all videos ///
+                Watch all videos...
             </a>
         </div>
     )

@@ -55,6 +55,11 @@ module.exports = {
                 destination: '/',
                 permanent: true,
             },
+            {
+                source: '/docs',
+                destination: '/docs/welcome',
+                permanent: true,
+            },
         ]
     },
 }

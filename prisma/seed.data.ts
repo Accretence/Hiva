@@ -193,10 +193,11 @@ export const docs = [
     {
         title: 'Welcome',
         index: 0,
-        category: 'Getting Started',
+        category: 'Welcome!',
         categoryIndex: 0,
         slug: 'welcome',
-        content: 'Some **mdx** text, with a component <Test />',
+        content:
+            '<Header title="Welcome!"/> Some **mdx** text, with a component',
     },
     {
         title: 'How to create an account?',
@@ -204,7 +205,8 @@ export const docs = [
         category: 'Getting Started',
         categoryIndex: 0,
         slug: 'how-to-create-an-account',
-        content: 'Some **mdx** text, with a component <Test />',
+        content:
+            '<Header title="Welcome!"/> Some **mdx** text, with a component',
     },
     {
         title: 'What is a wallet?',
@@ -212,7 +214,8 @@ export const docs = [
         category: 'Getting Started',
         categoryIndex: 0,
         slug: 'what-is-a-wallet',
-        content: 'Some **mdx** text, with a component <Test />',
+        content:
+            '<Header title="Welcome!"/> Some **mdx** text, with a component',
     },
     {
         title: 'What is $COIN?',
@@ -220,7 +223,8 @@ export const docs = [
         category: '$COIN',
         categoryIndex: 1,
         slug: 'what-is-coin',
-        content: 'Some **mdx** text, with a component <Test />',
+        content:
+            '<Header title="Welcome!"/> Some **mdx** text, with a component',
     },
     {
         title: 'What is $COIN used for?',
@@ -228,7 +232,8 @@ export const docs = [
         category: '$COIN',
         categoryIndex: 1,
         slug: 'what-is-coin-used-for',
-        content: 'Some **mdx** text, with a component <Test />',
+        content:
+            '<Header title="Welcome!"/> Some **mdx** text, with a component',
     },
     {
         title: 'Buying and selling $COIN?',
@@ -236,6 +241,7 @@ export const docs = [
         category: '$COIN',
         categoryIndex: 1,
         slug: 'buying-and-selling-coin',
-        content: 'Some **mdx** text, with a component <Test />',
+        content:
+            '<Header title="Welcome!"/> Some **mdx** text, with a component',
     },
 ]

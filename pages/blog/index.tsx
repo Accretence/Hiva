@@ -1,12 +1,6 @@
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
 
-import {
-    BlogPostCard,
-    BlogPostCardSkeleton,
-} from 'components/blog/BlogPostCard'
-import VideoCard from 'components/VideoCard'
+import { BlogPostCard, BlogPostCardSkeleton } from 'components/BlogPostCard'
 
 import prisma from 'lib/prisma'
 import { useAuth } from 'state/Auth'
@@ -52,9 +46,7 @@ export async function getServerSideProps(ctx) {
             props: {
                 auth: AJWT ? true : false,
                 unserialized:
-                    JSON.stringify(
-                        await prisma.blogPost.findMany()
-                    ) || null,
+                    JSON.stringify(await prisma.blogPost.findMany()) || null,
             },
         }
     } catch (error) {
