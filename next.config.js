@@ -47,10 +47,12 @@ module.exports = {
         return [
             {
                 source: '/:path*',
-                headers: {
-                    key: 'Referrer-Policy',
-                    value: 'strict-origin-when-cross-origin',
-                },
+                headers: [
+                    {
+                        key: 'Referrer-Policy',
+                        value: 'origin-when-cross-origin',
+                    },
+                ],
             },
         ]
     },
