@@ -24,7 +24,6 @@ function Header({ title }) {
 
 const MDXComponents = {
     Image: RoundedImage,
-    a: CustomLink,
     Callout,
     ConsCard,
     ProsCard,
