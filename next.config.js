@@ -3,7 +3,7 @@
  */
 
 const ContentSecurityPolicy = `
-  script-src 'self' https://accounts.google.com/gsi/client;
+  script-src 'unsafe-inline';
 `
 
 module.exports = {
