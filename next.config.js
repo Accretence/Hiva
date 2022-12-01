@@ -43,6 +43,14 @@ module.exports = {
         locales: ['en', 'fa'],
         defaultLocale: 'en',
     },
+    async headers() {
+        return [
+            {
+                key: 'Referrer-Policy',
+                value: 'strict-origin-when-cross-origin',
+            },
+        ]
+    },
     async redirects() {
         return [
             {

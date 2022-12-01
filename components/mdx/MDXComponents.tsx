@@ -5,22 +5,6 @@ import ProsCard from 'components/mdx/ProsCard'
 import ConsCard from 'components/mdx/ConsCard'
 import Step from 'components/mdx/Step'
 
-const CustomLink = (props) => {
-    const href = props.href
-    const isInternalLink =
-        href && (href.startsWith('/') || href.startsWith('#'))
-
-    if (isInternalLink) {
-        return (
-            <Link {...props} href={href}>
-                {props.children}
-            </Link>
-        )
-    }
-
-    return <a target="_blank" rel="noreferrer" {...props} />
-}
-
 function RoundedImage(props) {
     return <Image alt={props.alt} className="rounded-lg" {...props} />
 }
