@@ -3,11 +3,7 @@
  */
 
 const ContentSecurityPolicy = `
-  default-src 'self' googleapis.com google.com;
-  script-src 'self' googleapis.com google.com;
-  child-src googleapis.com google.com;
-  style-src 'self';
-  font-src 'self';  
+  script-src 'self' https://accounts.google.com/gsi/client;
 `
 
 module.exports = {
