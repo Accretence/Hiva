@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getGoogleURL } from 'lib/google'
 import { GoogleBAWIcon } from 'components/Icons'
 import Modal from 'components/modals/Modal'
+import GoogleLogin from 'components/GoogleLogin'
 
 export default function LoginModal({ modalVisibility, setModalVisibility }) {
     return (
@@ -11,15 +12,17 @@ export default function LoginModal({ modalVisibility, setModalVisibility }) {
             setModalVisibility={setModalVisibility}
         >
             <div className="px-6 pt-0 pb-6">
-                <a
-                    href={getGoogleURL()}
-                    className="group mb-1 flex items-center rounded-md bg-purple-600 py-3 px-6 text-gray-100 transition  duration-300 hover:bg-black"
-                >
-                    <GoogleBAWIcon />
-                    <span className="ml-3 mt-0 whitespace-nowrap font-medium">
-                        Login with Google
-                    </span>
-                </a>
+                <div className="w-full">
+                    <GoogleLogin
+                        onSuccess={(response) => {
+                            console.log(response)
+                        }}
+                        onError={() => {
+                            console.log('Login Failed')
+                        }}
+                    />
+                </div>
+
                 <small className="text-xs font-normal text-gray-500 dark:text-gray-400">
                     By logging in, you agree to our{' '}
                     <Link

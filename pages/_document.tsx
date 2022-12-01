@@ -8,7 +8,7 @@ export default function Document() {
                 <meta content="#ffffff" name="theme-color" />
                 <meta content="#ffffff" name="msapplication-TileColor" />
             </Head>
-            <body className="bg-white text-white dark:bg-black dark:text-black">
+            <body className="bg-white text-black dark:bg-black dark:text-white">
                 <Main />
                 <NextScript />
             </body>

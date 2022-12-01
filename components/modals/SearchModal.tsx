@@ -13,7 +13,7 @@ export default function SearchModal({ modalVisibility, setModalVisibility }) {
                 <label className="sr-only text-sm font-medium text-gray-900 dark:text-gray-300">
                     Search
                 </label>
-                <div className="relative p-4">
+                <div className="flex gap-2 px-4">
                     <input
                         type="search"
                         id="default-search"
@@ -23,13 +23,16 @@ export default function SearchModal({ modalVisibility, setModalVisibility }) {
                     />
                     <button
                         type="submit"
-                        className="absolute bottom-6 right-7 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 text-sm font-medium text-white"
+                        className="rounded-lg bg-purple-600 px-6 py-2 text-sm font-medium text-white transition duration-300 hover:bg-black"
                     >
-                        <MagnifyingGlassIcon className="h-5 w-5" />
+                        <MagnifyingGlassIcon className="h-6 w-6" />
                     </button>
                 </div>
             </form>
-            <div role="status" className="max-w-sm animate-pulse px-4 pb-6">
+            <div
+                role="status"
+                className="mt-4 max-w-sm animate-pulse px-4 pb-6"
+            >
                 <div className="mb-4 h-2.5 w-48 rounded-full bg-gray-200 dark:bg-gray-600"></div>
                 <div className="mb-2.5 h-2 max-w-[360px] rounded-full bg-gray-200 dark:bg-gray-600"></div>
                 <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-600"></div>

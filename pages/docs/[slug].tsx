@@ -46,13 +46,16 @@ function Sidebar({ sideData }) {
                     <p className="text-sm font-bold text-gray-400">
                         {category.toUpperCase()}
                     </p>
+                    <hr className="border-1 my-2 w-full border-gray-200 dark:border-gray-800" />
                     <ul className="my-3 ml-3 mb-6">
                         {sideData[category].map((page) => (
                             <li className="mb-2" key={page.title}>
                                 <Link
                                     href={page.route}
-                                    className="whitespace-nowrap rounded-md py-2 px-4 text-gray-800
-                                    hover:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-900"
+                                    className="whitespace-nowrap rounded-md py-2 px-4 text-sm text-gray-800 
+                                    hover:bg-purple-600
+                                    hover:text-white
+                                    dark:text-gray-200/80 hover:dark:text-white"
                                 >
                                     {page.title}
                                 </Link>
