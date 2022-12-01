@@ -1,6 +1,15 @@
 /**
  * @type {import('next').NextConfig}
  */
+
+const ContentSecurityPolicy = `
+  default-src 'self' googleapis.com google.com;
+  script-src 'self' googleapis.com google.com;
+  child-src googleapis.com google.com;
+  style-src 'self';
+  font-src 'self';  
+`
+
 module.exports = {
     images: {
         remotePatterns: [
@@ -51,6 +60,13 @@ module.exports = {
                     {
                         key: 'Referrer-Policy',
                         value: 'origin-when-cross-origin',
+                    },
+                    {
+                        key: 'Content-Security-Policy',
+                        value: ContentSecurityPolicy.replace(
+                            /\s{2,}/g,
+                            ' '
+                        ).trim(),
                     },
                 ],
             },
