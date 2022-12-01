@@ -46,8 +46,11 @@ module.exports = {
     async headers() {
         return [
             {
-                key: 'Referrer-Policy',
-                value: 'strict-origin-when-cross-origin',
+                source: '/:path*',
+                headers: {
+                    key: 'Referrer-Policy',
+                    value: 'strict-origin-when-cross-origin',
+                },
             },
         ]
     },
