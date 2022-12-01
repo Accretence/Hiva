@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-import { useGoogleOAuth } from '../components/GoogleOAuthProvider'
+import { useGoogleOAuth } from '../state/GoogleOAuthProvider'
 import { CredentialResponse, MomenListener } from '../types'
 
 interface UseGoogleOneTapLoginOptions {

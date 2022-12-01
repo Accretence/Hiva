@@ -12,23 +12,17 @@ export default function LoginModal({ modalVisibility, setModalVisibility }) {
             setModalVisibility={setModalVisibility}
         >
             <div className="px-6 pt-0 pb-6">
-                <div className="w-full">
+                <div className="mb-2">
                     <GoogleLogin
                         onSuccess={(response) => {
                             console.log(response)
                         }}
-                        onError={() => {
-                            console.log('Login Failed')
-                        }}
+                        render={true}
                     />
                 </div>
-
                 <small className="text-xs font-normal text-gray-500 dark:text-gray-400">
                     By logging in, you agree to our{' '}
-                    <Link
-                        className="font-semibold text-purple-600 hover:text-purple-300"
-                        href="/terms"
-                    >
+                    <Link className="font-semibold underline" href="/terms">
                         terms of service
                     </Link>
                     .

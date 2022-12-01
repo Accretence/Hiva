@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router'
 import React, { useEffect, useRef } from 'react'
+import { useAuth } from 'state/Auth'
 
-import { useGoogleOAuth } from './GoogleOAuthProvider'
+import { useGoogleOAuth } from '../state/GoogleOAuthProvider'
 import {
     IdConfiguration,
     CredentialResponse,
@@ -16,6 +18,7 @@ export type GoogleLoginProps = {
     onError?: () => void
     promptMomentNotification?: MomenListener
     useOneTap?: boolean
+    render?: boolean
 } & Omit<IdConfiguration, 'client_id' | 'callback'> &
     GsiButtonConfiguration
 
@@ -23,6 +26,7 @@ export default function GoogleLogin({
     onSuccess,
     onError,
     useOneTap,
+    render = true,
     promptMomentNotification,
     type = 'standard',
     theme = 'outline',
@@ -34,8 +38,10 @@ export default function GoogleLogin({
     locale,
     ...props
 }: GoogleLoginProps) {
+    const router = useRouter()
     const btnContainerRef = useRef<HTMLDivElement>(null)
     const { clientId, scriptLoadedSuccessfully } = useGoogleOAuth()
+    const { isAuthenticated, setLocalAuthentication } = useAuth()
 
     const onSuccessRef = useRef(onSuccess)
     onSuccessRef.current = onSuccess
@@ -47,7 +53,7 @@ export default function GoogleLogin({
     promptMomentNotificationRef.current = promptMomentNotification
 
     useEffect(() => {
-        if (!scriptLoadedSuccessfully) return
+        if (!scriptLoadedSuccessfully || isAuthenticated) return
 
         window.google?.accounts.id.initialize({
             client_id: clientId,
@@ -62,11 +68,26 @@ export default function GoogleLogin({
                     `https://oauth2.googleapis.com/tokeninfo?id_token=${credentialResponse.credential}`
                 )
                     .then((res) => res.json())
-                    .then((response) => {
+                    .then(async (response) => {
                         onSuccessRef.current({
                             ...response,
                             ...credentialResponse,
                         })
+
+                        const { status } = await fetch(`/api/auth/identity`, {
+                            method: 'POST',
+                            headers: {
+                                'content-type':
+                                    'application/json;charset=UTF-8',
+                            },
+                            body: JSON.stringify({
+                                response,
+                            }),
+                        })
+
+                        if (status == 200) {
+                            setLocalAuthentication(true)
+                        }
                     })
                     .catch((error) => {
                         onSuccessRef.current(credentialResponse)
@@ -110,9 +131,13 @@ export default function GoogleLogin({
     ])
 
     return (
-        <div
-            ref={btnContainerRef}
-            style={{ height: containerHeightMap[size] }}
-        />
+        <>
+            {render && (
+                <div
+                    ref={btnContainerRef}
+                    style={{ height: containerHeightMap[size] }}
+                />
+            )}
+        </>
     )
 }

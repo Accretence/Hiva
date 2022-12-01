@@ -1,16 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
-import useSWR from 'swr'
-import Link from 'next/link'
-
-import fetcher from 'lib/fetcher'
-
-import gradient from 'lib/gradient'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { getGoogleURL } from 'lib/google'
 
 import { useAuth } from 'state/Auth'
 
-import { getButtonStyles } from 'lib/styles'
 import { QuestionIcon } from 'components/Icons'
 
 import { MetamaskIcon, WalletConnectIcon } from 'components/Icons'

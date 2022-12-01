@@ -1,7 +1,7 @@
 /* eslint-disable import/export */
 import { useCallback, useEffect, useRef } from 'react'
 
-import { useGoogleOAuth } from '../components/GoogleOAuthProvider'
+import { useGoogleOAuth } from '../state/GoogleOAuthProvider'
 import {
     TokenClientConfig,
     TokenResponse,

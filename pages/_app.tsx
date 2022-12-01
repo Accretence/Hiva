@@ -3,7 +3,7 @@ import 'styles/global.css'
 import { ThemeProvider } from 'next-themes'
 import Container from 'components/Container'
 import { AuthProvider } from 'state/Auth'
-import GoogleOAuthProvider from 'components/GoogleOAuthProvider'
+import GoogleOAuthProvider from 'state/GoogleOAuthProvider'
 
 export default function App({
     Component,
