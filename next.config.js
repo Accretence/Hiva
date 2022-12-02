@@ -3,7 +3,7 @@
  */
 
 const ContentSecurityPolicy = `
-  script-src 'unsafe-inline';
+  script-src 'self' 'unsafe-inline';
 `
 
 module.exports = {
