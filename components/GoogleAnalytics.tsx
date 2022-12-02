@@ -16,18 +16,11 @@ export default function GoogleAnalytics() {
               `,
     }
 
-    return (
-        <>
-            {googleID && isProduction && (
-                <>
-                    <Script src={gtag} async strategy="afterInteractive" />
-                    <Script
-                        id="gscript"
-                        dangerouslySetInnerHTML={gscript}
-                        strategy="afterInteractive"
-                    />
-                </>
-            )}
-        </>
-    )
+    if (googleID && isProduction)
+        return (
+            <>
+                <Script src={gtag} async />
+                <Script id="gscript" dangerouslySetInnerHTML={gscript} />
+            </>
+        )
 }
