@@ -51,7 +51,7 @@ module.exports = {
                 headers: [
                     {
                         key: 'Referrer-Policy',
-                        value: 'origin',
+                        value: 'no-referrer-when-downgrade',
                     },
                 ],
             },
