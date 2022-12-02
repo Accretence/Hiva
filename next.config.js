@@ -2,10 +2,6 @@
  * @type {import('next').NextConfig}
  */
 
-const ContentSecurityPolicy = `
-  script-src 'self' 'unsafe-inline';
-`
-
 module.exports = {
     images: {
         remotePatterns: [
@@ -47,26 +43,6 @@ module.exports = {
     i18n: {
         locales: ['en', 'fa'],
         defaultLocale: 'en',
-    },
-    async headers() {
-        return [
-            {
-                source: '/:path*',
-                headers: [
-                    {
-                        key: 'Referrer-Policy',
-                        value: 'origin-when-cross-origin',
-                    },
-                    {
-                        key: 'Content-Security-Policy',
-                        value: ContentSecurityPolicy.replace(
-                            /\s{2,}/g,
-                            ' '
-                        ).trim(),
-                    },
-                ],
-            },
-        ]
     },
     async redirects() {
         return [
