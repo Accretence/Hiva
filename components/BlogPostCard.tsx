@@ -2,7 +2,6 @@ import { ImageSkeleton } from 'components/Icons'
 import Image from 'next/image'
 import Link from 'next/link'
 import { parseISO, format } from 'date-fns'
-import { AuthProvider } from 'state/Auth'
 
 export function BlogPostCard({ post }) {
     const { title, description, image, slug, createdAt, author } = post

@@ -128,8 +128,6 @@ async function main() {
     for (let blogPost of blogPosts) {
         const { title, description, image, categories, content } = blogPost
 
-        console.log(slugify(title))
-
         await prisma.blogPost.create({
             data: {
                 authorId,

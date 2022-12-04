@@ -3,7 +3,6 @@ import Table from './Table'
 import { parseISO, format } from 'date-fns'
 
 export default function OrderTable({ orders }) {
-    console.log(orders)
     const headers = [
         'Order',
         'ID',
@@ -21,7 +20,7 @@ export default function OrderTable({ orders }) {
                 orders.map((order, index) => (
                     <tr
                         key={index}
-                        className="border-b bg-transparent hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-600 hover:dark:text-white"
+                        className="border-b bg-white hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600 hover:dark:text-white"
                     >
                         <td className="py-4 px-6 font-semibold">
                             <Link href={`/user/order/${order.id}`}>

@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-import { BlogPostCard, BlogPostCardSkeleton } from 'components/BlogPostCard'
+import { BlogPostCard } from 'components/BlogPostCard'
 import VideoCard from 'components/VideoCard'
 
 import prisma from 'lib/prisma'
@@ -66,13 +65,9 @@ function Blogs({ blogs }) {
                 Recent Blog Posts
             </h3>
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                {blogs
-                    ? blogs.map((post: any) => (
-                          <BlogPostCard key={post.slug} post={post} />
-                      ))
-                    : [...Array(3)].map(() => (
-                          <BlogPostCardSkeleton key={Math.random()} />
-                      ))}
+                {blogs.map((post: any) => (
+                    <BlogPostCard key={post.slug} post={post} />
+                ))}
             </div>
             <Link
                 className="mt-4 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"

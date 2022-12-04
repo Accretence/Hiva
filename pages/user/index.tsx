@@ -19,7 +19,6 @@ import {
 } from 'components/Icons'
 import { NextSeo } from 'next-seo'
 import ConnectModal from 'components/modals/ConnectModal'
-import Table from 'components/tables/Table'
 import OrderTable from 'components/tables/OrderTable'
 import { getDiscordURL } from 'lib/discord'
 
@@ -103,7 +102,7 @@ function Orders({ userObject }) {
                 )}
             </button>
             <div className={!visibility && 'hidden'}>
-                <div className="border border-gray-200 p-3 font-light dark:border-gray-700">
+                <div className="border border-gray-200 p-8 font-light dark:border-gray-700">
                     {userObject && userObject['orders'] && (
                         <OrderTable orders={userObject.orders} />
                     )}
