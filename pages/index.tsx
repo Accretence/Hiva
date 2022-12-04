@@ -30,7 +30,7 @@ export default function Index({ auth, unserialized }) {
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
                 {posts
                     ? posts.map((post: any) => (
-                          <BlogPostCard key={post.id} post={post} />
+                          <BlogPostCard key={post.slug} post={post} />
                       ))
                     : [...Array(3)].map(() => (
                           <BlogPostCardSkeleton key={Math.random()} />

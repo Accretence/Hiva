@@ -5,8 +5,18 @@ import ProsCard from 'components/mdx/ProsCard'
 import ConsCard from 'components/mdx/ConsCard'
 import Step from 'components/mdx/Step'
 
-function RoundedImage(props) {
-    return <Image alt={props.alt} className="rounded-lg" {...props} />
+function MDXImage({ alt, src }) {
+    return (
+        <div className="my-6 w-full">
+            <Image
+                alt={alt}
+                className="mx-auto rounded-lg"
+                src={src}
+                height="200"
+                width="400"
+            />
+        </div>
+    )
 }
 
 function Callout(props) {
@@ -23,7 +33,7 @@ function Header({ title }) {
 }
 
 const MDXComponents = {
-    Image: RoundedImage,
+    MDXImage,
     Callout,
     ConsCard,
     ProsCard,

@@ -11,6 +11,7 @@ import {
     calculateReferralAmount,
     isDiscountAcceptable,
 } from '../lib/order'
+import { slugify } from '../lib/slug'
 
 async function main() {
     for (let product of products) {
@@ -125,14 +126,18 @@ async function main() {
     const { id: authorId } = await prisma.user.findFirst()
 
     for (let blogPost of blogPosts) {
-        const { title, description, image, categories } = blogPost
+        const { title, description, image, categories, content } = blogPost
+
+        console.log(slugify(title))
 
         await prisma.blogPost.create({
             data: {
                 authorId,
                 title,
                 description,
+                slug: slugify(title),
                 image,
+                content,
                 categories: {
                     connectOrCreate: categories.map((category) => {
                         return {
@@ -150,7 +155,7 @@ async function main() {
     console.log('Created Blog Posts...')
 
     for (let doc of docs) {
-        const { title, index, category, categoryIndex, slug, content } = doc
+        const { title, index, category, categoryIndex, content } = doc
 
         await prisma.documentPage.create({
             data: {
@@ -159,7 +164,7 @@ async function main() {
                 index,
                 category,
                 categoryIndex,
-                slug,
+                slug: slugify(title),
                 content,
             },
         })

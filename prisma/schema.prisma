@@ -179,7 +179,7 @@ model Referral {
 }
 
 model BlogPost {
-  id          String @id @default(cuid())
+  slug        String @id
   title       String
   image       String
   description String
@@ -193,8 +193,14 @@ model BlogPost {
   author      User   @relation(fields: [authorId], references: [id])
   authorId    String
 }
+model BlogPostCategory {
+  title       String  @id
+  description String?
+
+  blogPosts BlogPost[]
+}
 model DocumentPage {
-  slug            String @unique
+  slug            String @id
   title           String
   content         String? @db.Text
   index           Int
@@ -208,12 +214,6 @@ model DocumentPage {
   authorId        String
 }
 
-model BlogPostCategory {
-  title       String  @id
-  description String?
-
-  blogPosts BlogPost[]
-}
 
 model Discount {
   code       String @id @default(cuid())

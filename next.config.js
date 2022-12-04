@@ -37,6 +37,10 @@ module.exports = {
                 protocol: 'https',
                 hostname: 'gameluster.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'cdn.dribbble.com',
+            },
         ],
     },
     reactStrictMode: true,

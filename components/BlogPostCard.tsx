@@ -1,12 +1,14 @@
 import { ImageSkeleton } from 'components/Icons'
 import Image from 'next/image'
 import Link from 'next/link'
+import { parseISO, format } from 'date-fns'
+import { AuthProvider } from 'state/Auth'
 
 export function BlogPostCard({ post }) {
-    const { title, description, image, id } = post
+    const { title, description, image, slug, createdAt, author } = post
 
     return (
-        <Link href={`/blog/${id}`}>
+        <Link href={`/blog/${slug}`}>
             <div className="h-full w-full rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
                 <div className="relative h-40 w-full">
                     <Image
@@ -19,11 +21,14 @@ export function BlogPostCard({ post }) {
                 </div>
                 <div className="p-5">
                     <div className="w-full">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        <h5 className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                             {title}
                         </h5>
-                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            {description} Read more...
+                        <p className="block text-gray-700 dark:text-gray-400">
+                            {author && author.name && (
+                                <span>{author.name}, </span>
+                            )}
+                            {format(parseISO(createdAt), 'MMMM dd, yyyy')}
                         </p>
                     </div>
                 </div>
