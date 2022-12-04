@@ -6,8 +6,8 @@ import MDXComponents from 'components/mdx/MDXComponents'
 import { parseISO, format } from 'date-fns'
 import Link from 'next/link'
 
-export default function Doc({ sideData, doc, source }) {
-    if (doc && sideData)
+export default function Doc({ nav, doc, mdx }) {
+    if (doc && nav)
         return (
             <>
                 <NextSeo
@@ -15,40 +15,40 @@ export default function Doc({ sideData, doc, source }) {
                     description="A short description goes here."
                 />
                 <div className="grid grid-cols-7 gap-4">
-                    <Sidebar sideData={sideData} />
-                    <Body doc={JSON.parse(doc)} source={source} />
+                    <Sidebar nav={nav} />
+                    <Body doc={JSON.parse(doc)} mdx={mdx} />
                 </div>
             </>
         )
 }
 
-function Body({ doc, source }) {
+function Body({ doc, mdx }) {
+    const { title, updatedAt } = doc
     return (
         <div className="col-span-6 rounded-lg bg-gray-100 p-6 dark:bg-gray-800/30 md:col-span-5">
             <h1 className="text-4xl font-medium text-gray-600 dark:text-gray-200">
-                {doc['title']}
+                {title}
             </h1>
             <p className="mt-2 text-sm font-medium text-gray-400">
-                Last Updated @{' '}
-                {format(parseISO(doc.updatedAt), 'MMMM dd, yyyy')}
+                Last Updated @ {format(parseISO(updatedAt), 'MMMM dd, yyyy')}
             </p>
             <hr className="border-1 mt-4 mb-10 w-full border-gray-200 dark:border-gray-800" />
-            <MDXRemote lazy {...source} components={MDXComponents} />
+            <MDXRemote lazy {...mdx} components={MDXComponents} />
         </div>
     )
 }
 
-function Sidebar({ sideData }) {
+function Sidebar({ nav }) {
     return (
         <div className="no-scrollbar col-span-1 h-full w-full overflow-x-auto rounded-lg bg-gray-100 p-6 dark:bg-gray-800/30  md:col-span-2">
-            {Object.keys(sideData).map((category) => (
+            {Object.keys(nav).map((category) => (
                 <div key={category} className="">
                     <p className="text-sm font-bold text-gray-400">
                         {category.toUpperCase()}
                     </p>
                     <hr className="border-1 my-2 w-full border-gray-200 dark:border-gray-800" />
                     <ul className="my-3 ml-3 mb-6">
-                        {sideData[category].map((page) => (
+                        {nav[category].map((page) => (
                             <li className="mb-2" key={page.title}>
                                 <Link
                                     href={page.route}
@@ -73,13 +73,13 @@ export async function getStaticProps({ params }) {
     const docs = await prisma.documentPage.findMany()
     const categories = new Set(docs.map((doc) => doc.category))
 
-    let sideData = {}
+    let nav = {}
     categories.forEach((category) => {
-        sideData[category] = []
+        nav[category] = []
 
         docs.forEach((doc) => {
             if (doc.category == category) {
-                sideData[category].push({
+                nav[category].push({
                     title: doc.title,
                     route: doc.slug,
                 })
@@ -92,9 +92,9 @@ export async function getStaticProps({ params }) {
         include: { author: true },
     })
 
-    const source = await serialize(doc.content)
+    const mdx = await serialize(doc.content)
 
-    return { props: { sideData, doc: JSON.stringify(doc), source } }
+    return { props: { nav, doc: JSON.stringify(doc), mdx } }
 }
 
 export async function getStaticPaths() {

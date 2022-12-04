@@ -68,7 +68,7 @@ export default async function (req, res) {
                 sameSite: 'Lax',
             })
 
-            return res.setHeader('Set-Cookie', AJWT).redirect(302, '/')
+            return res.setHeader('Set-Cookie', AJWT).redirect(302, '/user')
         } else {
             return res.redirect(302, '/auth/error')
         }

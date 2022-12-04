@@ -30,9 +30,17 @@ function Body({ blog, mdx }) {
     )
 }
 
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
     const { slug } = params
     const blog = await prisma.blogPost.findUnique({ where: { slug } })
     const mdx = await serialize(blog.content)
     return { props: { blog: JSON.stringify(blog), mdx } }
+}
+
+export async function getStaticPaths() {
+    const blogs = await prisma.blogPost.findMany()
+    const slugs = blogs.map((doc) => doc.slug)
+    const paths = slugs.map((slug) => ({ params: { slug } }))
+
+    return { paths, fallback: false }
 }

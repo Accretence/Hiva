@@ -1,5 +1,3 @@
-import querystring from 'querystring'
-
 export function getDiscordURL({ id }) {
     const state = JSON.stringify({ id })
     return process.env.NEXT_PUBLIC_DISCORD_OAUTH_URL + `&state=${state}`
@@ -13,7 +11,10 @@ export async function getDiscordTokens({ code }) {
     params.append('client_secret', process.env.DISCORD_OAUTH_SECRET)
     params.append('grant_type', 'authorization_code')
     params.append('code', code)
-    params.append('redirect_uri', 'http://localhost:3000/api/auth/discord')
+    params.append(
+        'redirect_uri',
+        `${process.env.NEXT_PUBLIC_URL}/api/auth/discord`
+    )
     params.append('scope', 'identify email')
 
     return await fetch(baseURL, {

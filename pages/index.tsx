@@ -5,43 +5,16 @@ import { BlogPostCard, BlogPostCardSkeleton } from 'components/BlogPostCard'
 import VideoCard from 'components/VideoCard'
 
 import prisma from 'lib/prisma'
-import { useAuth } from 'state/Auth'
 import { NextSeo } from 'next-seo'
 
-export default function Index({ auth, unserialized }) {
-    const [posts, setPosts] = useState(
-        (unserialized && JSON.parse(unserialized)) || null
-    )
-    const { isAuthenticated, setLocalAuthentication } = useAuth()
-
-    useEffect(() => {
-        setLocalAuthentication(auth)
-    }, [])
-
+export default function Index({ blogs }) {
     return (
         <div className="flex flex-col border-gray-200 dark:border-gray-700">
             <NextSeo
                 title="Simple Usage Example"
                 description="A short description goes here."
             />
-            <h3 className="mb-6 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
-                Recent Blog Posts
-            </h3>
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                {posts
-                    ? posts.map((post: any) => (
-                          <BlogPostCard key={post.slug} post={post} />
-                      ))
-                    : [...Array(3)].map(() => (
-                          <BlogPostCardSkeleton key={Math.random()} />
-                      ))}
-            </div>
-            <Link
-                className="mt-4 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-                href="/blog"
-            >
-                Read all posts...
-            </Link>
+            <Blogs blogs={JSON.parse(blogs)} />
             <h3 className="mb-4 mt-16 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
                 Learn React & Next.js
             </h3>
@@ -86,20 +59,35 @@ export default function Index({ auth, unserialized }) {
     )
 }
 
-export async function getServerSideProps(ctx) {
-    try {
-        const { AJWT } = ctx.req.cookies
+function Blogs({ blogs }) {
+    return (
+        <>
+            <h3 className="mb-6 text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl">
+                Recent Blog Posts
+            </h3>
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                {blogs
+                    ? blogs.map((post: any) => (
+                          <BlogPostCard key={post.slug} post={post} />
+                      ))
+                    : [...Array(3)].map(() => (
+                          <BlogPostCardSkeleton key={Math.random()} />
+                      ))}
+            </div>
+            <Link
+                className="mt-4 flex h-6 rounded-lg leading-7 text-gray-600 transition-all hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+                href="/blog"
+            >
+                Read all posts...
+            </Link>
+        </>
+    )
+}
 
-        return {
-            props: {
-                auth: AJWT ? true : false,
-                unserialized:
-                    JSON.stringify(
-                        await prisma.blogPost.findMany({ take: 3 })
-                    ) || null,
-            },
-        }
-    } catch (error) {
-        return { props: {} }
+export async function getStaticProps() {
+    return {
+        props: {
+            blogs: JSON.stringify(await prisma.blogPost.findMany({ take: 3 })),
+        },
     }
 }
