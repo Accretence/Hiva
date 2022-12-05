@@ -37,8 +37,6 @@
         "date-fns": "^2.29.3",
         "ethers": "^5.7.2",
         "jose": "^4.11.0",
-        "keccak256": "^1.0.6",
-        "merkletreejs": "^0.3.8",
         "next": "13.0.4",
         "next-mdx-remote": "^4.2.0",
         "next-seo": "^5.14.1",

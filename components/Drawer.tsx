@@ -65,15 +65,6 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
                     </button>
                     {isAuthenticated ? (
                         <>
-                            <Link href="/cart">
-                                <button
-                                    aria-label="Shopping Cart"
-                                    type="button"
-                                    className="flex h-14 w-full items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-700"
-                                >
-                                    <ShoppingCartIcon className="h-5 w-5" />
-                                </button>
-                            </Link>
                             <Link href="/user">
                                 <button
                                     aria-label="Authentication"

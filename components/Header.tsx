@@ -56,10 +56,6 @@ export default function Header() {
 
     return (
         <>
-            <SearchModal
-                modalVisibility={searchModalVisibility}
-                setModalVisibility={setSearchModalVisibility}
-            />
             <LoginModal
                 modalVisibility={loginModalVisibility}
                 setModalVisibility={setLoginModalVisibility}
@@ -68,17 +64,9 @@ export default function Header() {
                 <nav className="relative flex w-full items-center justify-between border-gray-200 bg-opacity-60 pt-4 text-gray-900 dark:border-gray-700 dark:text-gray-100">
                     <div className="flex">
                         <button
-                            onClick={() => setSearchModalVisibility(true)}
-                            aria-label="Search Button"
-                            type="button"
-                            className={`flex ${getHeaderButtonStyles()}`}
-                        >
-                            <MagnifyingGlassIcon className="h-5 w-5" />
-                        </button>
-                        <button
                             aria-label="Toggle Dark / Light Theme"
                             type="button"
-                            className={`ml-2 hidden md:flex ${getHeaderButtonStyles()}`}
+                            className={`hidden md:flex ${getHeaderButtonStyles()}`}
                             onClick={() =>
                                 setTheme(
                                     resolvedTheme === 'dark' ? 'light' : 'dark'
@@ -105,26 +93,15 @@ export default function Header() {
                     {mounted && (
                         <div className="flex">
                             {isAuthenticated ? (
-                                <>
-                                    <Link href="/cart">
-                                        <button
-                                            aria-label="Shopping Cart"
-                                            type="button"
-                                            className={`mr-2 hidden md:flex ${getHeaderButtonStyles()}`}
-                                        >
-                                            <ShoppingCartIcon className="h-5 w-5" />
-                                        </button>
-                                    </Link>
-                                    <Link href="/user">
-                                        <button
-                                            aria-label="Authentication"
-                                            type="button"
-                                            className={`hidden md:flex ${getHeaderButtonStyles()}`}
-                                        >
-                                            <UserIcon className="h-5 w-5" />
-                                        </button>
-                                    </Link>
-                                </>
+                                <Link href="/user">
+                                    <button
+                                        aria-label="Authentication"
+                                        type="button"
+                                        className={`hidden md:flex ${getHeaderButtonStyles()}`}
+                                    >
+                                        <UserIcon className="h-5 w-5" />
+                                    </button>
+                                </Link>
                             ) : (
                                 <button
                                     onClick={() =>
