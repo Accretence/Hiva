@@ -1,6 +1,4 @@
 import prisma from 'lib/prisma'
-import { createSerialNumber } from 'lib/serial'
-import bakeCookie from 'lib/cookie'
 import { getDiscordTokens, getDiscordUser } from 'lib/discord'
 
 export default async function (req, res) {
@@ -37,6 +35,9 @@ export default async function (req, res) {
 
         if (user)
             await prisma.user.update({
+                where: {
+                    id: user.id.toString(),
+                },
                 data: {
                     discordId: id,
                 },

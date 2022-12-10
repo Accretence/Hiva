@@ -1,9 +1,7 @@
 import prisma from 'lib/prisma'
-import { createSerialNumber } from 'lib/serial'
-import cookie from 'lib/cookie'
 
 export default async function (req, res) {
-    const { wallet } = req.body
+    const { id, wallet } = req.body
 
     const exists = await prisma.user.findUnique({
         where: { wallet },
@@ -14,9 +12,10 @@ export default async function (req, res) {
     }
 
     if (!exists) {
-        const referralCode = await createSerialNumber(3)
-
         const user = await prisma.user.update({
+            where: {
+                id,
+            },
             data: {
                 wallet,
             },
