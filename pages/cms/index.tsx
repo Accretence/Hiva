@@ -38,9 +38,6 @@ export async function getServerSideProps() {
                     await prisma.blogPost.findMany({ take: 6 })
                 ),
                 users: JSON.stringify(await prisma.user.findMany({ take: 6 })),
-                products: JSON.stringify(
-                    await prisma.product.findMany({ take: 6 })
-                ),
             },
         }
     } catch (error) {

@@ -7,27 +7,8 @@ export default async function (req, res) {
     const { title, description, brand, isPhysical, images, categories } =
         req.body
 
-    const product = await prisma.product.create({
-        data: {
-            title,
-            description,
-            brand,
-            isPhysical,
-            images: {
-                create: images.map((url: string) => ({
-                    url,
-                })),
-            },
-            categories: {
-                create: categories.map((title: string) => ({
-                    title,
-                })),
-            },
-        },
-    })
-
-    if (product) {
-        return res.status(200).json(product)
+    if (title) {
+        return res.status(200).json(title)
     } else {
     }
 }
