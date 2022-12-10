@@ -11,8 +11,6 @@ import { ChevronRight, HomeIcon } from 'components/Icons'
 export default function Product({ unserialized }) {
     const router = useRouter()
 
-    const { locale = config['defaultLocale'] } = useRouter()
-
     const [product, setProduct] = useState(JSON.parse(unserialized) || null)
 
     const [listingID, setListingID] = useState(null)
@@ -108,18 +106,7 @@ export async function getServerSideProps(context) {
 
     try {
         return {
-            props: {
-                unserialized: JSON.stringify(
-                    await prisma.product.findUnique({
-                        where: { id },
-                        include: {
-                            categories: true,
-                            images: true,
-                            listings: true,
-                        },
-                    })
-                ),
-            },
+            props: {},
         }
     } catch (error) {
         return { props: {} }

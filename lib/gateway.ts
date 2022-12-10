@@ -31,8 +31,6 @@ export async function gateUser(req, res) {
             id: decoded.id.toString(),
         },
         include: {
-            cart: true,
-            orders: true,
             referralsProvided: true,
             referralsConsumed: true,
             blogPosts: true,

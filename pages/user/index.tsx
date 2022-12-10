@@ -42,7 +42,7 @@ export default function User({ auth, omitted }) {
             {userObject && (
                 <div className="rounded-lg bg-neutral-100 dark:bg-neutral-900">
                     <UserInfo userObject={userObject} />
-                    <Orders userObject={userObject} />
+                    <Charges userObject={userObject} />
                     <Referrals userObject={userObject} />
                     <Integrations userObject={userObject} />
                 </div>
@@ -81,7 +81,7 @@ function UserInfo({ userObject }) {
     )
 }
 
-function Orders({ userObject }) {
+function Charges({ userObject }) {
     const [visibility, setVisibility] = useState(false)
 
     return (
@@ -92,7 +92,7 @@ function Orders({ userObject }) {
                 onClick={() => setVisibility(!visibility)}
             >
                 <span className="flex flex-col">
-                    <h1>Orders</h1>
+                    <h1>Charges</h1>
                     <small className="text-gray-300">Your order history.</small>
                 </span>
                 {visibility ? (
@@ -103,7 +103,7 @@ function Orders({ userObject }) {
             </button>
             <div className={!visibility && 'hidden'}>
                 <div className="border border-gray-200 p-8 font-light dark:border-gray-700">
-                    {userObject && userObject['orders'] && (
+                    {userObject && userObject['charges'] && (
                         <OrderTable charges={userObject.charges} />
                     )}
                 </div>
@@ -279,10 +279,8 @@ export async function getServerSideProps(context) {
                         id: decoded.id.toString(),
                     },
                     include: {
-                        orders: true,
-                        cart: true,
+                        charges: true,
                         referralsProvided: true,
-                        discordIntegration: true,
                         walletIntegration: true,
                     },
                 })

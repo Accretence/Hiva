@@ -16,8 +16,6 @@ export default function Products({ currentPage, category, tags, sort }) {
     const products = data?.products
     const totalPages = data?.totalPages
 
-    const { locale = config['defaultLocale'] } = useRouter()
-
     const [keyword, setKeyword] = useState(null)
     const [loading, setLoading] = useState(false)
 
