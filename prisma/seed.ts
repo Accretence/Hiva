@@ -31,16 +31,7 @@ async function main() {
                 slug: slugify(title),
                 image,
                 content,
-                categories: {
-                    connectOrCreate: categories.map((category) => {
-                        return {
-                            where: { title: category },
-                            create: {
-                                title: category,
-                            },
-                        }
-                    }),
-                },
+                categories,
             },
         })
     }
