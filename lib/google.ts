@@ -4,40 +4,6 @@ const redirect_uri = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_REDIRECT_URL
 
 const client_id = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ID
 
-import type { TokenResponse } from '../types'
-
-export function hasGrantedAnyScopeGoogle(
-    tokenResponse: TokenResponse,
-    firstScope: string,
-    ...restScopes: string[]
-): boolean {
-    if (!window.google) return false
-
-    return window.google.accounts.oauth2.hasGrantedAnyScope(
-        tokenResponse,
-        firstScope,
-        ...restScopes
-    )
-}
-
-export function hasGrantedAllScopesGoogle(
-    tokenResponse: TokenResponse,
-    firstScope: string,
-    ...restScopes: string[]
-): boolean {
-    if (!window.google) return false
-
-    return window.google.accounts.oauth2.hasGrantedAllScopes(
-        tokenResponse,
-        firstScope,
-        ...restScopes
-    )
-}
-
-export function googleLogout() {
-    window.google?.accounts.id.disableAutoSelect()
-}
-
 export function getGoogleURL() {
     const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
 
