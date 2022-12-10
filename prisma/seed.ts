@@ -1,16 +1,5 @@
-import {
-    getMultipleRandomIntsInRange,
-    getRandomBoolean,
-    getRandomIntInRange,
-} from '../lib/rng'
 import prisma from '../lib/prisma'
 import { users, blogPosts, discounts, products, docs } from './seed.data'
-import {
-    calculateDiscountAmount,
-    calculatePayableAmount,
-    calculateReferralAmount,
-    isDiscountAcceptable,
-} from '../lib/order'
 import { slugify } from '../lib/slug'
 
 async function main() {
