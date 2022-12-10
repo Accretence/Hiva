@@ -22,31 +22,31 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  discordId       String?
+  wallet String @unique
+
+  discordId       String?         @unique
   invitesProvided DiscordInvite[] @relation("invitesProvided")
   invitesConsumed DiscordInvite[] @relation("invitesConsumed")
 
-  walletIntegration WalletIntegration?
-
   discordGuilds     DiscordGuild[]
   charges           Charge[]
-  referralsProvided Charge[]     @relation("referralsProvided")
-  referralsConsumed Charge[]     @relation("referralsConsumed")
+  referralsProvided Charge[]       @relation("referralsProvided")
+  referralsConsumed Charge[]       @relation("referralsConsumed")
   blogPosts         BlogPost[]
   documentPages     DocumentPage[]
 }
 
 model DiscordInvite {
-  id               String       @id @default(cuid())
+  id String @id @default(cuid())
 
-  inviteProvider   User         @relation("invitesProvided", fields: [inviteProviderId], references: [id])
+  inviteProvider   User   @relation("invitesProvided", fields: [inviteProviderId], references: [id])
   inviteProviderId String
 
-  inviteConsumer   User         @relation("invitesConsumed", fields: [inviteConsumerId], references: [id])
+  inviteConsumer   User   @relation("invitesConsumed", fields: [inviteConsumerId], references: [id])
   inviteConsumerId String
 
-  guild            DiscordGuild @relation(fields: [discordGuildId], references: [id])
-  discordGuildId   String
+  guild          DiscordGuild @relation(fields: [discordGuildId], references: [id])
+  discordGuildId String
 }
 
 model DiscordGuild {
@@ -55,31 +55,20 @@ model DiscordGuild {
   discordInvites DiscordInvite[]
 }
 
-model WalletIntegration {
-  wallet String  @unique
-  method String?
+model Charge {
+  transactionId String @id
+
+  payableAmount Float
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   user   User   @relation(fields: [userId], references: [id])
-  userId String @id
-}
-
-model Charge {
-  transactionId   String @id
-
-  payableAmount   Float
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
-  user         User      @relation(fields: [userId], references: [id])
-  userId       String
+  userId String
 
   referralProvider   User   @relation("referralsProvided", fields: [referralProviderId], references: [id])
   referralProviderId String
-  
+
   referralConsumer   User   @relation("referralsConsumed", fields: [referralConsumerId], references: [id])
   referralConsumerId String
 }

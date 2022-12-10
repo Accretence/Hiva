@@ -144,7 +144,7 @@ function Referrals({ userObject }) {
 function Integrations({ userObject }) {
     const [visibility, setVisibility] = useState(false)
     const [connectModalVisibility, setConnectModalVisibility] = useState(false)
-    const { walletIntegration } = userObject
+    const { wallet } = userObject
 
     function DiscordIntegration() {
         if (userObject.discordId)
@@ -175,7 +175,7 @@ function Integrations({ userObject }) {
     }
 
     function WalletIntegration() {
-        if (walletIntegration)
+        if (wallet)
             return (
                 <button
                     onClick={() => setConnectModalVisibility(true)}
@@ -188,7 +188,7 @@ function Integrations({ userObject }) {
                 </button>
             )
 
-        if (!walletIntegration)
+        if (!wallet)
             return (
                 <button
                     onClick={() => setConnectModalVisibility(true)}
@@ -281,7 +281,6 @@ export async function getServerSideProps(context) {
                     include: {
                         charges: true,
                         referralsProvided: true,
-                        walletIntegration: true,
                     },
                 })
 

@@ -5,46 +5,25 @@ import cookie from 'lib/cookie'
 export default async function (req, res) {
     const { wallet } = req.body
 
-    const exists = await prisma.walletIntegration.findUnique({
+    const exists = await prisma.user.findUnique({
         where: { wallet },
     })
 
     if (exists) {
-        const AJWT = await cookie({
-            id: exists.userId.toString(),
-            sameSite: 'Strict',
-        })
-
-        return res
-            .setHeader('Set-Cookie', AJWT)
-            .status(200)
-            .json({ Success: true, Message: 'Success...' })
+        return res.status(200).json({ Success: true, Message: 'Success...' })
     }
 
     if (!exists) {
         const referralCode = await createSerialNumber(3)
 
-        const user = await prisma.user.create({
+        const user = await prisma.user.update({
             data: {
-                referralCode,
+                wallet,
             },
         })
 
         if (user) {
-            await prisma.walletIntegration.create({
-                data: {
-                    userId: user.id,
-                    wallet,
-                },
-            })
-
-            const AJWT = await cookie({
-                id: user.id.toString(),
-                sameSite: 'Strict',
-            })
-
             return res
-                .setHeader('Set-Cookie', AJWT)
                 .status(200)
                 .json({ Success: true, Message: 'Success...' })
         } else {

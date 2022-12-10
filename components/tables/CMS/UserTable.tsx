@@ -14,9 +14,8 @@ export default function OrderTable({ users }) {
         <Table headers={headers}>
             {users &&
                 users.map((user, index) => {
-                    const { email, walletIntegration, createdAt } = user
+                    const { email, wallet, createdAt } = user
 
-                    const { wallet } = walletIntegration
                     return (
                         <tr
                             key={index}
