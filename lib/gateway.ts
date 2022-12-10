@@ -31,8 +31,6 @@ export async function gateUser(req, res) {
             id: decoded.id.toString(),
         },
         include: {
-            googleIntegration: true,
-            verificationCode: true,
             cart: true,
             orders: true,
             referralsProvided: true,

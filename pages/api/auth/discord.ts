@@ -22,8 +22,8 @@ export default async function (req, res) {
         return res.redirect(502, '/')
     }
 
-    const exists = await prisma.discordIntegration.findUnique({
-        where: { id },
+    const exists = await prisma.user.findUnique({
+        where: { discordId: id },
     })
 
     if (exists) {
@@ -36,13 +36,9 @@ export default async function (req, res) {
         })
 
         if (user)
-            await prisma.discordIntegration.create({
+            await prisma.user.update({
                 data: {
-                    id,
-                    userId: user.id,
-                    email,
-                    avatar,
-                    username,
+                    discordId: id,
                 },
             })
 

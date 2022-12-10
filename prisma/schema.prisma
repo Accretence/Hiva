@@ -8,73 +8,51 @@ datasource db {
 }
 
 model User {
-  id                String  @id @default(cuid())
+  id                String  @id
+  credit            Float   @default(0)
+  email             String  @unique
   name              String?
-  email             String? @unique
-  phone             String? @unique
-  password          String?
   referralCode      String? @unique
   MFAMethod         String?
   isMFA             Boolean @default(false)
   isAdmin           Boolean @default(false)
-  isPremium         Boolean @default(false)
-  isMerchant        Boolean @default(false)
-  isEmailVerified   Boolean @default(false)
-  isPhoneVerified   Boolean @default(false)
-  isKYC             Boolean @default(false)
   isBanned          Boolean @default(false)
   isEmailSubscribed Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  googleIntegration  GoogleIntegration?
-  discordIntegration DiscordIntegration?
-  walletIntegration  WalletIntegration?
-  verificationCode   VerificationCode?
-  cart               Listing[]
+  discordId       String?
+  invitesProvided DiscordInvite[] @relation("invitesProvided")
+  invitesConsumed DiscordInvite[] @relation("invitesConsumed")
 
-  orders            Order[]
-  referralsProvided Referral[] @relation("referralsProvided")
-  referralsConsumed Referral[] @relation("referralsConsumed")
+  walletIntegration WalletIntegration?
+
+  discordGuilds     DiscordGuild[]
+  charges           Charge[]
+  referralsProvided Charge[]     @relation("referralsProvided")
+  referralsConsumed Charge[]     @relation("referralsConsumed")
   blogPosts         BlogPost[]
   documentPages     DocumentPage[]
 }
 
-model VerificationCode {
-  code String
+model DiscordInvite {
+  id               String       @id @default(cuid())
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  expiresAt DateTime?
+  inviteProvider   User         @relation("invitesProvided", fields: [inviteProviderId], references: [id])
+  inviteProviderId String
 
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @id
+  inviteConsumer   User         @relation("invitesConsumed", fields: [inviteConsumerId], references: [id])
+  inviteConsumerId String
+
+  guild            DiscordGuild @relation(fields: [discordGuildId], references: [id])
+  discordGuildId   String
 }
 
-model GoogleIntegration {
-  email   String  @unique
-  name    String?
-  picture String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @id
-}
-
-model DiscordIntegration {
-  id       String  @unique
-  email    String  @unique
-  username String?
-  avatar   String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @id
+model DiscordGuild {
+  id             String          @id
+  users          User[]
+  discordInvites DiscordInvite[]
 }
 
 model WalletIntegration {
@@ -88,98 +66,26 @@ model WalletIntegration {
   userId String @id
 }
 
-model Product {
-  id          String  @id @default(cuid())
-  title       String
-  description String?
-  brand       String?
-  isPhysical  Boolean @default(false)
+model Charge {
+  transactionId   String @id
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  categories  ProductCategory[]
-  images      ProductImage[]
-  listings    Listing[]
-}
-
-model ProductImage {
-  id String @id @default(cuid())
-
-  url         String
-  description String?
-
-  product   Product @relation(fields: [productId], references: [id])
-  productId String
-}
-
-model ProductCategory {
-  title       String  @id
-  description String?
-
-  products Product[]
-}
-
-model Listing {
-  id       String  @id @default(cuid())
-  price    Float   @default(10000000)
-  stock    Int     @default(0)
-  discount Int     @default(0)
-  platform String?
-  region   String?
-  size     String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  carts  User[]
-  orders Order[]
-
-  product   Product @relation(fields: [productId], references: [id])
-  productId String
-}
-
-model Order {
-  id              String  @id @default(cuid())
-  isPaid          Boolean @default(false)
-  isDelivered     Boolean @default(false)
-  isPhysical      Boolean @default(false)
-  paymentId       String?
-  deliveryAddress String?
-  referralCode    String?
-  totalAmount     Float
-  referralAmount  Float
-  discountAmount  Float
   payableAmount   Float
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  paidAt    DateTime?
 
-  referral Referral?
-
-  listings Listing[]
-
-  discount     Discount? @relation(fields: [discountCode], references: [code])
-  discountCode String?
   user         User      @relation(fields: [userId], references: [id])
   userId       String
 
-}
-
-model Referral {
-  id String @id @default(cuid())
-
-  order              Order  @relation(fields: [orderId], references: [id])
-  orderId            String @unique
   referralProvider   User   @relation("referralsProvided", fields: [referralProviderId], references: [id])
   referralProviderId String
+  
   referralConsumer   User   @relation("referralsConsumed", fields: [referralConsumerId], references: [id])
   referralConsumerId String
 }
 
 model BlogPost {
-  slug        String @id
+  slug        String  @id
   title       String
   image       String
   description String
@@ -190,40 +96,39 @@ model BlogPost {
 
   categories BlogPostCategory[]
 
-  author      User   @relation(fields: [authorId], references: [id])
-  authorId    String
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
 }
+
 model BlogPostCategory {
   title       String  @id
   description String?
 
   blogPosts BlogPost[]
 }
+
 model DocumentPage {
-  slug            String @id
-  title           String
-  content         String? @db.Text
-  index           Int
-  category        String
-  categoryIndex   Int
-
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  author          User   @relation(fields: [authorId], references: [id])
-  authorId        String
-}
-
-
-model Discount {
-  code       String @id @default(cuid())
-  maxUses    Int    @default(0)
-  burntUses  Int    @default(0)
-  maxAmount  Int    @default(0)
-  percentage Int    @default(0)
+  slug          String  @id
+  title         String
+  content       String? @db.Text
+  index         Int
+  category      String
+  categoryIndex Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  orders Order[]
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+}
+
+model CodexCharacter {
+  id           Int    @id
+  name         String
+  ability      String
+  armor        Int    @default(10)
+  power        Int    @default(10)
+  speed        Int    @default(10)
+  intelligence Int    @default(10)
+  luck         Int    @default(10)
 }

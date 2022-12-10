@@ -13,7 +13,7 @@ export default async function (req, res) {
         return res.redirect(502, '/')
     }
 
-    const { id, email, verified_email, name, picture } = await getGoogleUser({
+    const { id, email, name } = await getGoogleUser({
         id_token,
         access_token,
     })
@@ -22,49 +22,34 @@ export default async function (req, res) {
         return res.redirect(502, '/')
     }
 
-    const exists = await prisma.googleIntegration.findUnique({
+    const exists = await prisma.user.findUnique({
         where: { email },
     })
 
     if (exists) {
         const AJWT = await cookie({
-            id: exists.userId.toString(),
+            id,
             sameSite: 'Lax',
         })
 
-        return res.setHeader('Set-Cookie', AJWT).redirect(302, '/')
+        return res.setHeader('Set-Cookie', AJWT).redirect(302, '/user')
     }
 
     if (!exists) {
         const referralCode = await createSerialNumber(3)
 
-        const user =
-            (await prisma.user.findUnique({
-                where: { email },
-                include: { googleIntegration: true },
-            })) ||
-            (await prisma.user.create({
-                data: {
-                    name: name && name,
-                    email,
-                    referralCode,
-                    isEmailVerified: true,
-                },
-            }))
-
-        if (user)
-            await prisma.googleIntegration.create({
-                data: {
-                    userId: user.id,
-                    email,
-                    name,
-                    picture,
-                },
-            })
+        const user = await prisma.user.create({
+            data: {
+                id,
+                email,
+                name: name && name,
+                referralCode,
+            },
+        })
 
         if (user) {
             const AJWT = await cookie({
-                id: user.id.toString(),
+                id,
                 sameSite: 'Lax',
             })
 

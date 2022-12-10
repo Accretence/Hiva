@@ -4,26 +4,20 @@ export const users = [
     {
         name: 'Admin User',
         email: 'accretence@gmail.com',
-        password: bcrypt.hashSync('12345678', 10),
         referralCode: 'ABCDE-FGHIJ-KLMNO',
         isAdmin: true,
-        isEmailVerified: true,
     },
     {
         name: 'John Doe',
         email: 'unbuildables@gmail.com',
-        password: bcrypt.hashSync('12345678', 10),
         referralCode: 'PQRST-UVWXY-ZABCD',
         isAdmin: true,
-        isEmailVerified: true,
     },
     {
         name: 'Jane Doe',
         email: 'iqoror@gmail.com',
-        password: bcrypt.hashSync('12345678', 10),
         referralCode: 'EFGHI-JKLMN-OPQRS',
         isAdmin: true,
-        isEmailVerified: true,
     },
 ]
 

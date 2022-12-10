@@ -104,7 +104,7 @@ function Orders({ userObject }) {
             <div className={!visibility && 'hidden'}>
                 <div className="border border-gray-200 p-8 font-light dark:border-gray-700">
                     {userObject && userObject['orders'] && (
-                        <OrderTable orders={userObject.orders} />
+                        <OrderTable charges={userObject.charges} />
                     )}
                 </div>
             </div>
@@ -144,36 +144,10 @@ function Referrals({ userObject }) {
 function Integrations({ userObject }) {
     const [visibility, setVisibility] = useState(false)
     const [connectModalVisibility, setConnectModalVisibility] = useState(false)
-    const { discordIntegration, googleIntegration, walletIntegration } =
-        userObject
-
-    function GoogleIntegration() {
-        if (googleIntegration)
-            return (
-                <p className={getDisabledButtonStyles()}>
-                    <GoogleBAWIcon />
-                    <span className="ml-3 flex-1 whitespace-nowrap font-medium">
-                        Google Integrated
-                    </span>
-                    <span className="ml-3 inline-flex items-center justify-center whitespace-nowrap rounded bg-gray-200 px-2 py-1 text-xs font-medium text-purple-600 dark:bg-gray-700 ">
-                        Integrated with {googleIntegration.email}
-                    </span>
-                </p>
-            )
-
-        if (!googleIntegration)
-            return (
-                <a href={getGoogleURL()} className={getActiveButtonStyles()}>
-                    <GoogleBAWIcon />
-                    <span className="ml-3 flex-1 whitespace-nowrap font-medium">
-                        Integrate your Google Account
-                    </span>
-                </a>
-            )
-    }
+    const { walletIntegration } = userObject
 
     function DiscordIntegration() {
-        if (discordIntegration)
+        if (userObject.discordId)
             return (
                 <p className={getDisabledButtonStyles()}>
                     <DiscordIcon />
@@ -181,12 +155,12 @@ function Integrations({ userObject }) {
                         Discord Integrated
                     </span>
                     <span className="ml-3 inline-flex items-center justify-center whitespace-nowrap rounded bg-gray-200 px-2 py-1 text-xs font-medium text-purple-600 dark:bg-gray-700 ">
-                        Integrated with {discordIntegration.username}
+                        Integrated with Discord
                     </span>
                 </p>
             )
 
-        if (!discordIntegration)
+        if (!userObject.discordId)
             return (
                 <a
                     href={getDiscordURL({ id: userObject['id'] })}
@@ -256,7 +230,6 @@ function Integrations({ userObject }) {
             <div className={!visibility && 'hidden'}>
                 <div className="rounded-b-lg border border-gray-200 p-5 font-light dark:border-gray-700">
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                        <GoogleIntegration />
                         <DiscordIntegration />
                         <WalletIntegration />
                     </div>
@@ -309,7 +282,6 @@ export async function getServerSideProps(context) {
                         orders: true,
                         cart: true,
                         referralsProvided: true,
-                        googleIntegration: true,
                         discordIntegration: true,
                         walletIntegration: true,
                     },

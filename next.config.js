@@ -44,10 +44,6 @@ module.exports = {
         ],
     },
     reactStrictMode: true,
-    i18n: {
-        locales: ['en', 'fa'],
-        defaultLocale: 'en',
-    },
     async headers() {
         return [
             {
@@ -66,11 +62,6 @@ module.exports = {
             {
                 source: '/product',
                 destination: '/products',
-                permanent: true,
-            },
-            {
-                source: '/order',
-                destination: '/',
                 permanent: true,
             },
             {

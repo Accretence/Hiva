@@ -2,9 +2,8 @@ import Link from 'next/link'
 import Table from './Table'
 import { parseISO, format } from 'date-fns'
 
-export default function OrderTable({ orders }) {
+export default function ChargeTable({ charges }) {
     const headers = [
-        'Order',
         'ID',
         'Is Paid ?',
         'Payment ID',
@@ -16,34 +15,32 @@ export default function OrderTable({ orders }) {
 
     return (
         <Table headers={headers}>
-            {orders &&
-                orders.map((order, index) => (
+            {charges &&
+                charges.map((charge, index) => (
                     <tr
                         key={index}
                         className="border-b bg-white hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600 hover:dark:text-white"
                     >
-                        <td className="py-4 px-6 font-semibold">
-                            <Link href={`/user/order/${order.id}`}>
-                                Order #{index} ◥
-                            </Link>
-                        </td>
-                        <td className="py-4 px-6">{order.id}</td>
+                        <td className="py-4 px-6">{charge.id}</td>
                         <td className="py-4 px-6">
-                            {order.isPaid ? 'False' : 'No'}
+                            {charge.isPaid ? 'False' : 'No'}
                         </td>
                         <td className="py-4 px-6">
-                            {order.paymentId || '---'}
+                            {charge.paymentId || '---'}
                         </td>
                         <td className="py-4 px-6">
-                            {order.referralCode || '---'}
+                            {charge.referralCode || '---'}
                         </td>
                         <td className="py-4 px-6">
-                            {order.isDelivered ? 'False' : 'No'}
+                            {charge.isDelivered ? 'False' : 'No'}
                         </td>
                         <td className="py-4 px-6">
-                            {format(parseISO(order.createdAt), 'MMMM dd, yyyy')}
+                            {format(
+                                parseISO(charge.createdAt),
+                                'MMMM dd, yyyy'
+                            )}
                         </td>
-                        <td className="py-4 px-16">${order.payableAmount}</td>
+                        <td className="py-4 px-16">${charge.payableAmount}</td>
                     </tr>
                 ))}
         </Table>

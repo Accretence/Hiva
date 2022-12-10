@@ -14,15 +14,8 @@ export default function OrderTable({ users }) {
         <Table headers={headers}>
             {users &&
                 users.map((user, index) => {
-                    const {
-                        email,
-                        googleIntegration,
-                        discordIntegration,
-                        walletIntegration,
-                        createdAt,
-                    } = user
+                    const { email, walletIntegration, createdAt } = user
 
-                    const { username } = discordIntegration
                     const { wallet } = walletIntegration
                     return (
                         <tr
@@ -31,7 +24,6 @@ export default function OrderTable({ users }) {
                         >
                             <td className="py-4 px-6 font-semibold">{email}</td>
 
-                            <td className="py-4 px-6">{username}</td>
                             <td className="py-4 px-6">{wallet}</td>
                             <td className="py-4 px-6">
                                 {format(parseISO(createdAt), 'MMMM dd, yyyy')}

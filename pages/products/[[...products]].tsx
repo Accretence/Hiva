@@ -4,7 +4,6 @@ import useSWR from 'swr'
 import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 
-import i18n from 'i18n.config'
 import config from 'main.config'
 import fetcher from 'lib/fetcher'
 import { ProductsList } from 'lib/types'
@@ -18,14 +17,13 @@ export default function Products({ currentPage, category, tags, sort }) {
     const totalPages = data?.totalPages
 
     const { locale = config['defaultLocale'] } = useRouter()
-    const { title, description } = i18n['pages']['products']
 
     const [keyword, setKeyword] = useState(null)
     const [loading, setLoading] = useState(false)
 
     return (
         <>
-            <NextSeo title={title[locale]} description={description[locale]} />
+            <NextSeo title="Products" description="Product" />
             <ProductGrid products={products} />
         </>
     )

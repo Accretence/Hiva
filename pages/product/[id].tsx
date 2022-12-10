@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 
-import i18n from 'i18n.config'
 import config from 'main.config'
 import Image from 'next/image'
 import prisma from 'lib/prisma'
