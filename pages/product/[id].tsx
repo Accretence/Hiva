@@ -3,18 +3,11 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 
-import config from 'main.config'
 import Image from 'next/image'
-import prisma from 'lib/prisma'
 import { ChevronRight, HomeIcon } from 'components/Icons'
 
 export default function Product({ unserialized }) {
-    const router = useRouter()
-
     const [product, setProduct] = useState(JSON.parse(unserialized) || null)
-
-    const [listingID, setListingID] = useState(null)
-    const [loading, setLoading] = useState(false)
 
     return (
         <>
