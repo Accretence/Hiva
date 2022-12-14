@@ -40,7 +40,6 @@ export default async function (req, res) {
 
         const user = await prisma.user.create({
             data: {
-                id,
                 email,
                 name: name && name,
                 referralCode,

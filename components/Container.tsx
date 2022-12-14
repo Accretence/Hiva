@@ -9,7 +9,6 @@ export default function Container({ children }) {
                 className="flex flex-col justify-center px-[2rem] md:px-[4rem] lg:px-[6rem] xl:px-[8rem] 2xl:px-[20rem]"
             >
                 <Header />
-
                 {children}
                 <Footer />
             </main>

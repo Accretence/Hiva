@@ -4,13 +4,13 @@ import { slugify } from '../lib/slug'
 
 async function main() {
     for (let user of users) {
-        const { email, referralCode, isAdmin } = user
+        const { email, referralCode, isAdmin, discordId } = user
 
         await prisma.user.create({
             data: {
-                id: Math.random().toString(),
                 email,
                 referralCode,
+                discordId: discordId ? discordId : null,
                 isAdmin,
             },
         })

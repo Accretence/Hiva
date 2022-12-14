@@ -5,6 +5,7 @@ export const users = [
         name: 'Admin User',
         email: 'accretence@gmail.com',
         referralCode: 'ABCDE-FGHIJ-KLMNO',
+        discordId: '586796765651533835',
         isAdmin: true,
     },
     {
